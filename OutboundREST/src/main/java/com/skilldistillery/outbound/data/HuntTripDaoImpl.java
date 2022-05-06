@@ -48,7 +48,7 @@ public class HuntTripDaoImpl implements HuntTripDAO {
 			updatedHunt.setType(hunt.getType());
 			em.flush();
 
-		}
+		} 
 
 		return updatedHunt;
 	}

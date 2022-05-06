@@ -1,7 +1,15 @@
 package com.skilldistillery.outbound.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
 
-public interface HuntTripRepository extends JpaRepository<HuntTripRepository, Integer> {
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.query.Param;
+
+import com.skilldistillery.outbound.entities.HuntTrip;
+
+public interface HuntTripRepository extends JpaRepository<HuntTrip, Integer> {
  
+
+	List<HuntTrip> findByTypeLikeOrDescriptionLikeOrSpeciesLike(@Param("k")String keyword1, @Param("k")String keyword2, @Param("k")String keyword3);
+	
 }
