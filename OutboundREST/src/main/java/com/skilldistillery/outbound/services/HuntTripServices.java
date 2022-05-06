@@ -3,7 +3,7 @@ package com.skilldistillery.outbound.services;
 import java.util.List;
 
 import com.skilldistillery.outbound.entities.HuntTrip;
-
+ 
 public interface HuntTripServices {
 
 	List<HuntTrip> findAllHuntTrips();

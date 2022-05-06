@@ -16,11 +16,11 @@ CREATE SCHEMA IF NOT EXISTS `outbounddb` DEFAULT CHARACTER SET utf8 ;
 USE `outbounddb` ;
 
 -- -----------------------------------------------------
--- Table `hunter`
+-- Table `user`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `hunter` ;
+DROP TABLE IF EXISTS `user` ;
 
-CREATE TABLE IF NOT EXISTS `hunter` (
+CREATE TABLE IF NOT EXISTS `user` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(45) NOT NULL,
   `password` VARCHAR(45) NOT NULL,
@@ -46,15 +46,8 @@ CREATE TABLE IF NOT EXISTS `hunt_trip` (
   `type` VARCHAR(45) NULL,
   `start_date` DATETIME NULL,
   `end_date` DATETIME NULL,
-  `hunter_id` INT NOT NULL,
   `description` VARCHAR(45) NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_hunt_trip_hunter_idx` (`hunter_id` ASC),
-  CONSTRAINT `fk_hunt_trip_hunter`
-    FOREIGN KEY (`hunter_id`)
-    REFERENCES `hunter` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
@@ -488,11 +481,11 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 -- -----------------------------------------------------
--- Data for table `hunter`
+-- Data for table `user`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `hunter` (`id`, `username`, `password`, `first_name`, `last_name`, `email`, `role`, `description`) VALUES (1, 'lpaladini', 'password', 'lucas', 'paladini', 'lpaladini@me.com', 'ADMIN', NULL);
+INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `email`, `role`, `description`) VALUES (1, 'lpaladini', 'password', 'lucas', 'paladini', 'lpaladini@me.com', 'ADMIN', NULL);
 
 COMMIT;
 
@@ -502,9 +495,9 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `hunt_trip` (`id`, `species`, `sex`, `type`, `start_date`, `end_date`, `hunter_id`, `description`) VALUES (1, 'elk', 'bull', 'Bow', NULL, NULL, 1, NULL);
-INSERT INTO `hunt_trip` (`id`, `species`, `sex`, `type`, `start_date`, `end_date`, `hunter_id`, `description`) VALUES (2, 'antelope', 'buck or doe', 'Bow', NULL, NULL, 1, NULL);
-INSERT INTO `hunt_trip` (`id`, `species`, `sex`, `type`, `start_date`, `end_date`, `hunter_id`, `description`) VALUES (3, 'mule deer', 'buck or doe', 'Bow', NULL, NULL, 1, NULL);
+INSERT INTO `hunt_trip` (`id`, `species`, `sex`, `type`, `start_date`, `end_date`, `description`) VALUES (1, 'elk', 'bull', 'Bow', NULL, NULL, NULL);
+INSERT INTO `hunt_trip` (`id`, `species`, `sex`, `type`, `start_date`, `end_date`, `description`) VALUES (2, 'antelope', 'buck or doe', 'Bow', NULL, NULL, NULL);
+INSERT INTO `hunt_trip` (`id`, `species`, `sex`, `type`, `start_date`, `end_date`, `description`) VALUES (3, 'mule deer', 'buck or doe', 'Bow', NULL, NULL, NULL);
 
 COMMIT;
 

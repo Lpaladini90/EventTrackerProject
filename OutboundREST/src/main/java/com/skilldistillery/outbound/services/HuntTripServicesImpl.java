@@ -37,8 +37,8 @@ public class HuntTripServicesImpl implements HuntTripServices {
 
 	@Override 
 	public HuntTrip createHuntingTrip(HuntTrip hunt) {
-		hunt = huntRepo.saveAndFlush(hunt);
-		return hunt;
+		
+		return huntRepo.saveAndFlush(hunt);
 	}
 
  
@@ -53,7 +53,7 @@ public class HuntTripServicesImpl implements HuntTripServices {
 			
 		}
 	return 	deleted;
-	}
+	} 
 
 
 
