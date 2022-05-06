@@ -9,7 +9,8 @@
     
      <!-- BEGIN List Entities Here -->
      <class>com.skilldistillery.outbound.entities.User</class>
-     <class>com.skilldistillery.outbound.entities.CheckEquipment</class>
+     <class>com.skilldistillery.outbound.entities.HuntTrip
+     </class>
    
     
     
