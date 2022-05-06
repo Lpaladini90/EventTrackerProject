@@ -1,5 +1,9 @@
 package com.skilldistillery.outbound.entities;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -48,10 +52,16 @@ class UserTest {
 	
 	
 	@Test
-	@DisplayName("Testing ")
-	void test() {
-
-		
+	@DisplayName("Testing entity User to database")
+	void test_entity_user_to_database_connection() {
+		assertNotNull(user);
+		assertNotNull(user.getId());
+		assertEquals("lucas", user.getFirstName());
+		assertEquals("lpaladini@me.com", user.getEmail());
 		
 	}
+	
+	
+	
+	
 }

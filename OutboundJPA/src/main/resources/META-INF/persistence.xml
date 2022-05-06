@@ -22,7 +22,7 @@
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/outbounddb?useSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=US/Mountain" />
       <property name="javax.persistence.jdbc.user" value="outboundadmin"/>
-      <property name="javax.persistence.jdbc.password" value="adminpassword" />
+      <property name="javax.persistence.jdbc.password" value="password" />
       <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
 
       <property name="hibernate.show_sql" value="true" />
