@@ -8,9 +8,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
+
 
 @Entity
-//@Column(name ="hunt_trip")
+@Table(name="hunt_trip")
 public class HuntTrip {
 	
 	@Id

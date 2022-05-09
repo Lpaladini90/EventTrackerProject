@@ -19,7 +19,7 @@ public class UserDaoImpl implements UserDAO {
 	
 	@Override
 	public User findUserById(int id) {
-		return null;
+		return em.find(User.class, id);
 	}
 
 	@Override
