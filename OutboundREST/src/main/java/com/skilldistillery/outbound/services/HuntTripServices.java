@@ -17,8 +17,8 @@ public interface HuntTripServices {
 	
 	HuntTrip updateHuntingTrip(HuntTrip hunt, int huntId);
 	
-//	List<HuntTrip> findBySpecies(String species);
+	List<HuntTrip> findBySpecies(String species);
 	
-	//List<HuntTrip> searchHuntByKeyword(String keyword);
+	List<HuntTrip> searchHuntByKeyword(String keyword);
 	
 }

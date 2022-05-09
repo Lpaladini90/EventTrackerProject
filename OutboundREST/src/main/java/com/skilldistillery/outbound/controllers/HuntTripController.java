@@ -37,6 +37,12 @@ public class HuntTripController {
 		return huntServ.findAllHuntTrips();
 	}
 	
+	@GetMapping("hunttrips/{id}")
+	public HuntTrip findById(@PathVariable("id")int huntId ) {
+		return huntServ.findById(huntId);
+		
+	}
+	
 	@PostMapping("hunttrips")
 	public HuntTrip createHunt(@RequestBody HuntTrip hunt, HttpServletResponse res) {
 		HuntTrip newHunt  = huntServ.createHuntingTrip(hunt); 
@@ -78,12 +84,15 @@ public class HuntTripController {
 	@GetMapping("hunttrips/search/{species}")
 	public List<HuntTrip> getHuntsBySpecies(@PathVariable("species") String species) {
 		 
-		return null;
+		return huntServ.findBySpecies(species);
 	}
 	
 	
-	
-	
+	@GetMapping("hunttrips/search/{keyword}")
+	public List<HuntTrip> searchByKeyword(@PathVariable("keyword") String keyword){
+		
+		return huntServ.searchHuntByKeyword(keyword);
+	}
 	
 	
 }

@@ -46,17 +46,24 @@ CREATE TABLE IF NOT EXISTS `hunt_trip` (
   `type` VARCHAR(45) NULL,
   `start_date` DATETIME NULL,
   `end_date` DATETIME NULL,
+  `hunter_id` INT NOT NULL,
   `description` VARCHAR(45) NULL,
-  PRIMARY KEY (`id`))
+  PRIMARY KEY (`id`),
+  INDEX `fk_hunt_trip_hunter_idx` (`hunter_id` ASC),
+  CONSTRAINT `fk_hunt_trip_hunter`
+    FOREIGN KEY (`hunter_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `gear`
+-- Table `gear_list`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `gear` ;
+DROP TABLE IF EXISTS `gear_list` ;
 
-CREATE TABLE IF NOT EXISTS `gear` (
+CREATE TABLE IF NOT EXISTS `gear_list` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `description` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
@@ -76,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `clothing` (
   INDEX `fk_clothing_gear1_idx` (`gear_id` ASC),
   CONSTRAINT `fk_clothing_gear1`
     FOREIGN KEY (`gear_id`)
-    REFERENCES `gear` (`id`)
+    REFERENCES `gear_list` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -98,7 +105,7 @@ CREATE TABLE IF NOT EXISTS `permits` (
   INDEX `fk_permits_gear1_idx` (`gear_id` ASC),
   CONSTRAINT `fk_permits_gear1`
     FOREIGN KEY (`gear_id`)
-    REFERENCES `gear` (`id`)
+    REFERENCES `gear_list` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -117,7 +124,7 @@ CREATE TABLE IF NOT EXISTS `weapon` (
   INDEX `fk_weapon_gear1_idx` (`type` ASC),
   CONSTRAINT `fk_weapon_gear1`
     FOREIGN KEY (`type`)
-    REFERENCES `gear` (`id`)
+    REFERENCES `gear_list` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -137,7 +144,7 @@ CREATE TABLE IF NOT EXISTS `first_aid` (
   INDEX `fk_first_aid_gear1_idx` (`gear_id` ASC),
   CONSTRAINT `fk_first_aid_gear1`
     FOREIGN KEY (`gear_id`)
-    REFERENCES `gear` (`id`)
+    REFERENCES `gear_list` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -163,7 +170,7 @@ CREATE TABLE IF NOT EXISTS `sleeping_gear` (
   INDEX `fk_sleeping_gear_gear1_idx` (`gear_id` ASC),
   CONSTRAINT `fk_sleeping_gear_gear1`
     FOREIGN KEY (`gear_id`)
-    REFERENCES `gear` (`id`)
+    REFERENCES `gear_list` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -246,7 +253,7 @@ CREATE TABLE IF NOT EXISTS `optics` (
   INDEX `fk_optics_gear1_idx` (`gear_id` ASC),
   CONSTRAINT `fk_optics_gear1`
     FOREIGN KEY (`gear_id`)
-    REFERENCES `gear` (`id`)
+    REFERENCES `gear_list` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -267,7 +274,7 @@ CREATE TABLE IF NOT EXISTS `backpack` (
   INDEX `fk_backpack_gear1_idx` (`gear_id` ASC),
   CONSTRAINT `fk_backpack_gear1`
     FOREIGN KEY (`gear_id`)
-    REFERENCES `gear` (`id`)
+    REFERENCES `gear_list` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -287,7 +294,7 @@ CREATE TABLE IF NOT EXISTS `misc_gear` (
   INDEX `fk_misc_gear_gear1_idx` (`gear_id` ASC),
   CONSTRAINT `fk_misc_gear_gear1`
     FOREIGN KEY (`gear_id`)
-    REFERENCES `gear` (`id`)
+    REFERENCES `gear_list` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -384,7 +391,7 @@ CREATE TABLE IF NOT EXISTS `cook_kit` (
   INDEX `fk_cook_kit_gear1_idx` (`gear_id` ASC),
   CONSTRAINT `fk_cook_kit_gear1`
     FOREIGN KEY (`gear_id`)
-    REFERENCES `gear` (`id`)
+    REFERENCES `gear_list` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -403,7 +410,7 @@ CREATE TABLE IF NOT EXISTS `food` (
   INDEX `fk_food_gear1_idx` (`gear_id` ASC),
   CONSTRAINT `fk_food_gear1`
     FOREIGN KEY (`gear_id`)
-    REFERENCES `gear` (`id`)
+    REFERENCES `gear_list` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -469,6 +476,30 @@ CREATE TABLE IF NOT EXISTS `comment` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+
+-- -----------------------------------------------------
+-- Table `user_has_gear`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `user_has_gear` ;
+
+CREATE TABLE IF NOT EXISTS `user_has_gear` (
+  `user_id` INT NOT NULL,
+  `gear_id` INT NOT NULL,
+  PRIMARY KEY (`user_id`, `gear_id`),
+  INDEX `fk_user_has_gear_gear1_idx` (`gear_id` ASC),
+  INDEX `fk_user_has_gear_user1_idx` (`user_id` ASC),
+  CONSTRAINT `fk_user_has_gear_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_user_has_gear_gear1`
+    FOREIGN KEY (`gear_id`)
+    REFERENCES `gear_list` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
 SET SQL_MODE = '';
 DROP USER IF EXISTS outboundadmin@localhost;
 SET SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
@@ -495,19 +526,19 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `hunt_trip` (`id`, `species`, `sex`, `type`, `start_date`, `end_date`, `description`) VALUES (1, 'elk', 'bull', 'Bow', NULL, NULL, NULL);
-INSERT INTO `hunt_trip` (`id`, `species`, `sex`, `type`, `start_date`, `end_date`, `description`) VALUES (2, 'antelope', 'buck or doe', 'Bow', NULL, NULL, NULL);
-INSERT INTO `hunt_trip` (`id`, `species`, `sex`, `type`, `start_date`, `end_date`, `description`) VALUES (3, 'mule deer', 'buck or doe', 'Bow', NULL, NULL, NULL);
+INSERT INTO `hunt_trip` (`id`, `species`, `sex`, `type`, `start_date`, `end_date`, `hunter_id`, `description`) VALUES (1, 'elk', 'bull', 'Bow', NULL, NULL, 1, NULL);
+INSERT INTO `hunt_trip` (`id`, `species`, `sex`, `type`, `start_date`, `end_date`, `hunter_id`, `description`) VALUES (2, 'antelope', 'buck or doe', 'Bow', NULL, NULL, 1, NULL);
+INSERT INTO `hunt_trip` (`id`, `species`, `sex`, `type`, `start_date`, `end_date`, `hunter_id`, `description`) VALUES (3, 'mule deer', 'buck or doe', 'Bow', NULL, NULL, 1, NULL);
 
 COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `gear`
+-- Data for table `gear_list`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `gear` (`id`, `description`) VALUES (1, 'Elk Hunt Gear List');
+INSERT INTO `gear_list` (`id`, `description`) VALUES (1, 'Elk Hunt Gear List');
 
 COMMIT;
 
