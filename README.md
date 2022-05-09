@@ -60,26 +60,19 @@
 
 ## How It Works
 
-<ol>
-<li>
+<p>
 The purpose of the Outbound app is to allow a user to create, read, update and delete hunts and keep track of them within a database. The application will grow into the ability of creating a user, gear list and hunt events.
-</li>
-<li>
-To view all hunts on postman: GET - localhost:8085/api/hunttrips
-</li>
-<li>
-To view a single hunt on postman: GET - localhost:8085/api/hunttrips/1
-</li>
-<li>
-To create a hunt on postman: POST - localhost:8085/api/hunttrips
-</li>
-<li>
-To update a hunt on postman: PUT - localhost:8085/api/hunttrips/1
-</li>
-<li>
-To delete a hunt on postman: DELETE - localhost:8085/api/hunttrips/1
-</li>
-</ol>
+</p>
+
+| HTTP Verb | URI                  | Request Body | Response Body | Purpose |
+|-----------|----------------------|--------------|---------------|---------|
+| GET       | `/api/hunttrips`     |              | Collection of representations of all hunting trips  | **List** or **collection** endpoint |
+| GET       | `/api/hunttrips/1`   |              | Representation of hunting trip `1` | **Retrieve** endpoint |
+| POST      | `/api/hunttrips`     | Representation of a new hunting trip | Description of the result of the operation | **Create** endpoint |
+| PUT       | `/api/hunttrips/1`   | Representation of a new hunting trip `1` | | **Replace** endpoint |
+| DELETE    | `/api/hunttrips/1`   |              | | **Delete** route |
+
+
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -88,7 +81,7 @@ To delete a hunt on postman: DELETE - localhost:8085/api/hunttrips/1
 <ol>
 <li>
 While creating the Event Track Project, it help fortify my knowledge of the REST api creation that we learned while in class. I had some trouble understanding the syntax's I
- needed to user to complete operations. After figuring out everything correctly, I tried to find a hunt by a specific species and by keyword, which gave me some issues while trying it and will need to request help as its giving me a casting error that doesnt make sense. Im hoping the more we do RESTful services I will start to understand this more.
+ needed to user to complete operations. After figuring out everything correctly, I tried to find a hunt by a specific species and by keyword, which gave me some issues while trying it and will need to request help as its giving me a casting error that doesn't make sense. Im hoping the more we do RESTful services I will start to understand this more.
 </li>
 
 <p align="right">(<a href="#top">back to top</a>)</p>
