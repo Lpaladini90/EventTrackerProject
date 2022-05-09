@@ -67,6 +67,22 @@ public class HuntTripServicesImpl implements HuntTripServices {
 		return null; 
 	}
 
+
+//	@Override
+//	public List<HuntTrip> searchHuntByKeyword(String keyword) {
+//		
+//		keyword = ""
+//		
+//		return null;
+//	}
+
+
+//	@Override
+//	public List<HuntTrip> findBySpecies(String species) {
+//		
+//		return huntRepo.findBySpecies(species); 
+//	}
+
 	
 	
 	

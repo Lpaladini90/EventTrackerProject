@@ -12,4 +12,7 @@ public interface HuntTripRepository extends JpaRepository<HuntTrip, Integer> {
 
 	List<HuntTrip> findByTypeLikeOrDescriptionLikeOrSpeciesLike(@Param("k")String keyword1, @Param("k")String keyword2, @Param("k")String keyword3);
 	
+	List<HuntTrip> findBySpecies(String species);
+	
+	
 }

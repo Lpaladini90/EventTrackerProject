@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.outbound.entities.HuntTrip;
+import com.skilldistillery.outbound.repository.HuntTripRepository;
 import com.skilldistillery.outbound.services.HuntTripServices;
 
 @RestController
@@ -73,6 +74,13 @@ public class HuntTripController {
 			res.setStatus(404);
 		}
 	}
+	
+	@GetMapping("hunttrips/search/{species}")
+	public List<HuntTrip> getHuntsBySpecies(@PathVariable("species") String species) {
+		 
+		return null;
+	}
+	
 	
 	
 	
