@@ -16,7 +16,7 @@
     <li><a href="#howitworks">How It Works</a></li>
   </ul>  
   <ul>
-    <li><a href="#Lessons-I-Learned">Contact</a></li>
+    <li><a href="#Lessons-I-Learned">Lessons Learned</a></li>
   </ul>
   <ul>
     <li><a href="#contact">Contact</a></li>
