@@ -40,16 +40,17 @@ function createHunt(e){
   xhr.setRequestHeader("Content-type", "application/json");
 
   xhr.onreadystatechange = function(){
+    if(xhr.readyState === 4 ){
     if (xhr.status == 200 || xhr.status == 201) { // Ok or Created
           let huntData = JSON.parse(xhr.responseText);
-          createHunt(huntData);
+            getHunts();
         }
         else {
           console.error("POST request failed.");
 				  console.error(xhr.status + ': ' + xhr.responseText);
         }
       }
-
+};
   let hunt = {
     species: document.huntForm.species.value,
     sex: document.huntForm.sex.value,
@@ -69,6 +70,7 @@ function displayHuntTrips(hunttrips){
   // let hunt = e.target.hunttrips.value;
 
   let huntsDiv = document.getElementById('huntDisplay');
+  huntsDiv.textContent = "";
   let table = document.createElement('table');
   table.id = 'huntsTable';
 
@@ -78,12 +80,12 @@ function displayHuntTrips(hunttrips){
   // hunt.id.textContent = "Id";
 
   for(h in hunttrips[0]){
+    if(h ===  "species" || h === "description"){
     let th = document.createElement('th');
     th.textContent = h;
     headRow.appendChild(th);
-
   }
-
+}
   thead.appendChild(headRow);
   table.appendChild(thead);
 
@@ -91,29 +93,17 @@ function displayHuntTrips(hunttrips){
 
   hunttrips.forEach(function (item){
     let row = document.createElement('tr');
-    let id = document.createElement('td');
     let species = document.createElement('td');
-    let sex = document.createElement('td');
-    let type = document.createElement('td');
     let description = document.createElement('td');
-    let startDate = document.createElement('td');
-    let endDate = document.createElement('td');
 
-    id.textContent = item.id + "  ";
     species.textContent = item.species + "  ";
-    sex.textContent = item.sex + "  ";
-    type.textContent = item.type + "  ";
-    description.textContent = item.description + "  "
-    startDate.textContent = item.startDate + "  ";
-    endDate.textContent = item.endDate + "  ";
 
-    row.appendChild(id);
+    description.textContent = item.description + "  "
+
+
+
     row.appendChild(species);
-    row.appendChild(sex);
-    row.appendChild(type);
     row.appendChild(description);
-    row.appendChild(startDate);
-    row.appendChild(endDate);
     tbody.appendChild(row);
 
   });
