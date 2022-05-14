@@ -68,6 +68,7 @@ The purpose of the Outbound app is to allow a user to create, read, update and d
 |-----------|----------------------|--------------|---------------|---------|
 | GET       | `/api/hunttrips`     |              | Collection of representations of all hunting trips  | **List** or **collection** endpoint |
 | GET       | `/api/hunttrips/1`   |              | Representation of hunting trip `1` | **Retrieve** endpoint |
+| GET       | `/api/hunttrips/search/elk`   |              | Representation of hunting trips with `elk` | **Retrieve** endpoint |
 | POST      | `/api/hunttrips`     | Representation of a new hunting trip | Description of the result of the operation | **Create** endpoint |
 | PUT       | `/api/hunttrips/1`   | Representation of a new hunting trip `1` | | **Replace** endpoint |
 | DELETE    | `/api/hunttrips/1`   |              | | **Delete** route |

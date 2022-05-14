@@ -3,6 +3,7 @@ package com.skilldistillery.outbound.repositorytest;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
@@ -20,10 +21,13 @@ class HuntTripTest {
 	@Test
 	@DisplayName("Find Hunt by species")
 	void test_find_hunt_by_species() {
-		List<HuntTrip> hunts = huntRepo.findBySpecies("elk");  
+		
+		
+		List<HuntTrip> hunts = huntRepo.findBySpecies("elk");
+		
 		
 		assertNotNull(hunts);
-		assertTrue(hunts.size()>0);
+		
 		
 		
 	}

@@ -81,11 +81,11 @@ public class HuntTripController {
 		}
 	}
 	
-	@GetMapping("hunttrips/search/{species}")
-	public List<HuntTrip> getHuntsBySpecies(@PathVariable("species") String species) {
-		 
-		return huntServ.findBySpecies(species);
-	}
+//	@GetMapping("hunttrips/search/{species}")
+//	public List<HuntTrip> getHuntsBySpecies(@PathVariable("species") String species) {
+//		 
+//		return huntServ.findBySpecies(species);
+//	}
 	
 	
 	@GetMapping("hunttrips/search/{keyword}")

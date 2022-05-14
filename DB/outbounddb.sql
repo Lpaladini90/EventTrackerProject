@@ -46,15 +46,8 @@ CREATE TABLE IF NOT EXISTS `hunt_trip` (
   `type` VARCHAR(45) NULL,
   `start_date` DATETIME NULL,
   `end_date` DATETIME NULL,
-  `hunter_id` INT NOT NULL,
   `description` VARCHAR(45) NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_hunt_trip_hunter_idx` (`hunter_id` ASC),
-  CONSTRAINT `fk_hunt_trip_hunter`
-    FOREIGN KEY (`hunter_id`)
-    REFERENCES `user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
@@ -526,9 +519,9 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `hunt_trip` (`id`, `species`, `sex`, `type`, `start_date`, `end_date`, `hunter_id`, `description`) VALUES (1, 'elk', 'bull', 'Bow', NULL, NULL, 1, NULL);
-INSERT INTO `hunt_trip` (`id`, `species`, `sex`, `type`, `start_date`, `end_date`, `hunter_id`, `description`) VALUES (2, 'antelope', 'buck or doe', 'Bow', NULL, NULL, 1, NULL);
-INSERT INTO `hunt_trip` (`id`, `species`, `sex`, `type`, `start_date`, `end_date`, `hunter_id`, `description`) VALUES (3, 'mule deer', 'buck or doe', 'Bow', NULL, NULL, 1, NULL);
+INSERT INTO `hunt_trip` (`id`, `species`, `sex`, `type`, `start_date`, `end_date`, `description`) VALUES (1, 'elk', 'bull', 'Bow', NULL, NULL, NULL);
+INSERT INTO `hunt_trip` (`id`, `species`, `sex`, `type`, `start_date`, `end_date`, `description`) VALUES (2, 'antelope', 'buck or doe', 'Bow', NULL, NULL, NULL);
+INSERT INTO `hunt_trip` (`id`, `species`, `sex`, `type`, `start_date`, `end_date`, `description`) VALUES (3, 'mule deer', 'buck or doe', 'Bow', NULL, NULL, NULL);
 
 COMMIT;
 
