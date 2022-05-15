@@ -79,16 +79,13 @@
 
 
       let updateBtn = document.createElement('button');
-let updateDiv = document.createElement('div');
+      let updateDiv = document.createElement('div');
       updateBtn.id = hunt.id;
       updateBtn.type = 'submit';
       updateBtn.textContent = 'Update Hunt';
       updateBtn.addEventListener('click', function(e){
 
         updateDiv.textContent = "";
-      console.log(updateBtn.id);
-
-
 
 
       let br2 = document.createElement('br');
@@ -99,17 +96,72 @@ let updateDiv = document.createElement('div');
 
       let speciesLabel =document.createElement('label');
       speciesLabel.name = "Species"
-      speciesLabel.textContent = "Species "
+      speciesLabel.textContent = "Species: "
 
       let updateSpecies = document.createElement('input');
       updateSpecies.id = 'species';
-      updateSpecies.label = "Species";
-      updateSpecies.name = 'Species';
       updateSpecies.placeholder = 'Species';
+      updateSpecies.value = hunt.species;
+
+      let descriptionLabel = document.createElement('label');
+      descriptionLabel.name = "description"
+      descriptionLabel.textContent = "Description: "
+
+      let updateDescription = document.createElement('input');
+      updateDescription.id = 'description';
+      updateDescription.placeholder = 'Description';
+      updateDescription.value = hunt.description;
+
+
+      let sexLabel = document.createElement('label');
+      sexLabel.name = 'sex';
+      sexLabel.textContent = "Sex: "
+
+      let updateSex = document.createElement('input');
+      updateSex.id = 'sex';
+      updateSex.placeholder = 'Sex';
+      updateSex.value = hunt.sex;
+
+
+      let typeLabel = document.createElement('label');
+      typeLabel.name = 'type';
+      typeLabel.textContent = "Type:: "
+
+      let updateType = document.createElement('input');
+      updateType.id = 'type';
+      updateType.placeholder = 'Type';
+      updateType.value = hunt.type;
+
+      let startDateLabel = document.createElement('label');
+      startDateLabel.name = 'startDate';
+      startDateLabel.textContent = "Start Date: "
+
+      let updateStartDate = document.createElement('input');
+      updateStartDate.id = 'startDate';
+      updateStartDate.placeholder = 'Start Date';
+      updateStartDate.type = "date";
+      updateStartDate.value = hunt.startDate;
+
+      let endDateLabel = document.createElement('label');
+      endDateLabel.name = 'startDate';
+      endDateLabel.textContent = "Start Date: "
+
+      let updateEndDate = document.createElement('input');
+      updateEndDate.id = 'description';
+      updateEndDate.placeholder = 'Description';
+      updateEndDate.type = "date";
+      updateEndDate.value = hunt.endDate;
+
+
 
       let br = document.createElement('br');
       let br1 = document.createElement('br');
-
+      let br3 = document.createElement('br');
+      let br4 = document.createElement('br');
+      let br5 = document.createElement('br');
+      let br6 = document.createElement('br');
+      let br7 = document.createElement('br');
+      let br8 = document.createElement('br');
 
 
       let updateButton = document.createElement('button');
@@ -120,15 +172,43 @@ let updateDiv = document.createElement('div');
       updateForm.appendChild(br2);
       updateForm.appendChild(speciesLabel);
       updateForm.appendChild(updateSpecies);
+      updateForm.appendChild(br3)
+
+      updateForm.appendChild(descriptionLabel);
+      updateForm.appendChild(updateDescription);
+      updateForm.appendChild(br4);
+      updateForm.appendChild(sexLabel);
+      updateForm.appendChild(updateSex);
+      updateForm.appendChild(br5);
+      updateForm.appendChild(typeLabel);
+      updateForm.appendChild(updateType);
+      updateForm.appendChild(br6);
+      updateForm.appendChild(startDateLabel);
+      updateForm.appendChild(updateStartDate);
+      updateForm.appendChild(br7)
+      updateForm.appendChild(endDateLabel)
+      updateForm.appendChild(updateEndDate)
       updateForm.appendChild(br);
       updateForm.appendChild(br1);
       updateForm.appendChild(updateButton);
+
+
       updateDiv.appendChild(updateForm);
       huntDiv.appendChild(updateDiv);
 
       updateButton.addEventListener('click',function(e){
-        console.log("inside update click");
+
         e.preventDefault();
+
+        hunt = {
+          id: hunt.id,
+          species: updateForm.species.value,
+          sex: updateForm.sex.value,
+          type: updateForm.type.value,
+          description: updateForm.description.value,
+          startDate: updateForm.startDate.value,
+          endDate: updateForm.endDate.value
+        };
 
 
         let xhr = new XMLHttpRequest();
@@ -138,11 +218,13 @@ let updateDiv = document.createElement('div');
         xhr.setRequestHeader("Content-type", "application/json");
 
         xhr.onreadystatechange = function(){
-          console.log("inside xhr hunt id:");
+          console.log("inside xhr hunt id:" + hunt.id);
           if(xhr.readyState === 4 ){
           if (xhr.status == 200 || xhr.status == 201) { // Ok or Created
-                let data = JSON.parse(xhr.responseText)
-                console.log("data: " + data);
+                let dataHunt = JSON.parse(xhr.responseText)
+                console.log("data: " + dataHunt.id);
+                getHunts();
+
               }
               else {
                 console.error("PUT request failed.");
@@ -150,25 +232,19 @@ let updateDiv = document.createElement('div');
               }
             }
     };
-        hunt = {
-          id: hunt.id,
-          updateSpecies: updateForm.species.value
-          // sex: document.huntForm.sex.value,
-          // type: document.huntForm.type.value,
-          // description: document.huntForm.description.value,
-          // startDate: document.huntForm.startDate.value,
-          // endDate: document.huntForm.endDate.value
 
-
-
-    };
-
-
-    updateDiv.textContent = "";
-    console.log(hunt.id);
+    
     xhr.send(JSON.stringify(hunt));
-});
+
     });
+
+    });
+
+
+
+
+
+
       let deleteBtn = document.createElement('button');
       deleteBtn.id = hunt.id;
       deleteBtn.type = 'submit';

@@ -54,8 +54,6 @@ public class HuntTripController {
 		return newHunt;
 	}
 	
-	
-	
 	@PutMapping("hunttrips/{id}")
 	public HuntTrip updateHunt(@PathVariable("id") int huntId, 
 			@RequestBody HuntTrip hunt,
