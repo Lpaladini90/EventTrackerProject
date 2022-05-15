@@ -14,6 +14,8 @@
         }
 
 
+        //create a function to add the amount of hunts i have and display.
+
 
 // --------------------    FIND A SINGLE HUNT ----------------------------
 
@@ -62,6 +64,7 @@
       startDate.textContent = hunt.startDate;
       endDate.textContent = hunt.endDate;
 
+
       list.appendChild(id);
       list.appendChild(species);
       list.appendChild(description);
@@ -74,15 +77,98 @@
 
 
 
+
       let updateBtn = document.createElement('button');
+let updateDiv = document.createElement('div');
       updateBtn.id = hunt.id;
       updateBtn.type = 'submit';
       updateBtn.textContent = 'Update Hunt';
       updateBtn.addEventListener('click', function(e){
+
+        updateDiv.textContent = "";
       console.log(updateBtn.id);
 
-      });
 
+
+
+      let br2 = document.createElement('br');
+
+      let updateForm = document.createElement('form');
+      updateForm.id = 'updateform'
+
+
+      let speciesLabel =document.createElement('label');
+      speciesLabel.name = "Species"
+      speciesLabel.textContent = "Species "
+
+      let updateSpecies = document.createElement('input');
+      updateSpecies.id = 'species';
+      updateSpecies.label = "Species";
+      updateSpecies.name = 'Species';
+      updateSpecies.placeholder = 'Species';
+
+      let br = document.createElement('br');
+      let br1 = document.createElement('br');
+
+
+
+      let updateButton = document.createElement('button');
+      updateButton.id = updateButton;
+      updateButton.type = 'button'
+      updateButton.textContent = "Submit Update";
+
+      updateForm.appendChild(br2);
+      updateForm.appendChild(speciesLabel);
+      updateForm.appendChild(updateSpecies);
+      updateForm.appendChild(br);
+      updateForm.appendChild(br1);
+      updateForm.appendChild(updateButton);
+      updateDiv.appendChild(updateForm);
+      huntDiv.appendChild(updateDiv);
+
+      updateButton.addEventListener('click',function(e){
+        console.log("inside update click");
+        e.preventDefault();
+
+
+        let xhr = new XMLHttpRequest();
+        xhr.open("PUT", 'api/hunttrips/' + hunt.id);
+
+        console.log("after put: " + hunt.id); //
+        xhr.setRequestHeader("Content-type", "application/json");
+
+        xhr.onreadystatechange = function(){
+          console.log("inside xhr hunt id:");
+          if(xhr.readyState === 4 ){
+          if (xhr.status == 200 || xhr.status == 201) { // Ok or Created
+                let data = JSON.parse(xhr.responseText)
+                console.log("data: " + data);
+              }
+              else {
+                console.error("PUT request failed.");
+      				  console.error(xhr.status + ': ' + xhr.responseText);
+              }
+            }
+    };
+        hunt = {
+          id: hunt.id,
+          updateSpecies: updateForm.species.value
+          // sex: document.huntForm.sex.value,
+          // type: document.huntForm.type.value,
+          // description: document.huntForm.description.value,
+          // startDate: document.huntForm.startDate.value,
+          // endDate: document.huntForm.endDate.value
+
+
+
+    };
+
+
+    updateDiv.textContent = "";
+    console.log(hunt.id);
+    xhr.send(JSON.stringify(hunt));
+});
+    });
       let deleteBtn = document.createElement('button');
       deleteBtn.id = hunt.id;
       deleteBtn.type = 'submit';
@@ -96,6 +182,7 @@
           xhr.onreadystatechange = function(){
             if(xhr.readyState === 4 ){
             if (xhr.status == 200 || xhr.status == 201) { // Ok or Created
+                huntDiv.textContent= "";
                 getHunts()
                 }
                 else {
@@ -106,6 +193,8 @@
         };
 
           xhr.send(JSON.stringify(hunt));
+
+
         });
 
 
@@ -123,8 +212,8 @@
           if(xhr.readyState == 4){
               if(xhr.status === 200){
               let hunttrips = JSON.parse(xhr.responseText);
-              console.log(hunttrips);
               displayHuntTrips(hunttrips);
+
 
 
             }
@@ -189,6 +278,11 @@
       table.appendChild(tbody);
       huntsDiv.appendChild(table);
 
+      let amountOfHunts = hunttrips.length;
+      let h1 = document.createElement('h1');
+      h1.textContent = "The total number of hunting events is: " + amountOfHunts;
+      huntsDiv.appendChild(h1);
+
     }
 
 
@@ -226,67 +320,6 @@ function createHunt(e){
   }
   xhr.send(JSON.stringify(hunt));
 };
-
-
-// ---------------------------- UPDATE A HUNT -----------------------------
-
-
-function updateHunt(hunt){
-  e.preventDefault();
-
-  let xhr = new XMLHttpRequest();
-  xhr.open("PUT", 'api/hunttrips/' + hunt.id);
-
-  xhr.setRequestHeader("Content-type", "application/json");
-
-  xhr.onreadystatechange = function(){
-    if(xhr.readyState === 4 ){
-    if (xhr.status == 200 || xhr.status == 201) { // Ok or Created
-          let data = JSON.parse(xhr.responseText);
-            updateHunt(data);
-        }
-        else {
-          console.error("PUT request failed.");
-				  console.error(xhr.status + ': ' + xhr.responseText);
-        }
-      }
-};
-  hunt = {
-    id: hunt.id
-    // species: document.huntForm.species.value,
-    // sex: document.huntForm.sex.value,
-    // type: document.huntForm.type.value,
-    // description: document.huntForm.description.value,
-    // startDate: document.huntForm.startDate.value,
-    // endDate: document.huntForm.endDate.value
-
-  }
-  xhr.send(JSON.stringify(data));
-};
-
-
-function updateHunt(hunt){
-preventDefault();
-
-let updateDiv = document.createElement('')
-
-
-let h1 = document.createElement('h1');
-
-
-
-
-}
-
-
-
-
-
-
-
-
-
-
 
 
 
