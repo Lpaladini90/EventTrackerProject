@@ -30,6 +30,7 @@
               console.log(hunt);
               displayHunt(hunt);
             }
+
             else {
               console.log("hunt not found");
             }
@@ -125,7 +126,7 @@
 
       let typeLabel = document.createElement('label');
       typeLabel.name = 'type';
-      typeLabel.textContent = "Type:: "
+      typeLabel.textContent = "Type: "
 
       let updateType = document.createElement('input');
       updateType.id = 'type';
@@ -144,14 +145,13 @@
 
       let endDateLabel = document.createElement('label');
       endDateLabel.name = 'startDate';
-      endDateLabel.textContent = "Start Date: "
+      endDateLabel.textContent = "End Date: "
 
       let updateEndDate = document.createElement('input');
-      updateEndDate.id = 'description';
-      updateEndDate.placeholder = 'Description';
+      updateEndDate.id = 'endDate';
+      updateEndDate.placeholder = 'End Date';
       updateEndDate.type = "date";
       updateEndDate.value = hunt.endDate;
-
 
 
       let br = document.createElement('br');
@@ -189,7 +189,7 @@
       updateForm.appendChild(endDateLabel)
       updateForm.appendChild(updateEndDate)
       updateForm.appendChild(br);
-      updateForm.appendChild(br1);
+      // updateForm.appendChild(br1);
       updateForm.appendChild(updateButton);
 
 
@@ -233,16 +233,12 @@
             }
     };
 
-    
+    huntDiv.textContent = "";
     xhr.send(JSON.stringify(hunt));
 
     });
 
     });
-
-
-
-
 
 
       let deleteBtn = document.createElement('button');
@@ -267,14 +263,8 @@
                 }
               }
         };
-
           xhr.send(JSON.stringify(hunt));
-
-
         });
-
-
-
 
       huntDiv.appendChild(updateBtn);
       huntDiv.appendChild(deleteBtn);
@@ -351,6 +341,7 @@
 
       });
 
+
       table.appendChild(tbody);
       huntsDiv.appendChild(table);
 
@@ -358,6 +349,7 @@
       let h1 = document.createElement('h1');
       h1.textContent = "The total number of hunting events is: " + amountOfHunts;
       huntsDiv.appendChild(h1);
+
 
     }
 
