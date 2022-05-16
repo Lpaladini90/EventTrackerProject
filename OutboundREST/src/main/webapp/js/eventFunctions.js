@@ -386,6 +386,7 @@ function createHunt(e){
     endDate: document.huntForm.endDate.value
 
   }
+
   xhr.send(JSON.stringify(hunt));
 };
 
