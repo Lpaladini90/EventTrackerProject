@@ -50,7 +50,7 @@ public class HuntTripController {
 			res.setStatus(201);
 		}
 		
-		
+		 
 		return newHunt;
 	}
 	
