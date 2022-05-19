@@ -15,6 +15,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import com.skilldistillery.outbound.entities.User.User;
+
 class UserTest {
 
 	private  static EntityManagerFactory emf;

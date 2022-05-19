@@ -2,7 +2,7 @@ package com.skilldistillery.outbound.data;
 
 import java.util.List;
 
-import com.skilldistillery.outbound.entities.HuntTrip;
+import com.skilldistillery.outbound.entities.HuntTrip.HuntTrip;
 
 public interface HuntTripDAO {
 

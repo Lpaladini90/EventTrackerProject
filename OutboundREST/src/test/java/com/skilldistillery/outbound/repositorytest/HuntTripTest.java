@@ -10,7 +10,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.skilldistillery.outbound.entities.HuntTrip;
+import com.skilldistillery.outbound.entities.HuntTrip.HuntTrip;
 import com.skilldistillery.outbound.repository.HuntTripRepository;
 
 class HuntTripTest {
