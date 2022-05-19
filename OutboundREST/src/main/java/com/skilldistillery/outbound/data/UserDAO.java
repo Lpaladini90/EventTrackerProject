@@ -2,7 +2,7 @@ package com.skilldistillery.outbound.data;
 
 import java.util.List;
 
-import com.skilldistillery.outbound.entities.User.User;
+import com.skilldistillery.outbound.entities.user.User;
 
 public interface UserDAO {
 

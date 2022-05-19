@@ -1,4 +1,5 @@
-package com.skilldistillery.outbound.entities.HuntTrip;
+package com.skilldistillery.outbound.entities.hunttrip;
+
 
 import java.time.LocalDate;
 import java.util.Objects;

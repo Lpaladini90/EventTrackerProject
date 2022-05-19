@@ -1,4 +1,5 @@
-package com.skilldistillery.outbound.entities.User;
+package com.skilldistillery.outbound.entities.user;
+
 
 import java.util.Objects;
 

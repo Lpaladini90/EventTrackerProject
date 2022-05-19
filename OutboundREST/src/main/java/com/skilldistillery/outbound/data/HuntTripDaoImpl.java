@@ -8,7 +8,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
-import com.skilldistillery.outbound.entities.HuntTrip.HuntTrip;
+import com.skilldistillery.outbound.entities.hunttrip.HuntTrip;
 
 @Service
 @Transactional

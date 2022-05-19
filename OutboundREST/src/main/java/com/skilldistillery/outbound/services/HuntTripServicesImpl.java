@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.skilldistillery.outbound.entities.HuntTrip.HuntTrip;
+import com.skilldistillery.outbound.entities.hunttrip.HuntTrip;
 import com.skilldistillery.outbound.repository.HuntTripRepository;
 
 
