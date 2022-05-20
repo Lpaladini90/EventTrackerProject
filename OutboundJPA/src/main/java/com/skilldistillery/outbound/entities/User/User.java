@@ -28,6 +28,10 @@ public class User {
 	private String password;
 	
 	private String email;
+	
+	private String role;
+	
+	private boolean enabled;
 
 	public User() {
 		super();
@@ -80,16 +84,34 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
 
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", username=" + username
-				+ ", password=" + password + ", email=" + email + "]";
+				+ ", password=" + password + ", email=" + email + ", role=" + role + ", enabled=" + enabled + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(email, firstName, id, lastName, password, username);
+		return Objects.hash(email, enabled, firstName, id, lastName, password, role, username);
 	}
 
 	@Override
@@ -101,9 +123,10 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		return Objects.equals(email, other.email) && Objects.equals(firstName, other.firstName)
-				&& Objects.equals(id, other.id) && Objects.equals(lastName, other.lastName)
-				&& Objects.equals(password, other.password) && Objects.equals(username, other.username);
+		return Objects.equals(email, other.email) && enabled == other.enabled
+				&& Objects.equals(firstName, other.firstName) && Objects.equals(id, other.id)
+				&& Objects.equals(lastName, other.lastName) && Objects.equals(password, other.password)
+				&& Objects.equals(role, other.role) && Objects.equals(username, other.username);
 	}
 	
 	
