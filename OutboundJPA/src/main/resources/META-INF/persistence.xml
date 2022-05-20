@@ -23,22 +23,11 @@
      <!-- Gear List Entities  -->
      
     <class>com.skilldistillery.outbound.entities.gearlist.GearList</class>
+    <class>com.skilldistillery.outbound.entities.gearlist.GearItem</class>
     
      <!-- Gear List -> Gear Entities  -->
-     
-     <!-- Gear List -> Gear -> Weapon Entities  -->
+    
 
-     
-
-     
-     <!-- Gear List -> Gear -> Clothing  Entities  -->
-     
-     
-     
-     <!-- Gear List -> Gear -> Clothing -> Items Entities  -->
-     
-     
-     
      
      
      <!-- State Entities  -->
