@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `address` (
   `address2` VARCHAR(45) NULL,
   `city` VARCHAR(45) NULL,
   `state` VARCHAR(45) NULL,
-  `postal_code` VARCHAR(45) NULL,
+  `postal_code` INT NULL,
   `country_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC),
@@ -781,7 +781,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `address` (`id`, `address`, `address2`, `city`, `state`, `postal_code`, `country_id`) VALUES (1, '28818 N Hardesty Rd', NULL, 'Chattaroy', 'Washington', '99003', 1);
+INSERT INTO `address` (`id`, `address`, `address2`, `city`, `state`, `postal_code`, `country_id`) VALUES (1, '28818 N Hardesty Rd', NULL, 'Chattaroy', 'Washington', 99003, 1);
 
 COMMIT;
 
@@ -823,7 +823,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `clothing` (`id`, `brand`, `model`, `description`, `weight`, `items_packed`, `items_worn`, `gear_list_id`, `quantity`) VALUES (1, 'FirstLite', 'Corrugate Guide Pant', 'These nylon pants are constructed around a simple design concept that allows the hunter uninhibited freedom of movement while providing easy access to storage by way of our 3D double cargo pockets', .5, 0, 1, 1, '1');
+INSERT INTO `clothing` (`id`, `brand`, `model`, `description`, `weight`, `items_packed`, `items_worn`, `gear_list_id`, `quantity`) VALUES (1, 'FirstLite', 'Corrugate Guide Pant', 'These nylon pants are constructed around a simple design concept that allows the hunter uninhibited freedom of movement while providing easy access to storage by way of our 3D double cargo pockets', .5, 0, 1, 1, NULL);
 
 COMMIT;
 
