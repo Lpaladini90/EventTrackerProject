@@ -70,23 +70,20 @@ DROP TABLE IF EXISTS `clothing` ;
 
 CREATE TABLE IF NOT EXISTS `clothing` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `items_worn` TINYINT NULL,
-  `items_packed` TINYINT NULL,
+  `brand` VARCHAR(200) NULL,
+  `model` VARCHAR(200) NULL,
   `description` VARCHAR(2000) NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `state`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `state` ;
-
-CREATE TABLE IF NOT EXISTS `state` (
-  `id` INT NOT NULL,
-  `name` VARCHAR(45) NULL,
-  `abbr` VARCHAR(45) NULL,
-  PRIMARY KEY (`id`))
+  `weight` DOUBLE NULL,
+  `items_packed` TINYINT NULL,
+  `items_worn` TINYINT NULL,
+  `gear_list_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_clothing_gear_list1_idx` (`gear_list_id` ASC),
+  CONSTRAINT `fk_clothing_gear_list1`
+    FOREIGN KEY (`gear_list_id`)
+    REFERENCES `gear_list` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -103,22 +100,8 @@ CREATE TABLE IF NOT EXISTS `license` (
   `from_date` DATETIME NULL,
   `end_date` DATETIME NULL,
   `purchase_date` DATETIME NULL,
-  `user_id` INT NOT NULL,
   `sportsmans_number` INT NULL,
-  `state_id` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_license_user1_idx` (`user_id` ASC),
-  INDEX `fk_license_state_info1_idx` (`state_id` ASC),
-  CONSTRAINT `fk_license_user1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_license_state_info1`
-    FOREIGN KEY (`state_id`)
-    REFERENCES `state` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
@@ -129,7 +112,10 @@ DROP TABLE IF EXISTS `weapon` ;
 
 CREATE TABLE IF NOT EXISTS `weapon` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `description` VARCHAR(45) NULL,
+  `brand` VARCHAR(200) NULL,
+  `model` VARCHAR(200) NULL,
+  `description` VARCHAR(2000) NULL,
+  `weight` DOUBLE NULL,
   `gear_list_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_weapon_gear_list1_idx` (`gear_list_id` ASC),
@@ -148,8 +134,10 @@ DROP TABLE IF EXISTS `first_aid` ;
 
 CREATE TABLE IF NOT EXISTS `first_aid` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `item_name` VARCHAR(45) NULL,
+  `brand` VARCHAR(200) NULL,
+  `model` VARCHAR(200) NULL,
   `description` VARCHAR(2000) NULL,
+  `weight` DOUBLE NULL,
   `gear_list_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_first_aid_gear_list1_idx` (`gear_list_id` ASC),
@@ -168,46 +156,18 @@ DROP TABLE IF EXISTS `sleeping_gear` ;
 
 CREATE TABLE IF NOT EXISTS `sleeping_gear` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `sleeping_bag` VARCHAR(45) NULL,
-  `shelter` VARCHAR(45) NULL,
-  `ground_sheet` VARCHAR(45) NULL,
-  `sleeping_pad` VARCHAR(45) NULL,
-  `tent_pole` VARCHAR(45) NULL,
-  `tent_stakes` VARCHAR(45) NULL,
-  `stuff_sack` VARCHAR(45) NULL,
-  `gear_id` INT NOT NULL,
+  `brand` VARCHAR(45) NULL,
+  `model` VARCHAR(45) NULL,
   `description` VARCHAR(2000) NULL,
+  `weight` VARCHAR(45) NULL,
+  `gear_list_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_sleeping_gear_gear1_idx` (`gear_id` ASC),
-  CONSTRAINT `fk_sleeping_gear_gear1`
-    FOREIGN KEY (`gear_id`)
+  INDEX `fk_sleeping_gear_gear_list1_idx` (`gear_list_id` ASC),
+  CONSTRAINT `fk_sleeping_gear_gear_list1`
+    FOREIGN KEY (`gear_list_id`)
     REFERENCES `gear_list` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `items_worn`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `items_worn` ;
-
-CREATE TABLE IF NOT EXISTS `items_worn` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `description` VARCHAR(2000) NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `clothes_packed`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `clothes_packed` ;
-
-CREATE TABLE IF NOT EXISTS `clothes_packed` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `description` VARCHAR(2000) NULL,
-  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
@@ -218,19 +178,15 @@ DROP TABLE IF EXISTS `optics` ;
 
 CREATE TABLE IF NOT EXISTS `optics` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `spotting_scope` VARCHAR(45) NULL,
-  `binoculars` VARCHAR(45) NULL,
-  `range_finder` VARCHAR(45) NULL,
-  `bino_adapter` VARCHAR(45) NULL,
-  `lens_cloth` VARCHAR(45) NULL,
-  `tripod` VARCHAR(45) NULL,
-  `phone_adapater` VARCHAR(45) NULL,
-  `bino_harness` VARCHAR(45) NULL,
-  `gear_id` INT NOT NULL,
+  `brand` VARCHAR(200) NULL,
+  `model` VARCHAR(45) NULL,
+  `description` VARCHAR(2000) NULL,
+  `weight` DOUBLE NULL,
+  `gear_list_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_optics_gear1_idx` (`gear_id` ASC),
-  CONSTRAINT `fk_optics_gear1`
-    FOREIGN KEY (`gear_id`)
+  INDEX `fk_optics_gear_list1_idx` (`gear_list_id` ASC),
+  CONSTRAINT `fk_optics_gear_list1`
+    FOREIGN KEY (`gear_list_id`)
     REFERENCES `gear_list` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -244,14 +200,15 @@ DROP TABLE IF EXISTS `backpack` ;
 
 CREATE TABLE IF NOT EXISTS `backpack` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `pack` VARCHAR(45) NULL,
-  `rain_cover` VARCHAR(45) NULL,
+  `brand` VARCHAR(200) NULL,
+  `model` VARCHAR(200) NULL,
   `description` VARCHAR(2000) NULL,
-  `gear_id` INT NOT NULL,
+  `weight` DOUBLE NULL,
+  `gear_list_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_backpack_gear1_idx` (`gear_id` ASC),
-  CONSTRAINT `fk_backpack_gear1`
-    FOREIGN KEY (`gear_id`)
+  INDEX `fk_backpack_gear_list1_idx` (`gear_list_id` ASC),
+  CONSTRAINT `fk_backpack_gear_list1`
+    FOREIGN KEY (`gear_list_id`)
     REFERENCES `gear_list` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -265,59 +222,16 @@ DROP TABLE IF EXISTS `misc_gear` ;
 
 CREATE TABLE IF NOT EXISTS `misc_gear` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `item` VARCHAR(45) NULL,
+  `brand` VARCHAR(200) NULL,
+  `model` VARCHAR(200) NULL,
   `description` VARCHAR(2000) NULL,
-  `gear_id` INT NOT NULL,
+  `weight` DOUBLE NULL,
+  `gear_list_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_misc_gear_gear1_idx` (`gear_id` ASC),
-  CONSTRAINT `fk_misc_gear_gear1`
-    FOREIGN KEY (`gear_id`)
+  INDEX `fk_misc_gear_gear_list1_idx` (`gear_list_id` ASC),
+  CONSTRAINT `fk_misc_gear_gear_list1`
+    FOREIGN KEY (`gear_list_id`)
     REFERENCES `gear_list` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `rifle`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `rifle` ;
-
-CREATE TABLE IF NOT EXISTS `rifle` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `caliber` VARCHAR(45) NULL,
-  `name` VARCHAR(45) NULL,
-  `type` VARCHAR(45) NULL,
-  `weapon_id` INT NOT NULL,
-  `description` VARCHAR(2000) NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_rifle_weapon1_idx` (`weapon_id` ASC),
-  CONSTRAINT `fk_rifle_weapon1`
-    FOREIGN KEY (`weapon_id`)
-    REFERENCES `weapon` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `bow`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `bow` ;
-
-CREATE TABLE IF NOT EXISTS `bow` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NULL,
-  `bow_harness` VARCHAR(45) NULL,
-  `arrows` VARCHAR(45) NULL,
-  `broadheads` VARCHAR(45) NULL,
-  `weapon_id` INT NOT NULL,
-  `description` VARCHAR(2000) NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_bow_weapon1_idx` (`weapon_id` ASC),
-  CONSTRAINT `fk_bow_weapon1`
-    FOREIGN KEY (`weapon_id`)
-    REFERENCES `weapon` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -337,20 +251,22 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `cook_kit`
+-- Table `cooking`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `cook_kit` ;
+DROP TABLE IF EXISTS `cooking` ;
 
-CREATE TABLE IF NOT EXISTS `cook_kit` (
+CREATE TABLE IF NOT EXISTS `cooking` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `item` VARCHAR(45) NULL,
+  `brand` VARCHAR(200) NULL,
+  `model` VARCHAR(200) NULL,
   `description` VARCHAR(2000) NULL,
-  `amount` INT NULL,
-  `gear_id` INT NOT NULL,
+  `weight` DOUBLE NULL,
+  `quantity` INT NULL,
+  `gear_list_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_cook_kit_gear1_idx` (`gear_id` ASC),
-  CONSTRAINT `fk_cook_kit_gear1`
-    FOREIGN KEY (`gear_id`)
+  INDEX `fk_cook_kit_gear_list1_idx` (`gear_list_id` ASC),
+  CONSTRAINT `fk_cook_kit_gear_list1`
+    FOREIGN KEY (`gear_list_id`)
     REFERENCES `gear_list` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -364,9 +280,11 @@ DROP TABLE IF EXISTS `food` ;
 
 CREATE TABLE IF NOT EXISTS `food` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `item_name` VARCHAR(45) NULL,
+  `brand` VARCHAR(200) NULL,
+  `item` VARCHAR(200) NULL,
   `description` VARCHAR(2000) NULL,
-  `amount` INT NULL,
+  `weight` DOUBLE NULL,
+  `quantity` INT NULL,
   `gear_list_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_food_gear_list1_idx` (`gear_list_id` ASC),
@@ -411,15 +329,8 @@ CREATE TABLE IF NOT EXISTS `tag` (
   `id` INT NOT NULL,
   `name` VARCHAR(45) NULL,
   `description` VARCHAR(45) NULL,
-  `license_id` INT NOT NULL,
   `tag_number` INT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_tag_license1_idx` (`license_id` ASC),
-  CONSTRAINT `fk_tag_license1`
-    FOREIGN KEY (`license_id`)
-    REFERENCES `license` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
@@ -457,13 +368,20 @@ CREATE TABLE IF NOT EXISTS `draw_odds` (
   `name` VARCHAR(45) NULL,
   `description` VARCHAR(45) NULL,
   `state_id` INT NOT NULL,
-  INDEX `fk_draw_odds_state_info1_idx` (`state_id` ASC),
-  PRIMARY KEY (`state_id`),
-  CONSTRAINT `fk_draw_odds_state_info1`
-    FOREIGN KEY (`state_id`)
-    REFERENCES `state` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`state_id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `state`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `state` ;
+
+CREATE TABLE IF NOT EXISTS `state` (
+  `id` INT NOT NULL,
+  `name` VARCHAR(45) NULL,
+  `abbr` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
@@ -494,30 +412,6 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `hunt_user`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `hunt_user` ;
-
-CREATE TABLE IF NOT EXISTS `hunt_user` (
-  `hunt_trip_id` INT NOT NULL,
-  `user_id` INT NOT NULL,
-  PRIMARY KEY (`hunt_trip_id`, `user_id`),
-  INDEX `fk_hunt_trip_has_user_user1_idx` (`user_id` ASC),
-  INDEX `fk_hunt_trip_has_user_hunt_trip1_idx` (`hunt_trip_id` ASC),
-  CONSTRAINT `fk_hunt_trip_has_user_hunt_trip1`
-    FOREIGN KEY (`hunt_trip_id`)
-    REFERENCES `hunt_trip` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_hunt_trip_has_user_user1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `hunt_method_type`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `hunt_method_type` ;
@@ -539,14 +433,7 @@ CREATE TABLE IF NOT EXISTS `season` (
   `id` INT NOT NULL,
   `name` VARCHAR(45) NULL,
   `description` VARCHAR(45) NULL,
-  `hunting_information_id` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_season_hunting_information1_idx` (`hunting_information_id` ASC),
-  CONSTRAINT `fk_season_hunting_information1`
-    FOREIGN KEY (`hunting_information_id`)
-    REFERENCES `hunting_information` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
@@ -559,14 +446,7 @@ CREATE TABLE IF NOT EXISTS `region` (
   `id` INT NOT NULL,
   `name` VARCHAR(45) NULL,
   `description` VARCHAR(45) NULL,
-  `season_id` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_region_season1_idx` (`season_id` ASC),
-  CONSTRAINT `fk_region_season1`
-    FOREIGN KEY (`season_id`)
-    REFERENCES `season` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
@@ -579,62 +459,7 @@ CREATE TABLE IF NOT EXISTS `unit` (
   `id` INT NOT NULL,
   `name` VARCHAR(45) NULL,
   `description` VARCHAR(45) NULL,
-  `season_id` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_unit_season1_idx` (`season_id` ASC),
-  CONSTRAINT `fk_unit_season1`
-    FOREIGN KEY (`season_id`)
-    REFERENCES `season` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `hunt_method_type_has_hunt_trip`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `hunt_method_type_has_hunt_trip` ;
-
-CREATE TABLE IF NOT EXISTS `hunt_method_type_has_hunt_trip` (
-  `hunt_method_type_id` INT NOT NULL,
-  `hunt_trip_id` INT NOT NULL,
-  PRIMARY KEY (`hunt_method_type_id`, `hunt_trip_id`),
-  INDEX `fk_hunt_method_type_has_hunt_trip_hunt_trip1_idx` (`hunt_trip_id` ASC),
-  INDEX `fk_hunt_method_type_has_hunt_trip_hunt_method_type1_idx` (`hunt_method_type_id` ASC),
-  CONSTRAINT `fk_hunt_method_type_has_hunt_trip_hunt_method_type1`
-    FOREIGN KEY (`hunt_method_type_id`)
-    REFERENCES `hunt_method_type` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_hunt_method_type_has_hunt_trip_hunt_trip1`
-    FOREIGN KEY (`hunt_trip_id`)
-    REFERENCES `hunt_trip` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `hunt_trip_has_state`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `hunt_trip_has_state` ;
-
-CREATE TABLE IF NOT EXISTS `hunt_trip_has_state` (
-  `hunt_trip_id` INT NOT NULL,
-  `state_id` INT NOT NULL,
-  PRIMARY KEY (`hunt_trip_id`, `state_id`),
-  INDEX `fk_hunt_trip_has_state_state1_idx` (`state_id` ASC),
-  INDEX `fk_hunt_trip_has_state_hunt_trip1_idx` (`hunt_trip_id` ASC),
-  CONSTRAINT `fk_hunt_trip_has_state_hunt_trip1`
-    FOREIGN KEY (`hunt_trip_id`)
-    REFERENCES `hunt_trip` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_hunt_trip_has_state_state1`
-    FOREIGN KEY (`state_id`)
-    REFERENCES `state` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
@@ -652,54 +477,6 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `address_has_country`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `address_has_country` ;
-
-CREATE TABLE IF NOT EXISTS `address_has_country` (
-  `address_id` INT NOT NULL,
-  `country_id` INT NOT NULL,
-  PRIMARY KEY (`address_id`, `country_id`),
-  INDEX `fk_address_has_country_country1_idx` (`country_id` ASC),
-  INDEX `fk_address_has_country_address1_idx` (`address_id` ASC),
-  CONSTRAINT `fk_address_has_country_address1`
-    FOREIGN KEY (`address_id`)
-    REFERENCES `address` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_address_has_country_country1`
-    FOREIGN KEY (`country_id`)
-    REFERENCES `country` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `state_has_country`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `state_has_country` ;
-
-CREATE TABLE IF NOT EXISTS `state_has_country` (
-  `state_id` INT NOT NULL,
-  `country_id` INT NOT NULL,
-  PRIMARY KEY (`state_id`, `country_id`),
-  INDEX `fk_state_has_country_country1_idx` (`country_id` ASC),
-  INDEX `fk_state_has_country_state1_idx` (`state_id` ASC),
-  CONSTRAINT `fk_state_has_country_state1`
-    FOREIGN KEY (`state_id`)
-    REFERENCES `state` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_state_has_country_country1`
-    FOREIGN KEY (`country_id`)
-    REFERENCES `country` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `residency`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `residency` ;
@@ -708,54 +485,6 @@ CREATE TABLE IF NOT EXISTS `residency` (
   `id` INT NOT NULL,
   `title` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `draw_odds_has_residency`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `draw_odds_has_residency` ;
-
-CREATE TABLE IF NOT EXISTS `draw_odds_has_residency` (
-  `draw_odds_state_id` INT NOT NULL,
-  `residency_id` INT NOT NULL,
-  PRIMARY KEY (`draw_odds_state_id`, `residency_id`),
-  INDEX `fk_draw_odds_has_residency_residency1_idx` (`residency_id` ASC),
-  INDEX `fk_draw_odds_has_residency_draw_odds1_idx` (`draw_odds_state_id` ASC),
-  CONSTRAINT `fk_draw_odds_has_residency_draw_odds1`
-    FOREIGN KEY (`draw_odds_state_id`)
-    REFERENCES `draw_odds` (`state_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_draw_odds_has_residency_residency1`
-    FOREIGN KEY (`residency_id`)
-    REFERENCES `residency` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `species_has_draw_odds`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `species_has_draw_odds` ;
-
-CREATE TABLE IF NOT EXISTS `species_has_draw_odds` (
-  `species_id` INT NOT NULL,
-  `draw_odds_state_id` INT NOT NULL,
-  PRIMARY KEY (`species_id`, `draw_odds_state_id`),
-  INDEX `fk_species_has_draw_odds_draw_odds1_idx` (`draw_odds_state_id` ASC),
-  INDEX `fk_species_has_draw_odds_species1_idx` (`species_id` ASC),
-  CONSTRAINT `fk_species_has_draw_odds_species1`
-    FOREIGN KEY (`species_id`)
-    REFERENCES `species` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_species_has_draw_odds_draw_odds1`
-    FOREIGN KEY (`draw_odds_state_id`)
-    REFERENCES `draw_odds` (`state_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -778,174 +507,6 @@ CREATE TABLE IF NOT EXISTS `tag_has_species` (
   CONSTRAINT `fk_tag_has_species_species1`
     FOREIGN KEY (`species_id`)
     REFERENCES `species` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `hunt_trip_has_species`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `hunt_trip_has_species` ;
-
-CREATE TABLE IF NOT EXISTS `hunt_trip_has_species` (
-  `hunt_trip_id` INT NOT NULL,
-  `species_id` INT NOT NULL,
-  PRIMARY KEY (`hunt_trip_id`, `species_id`),
-  INDEX `fk_hunt_trip_has_species_species1_idx` (`species_id` ASC),
-  INDEX `fk_hunt_trip_has_species_hunt_trip1_idx` (`hunt_trip_id` ASC),
-  CONSTRAINT `fk_hunt_trip_has_species_hunt_trip1`
-    FOREIGN KEY (`hunt_trip_id`)
-    REFERENCES `hunt_trip` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_hunt_trip_has_species_species1`
-    FOREIGN KEY (`species_id`)
-    REFERENCES `species` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `license_has_residency`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `license_has_residency` ;
-
-CREATE TABLE IF NOT EXISTS `license_has_residency` (
-  `license_id` INT NOT NULL,
-  `residency_id` INT NOT NULL,
-  PRIMARY KEY (`license_id`, `residency_id`),
-  INDEX `fk_license_has_residency_residency1_idx` (`residency_id` ASC),
-  INDEX `fk_license_has_residency_license1_idx` (`license_id` ASC),
-  CONSTRAINT `fk_license_has_residency_license1`
-    FOREIGN KEY (`license_id`)
-    REFERENCES `license` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_license_has_residency_residency1`
-    FOREIGN KEY (`residency_id`)
-    REFERENCES `residency` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `tag_has_hunt_method_type`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `tag_has_hunt_method_type` ;
-
-CREATE TABLE IF NOT EXISTS `tag_has_hunt_method_type` (
-  `tag_id` INT NOT NULL,
-  `hunt_method_type_id` INT NOT NULL,
-  PRIMARY KEY (`tag_id`, `hunt_method_type_id`),
-  INDEX `fk_tag_has_hunt_method_type_hunt_method_type1_idx` (`hunt_method_type_id` ASC),
-  INDEX `fk_tag_has_hunt_method_type_tag1_idx` (`tag_id` ASC),
-  CONSTRAINT `fk_tag_has_hunt_method_type_tag1`
-    FOREIGN KEY (`tag_id`)
-    REFERENCES `tag` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_tag_has_hunt_method_type_hunt_method_type1`
-    FOREIGN KEY (`hunt_method_type_id`)
-    REFERENCES `hunt_method_type` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `state_has_hunting_information`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `state_has_hunting_information` ;
-
-CREATE TABLE IF NOT EXISTS `state_has_hunting_information` (
-  `state_id` INT NOT NULL,
-  `hunting_information_id` INT NOT NULL,
-  PRIMARY KEY (`state_id`, `hunting_information_id`),
-  INDEX `fk_state_has_hunting_information_hunting_information1_idx` (`hunting_information_id` ASC),
-  INDEX `fk_state_has_hunting_information_state1_idx` (`state_id` ASC),
-  CONSTRAINT `fk_state_has_hunting_information_state1`
-    FOREIGN KEY (`state_id`)
-    REFERENCES `state` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_state_has_hunting_information_hunting_information1`
-    FOREIGN KEY (`hunting_information_id`)
-    REFERENCES `hunting_information` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `season_has_hunt_method_type`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `season_has_hunt_method_type` ;
-
-CREATE TABLE IF NOT EXISTS `season_has_hunt_method_type` (
-  `season_id` INT NOT NULL,
-  `hunt_method_type_id` INT NOT NULL,
-  PRIMARY KEY (`season_id`, `hunt_method_type_id`),
-  INDEX `fk_season_has_hunt_method_type_hunt_method_type1_idx` (`hunt_method_type_id` ASC),
-  INDEX `fk_season_has_hunt_method_type_season1_idx` (`season_id` ASC),
-  CONSTRAINT `fk_season_has_hunt_method_type_season1`
-    FOREIGN KEY (`season_id`)
-    REFERENCES `season` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_season_has_hunt_method_type_hunt_method_type1`
-    FOREIGN KEY (`hunt_method_type_id`)
-    REFERENCES `hunt_method_type` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `tag_has_region`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `tag_has_region` ;
-
-CREATE TABLE IF NOT EXISTS `tag_has_region` (
-  `tag_id` INT NOT NULL,
-  `region_id` INT NOT NULL,
-  PRIMARY KEY (`tag_id`, `region_id`),
-  INDEX `fk_tag_has_region_region1_idx` (`region_id` ASC),
-  INDEX `fk_tag_has_region_tag1_idx` (`tag_id` ASC),
-  CONSTRAINT `fk_tag_has_region_tag1`
-    FOREIGN KEY (`tag_id`)
-    REFERENCES `tag` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_tag_has_region_region1`
-    FOREIGN KEY (`region_id`)
-    REFERENCES `region` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `tag_has_unit`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `tag_has_unit` ;
-
-CREATE TABLE IF NOT EXISTS `tag_has_unit` (
-  `tag_id` INT NOT NULL,
-  `unit_id` INT NOT NULL,
-  PRIMARY KEY (`tag_id`, `unit_id`),
-  INDEX `fk_tag_has_unit_unit1_idx` (`unit_id` ASC),
-  INDEX `fk_tag_has_unit_tag1_idx` (`tag_id` ASC),
-  CONSTRAINT `fk_tag_has_unit_tag1`
-    FOREIGN KEY (`tag_id`)
-    REFERENCES `tag` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_tag_has_unit_unit1`
-    FOREIGN KEY (`unit_id`)
-    REFERENCES `unit` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -990,253 +551,28 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `user_has_preference_points`
+-- Table `type`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `user_has_preference_points` ;
+DROP TABLE IF EXISTS `type` ;
 
-CREATE TABLE IF NOT EXISTS `user_has_preference_points` (
-  `user_id` INT NOT NULL,
-  `preference_points_id` INT NOT NULL,
-  PRIMARY KEY (`user_id`, `preference_points_id`),
-  INDEX `fk_user_has_preference_points_preference_points1_idx` (`preference_points_id` ASC),
-  INDEX `fk_user_has_preference_points_user1_idx` (`user_id` ASC),
-  CONSTRAINT `fk_user_has_preference_points_user1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_user_has_preference_points_preference_points1`
-    FOREIGN KEY (`preference_points_id`)
-    REFERENCES `preference_points` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `state_has_preference_points`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `state_has_preference_points` ;
-
-CREATE TABLE IF NOT EXISTS `state_has_preference_points` (
-  `state_id` INT NOT NULL,
-  `preference_points_id` INT NOT NULL,
-  PRIMARY KEY (`state_id`, `preference_points_id`),
-  INDEX `fk_state_has_preference_points_preference_points1_idx` (`preference_points_id` ASC),
-  INDEX `fk_state_has_preference_points_state1_idx` (`state_id` ASC),
-  CONSTRAINT `fk_state_has_preference_points_state1`
-    FOREIGN KEY (`state_id`)
-    REFERENCES `state` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_state_has_preference_points_preference_points1`
-    FOREIGN KEY (`preference_points_id`)
-    REFERENCES `preference_points` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `Pistol`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `Pistol` ;
-
-CREATE TABLE IF NOT EXISTS `Pistol` (
+CREATE TABLE IF NOT EXISTS `type` (
   `id` INT NOT NULL,
-  `name` VARCHAR(45) NULL,
-  `caliber` VARCHAR(45) NULL,
+  `name` VARCHAR(200) NULL,
+  `description` VARCHAR(2000) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `layer`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `layer` ;
+
+CREATE TABLE IF NOT EXISTS `layer` (
+  `id` INT NOT NULL,
   `type` VARCHAR(45) NULL,
-  `description` VARCHAR(2000) NULL,
-  `weapon_id` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_Pistol_weapon1_idx` (`weapon_id` ASC),
-  CONSTRAINT `fk_Pistol_weapon1`
-    FOREIGN KEY (`weapon_id`)
-    REFERENCES `weapon` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `layer_category`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `layer_category` ;
-
-CREATE TABLE IF NOT EXISTS `layer_category` (
-  `id` INT NOT NULL,
-  `name` VARCHAR(45) NULL,
   `description` VARCHAR(45) NULL,
-  `clothing_id` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_layer_category_clothing1_idx` (`clothing_id` ASC),
-  CONSTRAINT `fk_layer_category_clothing1`
-    FOREIGN KEY (`clothing_id`)
-    REFERENCES `clothing` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `top`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `top` ;
-
-CREATE TABLE IF NOT EXISTS `top` (
-  `id` INT NOT NULL,
-  `name` VARCHAR(45) NULL,
-  `description` VARCHAR(2000) NULL,
-  `layer_category_1` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_top_layer_category1_idx` (`layer_category_1` ASC),
-  CONSTRAINT `fk_top_layer_category1`
-    FOREIGN KEY (`layer_category_1`)
-    REFERENCES `layer_category` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `bottom`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `bottom` ;
-
-CREATE TABLE IF NOT EXISTS `bottom` (
-  `id` INT NOT NULL,
-  `name` VARCHAR(45) NULL,
-  `description` VARCHAR(2000) NULL,
-  `layer_category_1` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_bottom_layer_category1_idx` (`layer_category_1` ASC),
-  CONSTRAINT `fk_bottom_layer_category1`
-    FOREIGN KEY (`layer_category_1`)
-    REFERENCES `layer_category` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `underwear`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `underwear` ;
-
-CREATE TABLE IF NOT EXISTS `underwear` (
-  `id` INT NOT NULL,
-  `name` VARCHAR(45) NULL,
-  `description` VARCHAR(2000) NULL,
-  `amount` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_underwear_layer_category1_idx` (`amount` ASC),
-  CONSTRAINT `fk_underwear_layer_category1`
-    FOREIGN KEY (`amount`)
-    REFERENCES `layer_category` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `rain_bottom`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `rain_bottom` ;
-
-CREATE TABLE IF NOT EXISTS `rain_bottom` (
-  `id` INT NOT NULL,
-  `name` VARCHAR(45) NULL,
-  `description` VARCHAR(2000) NULL,
-  `layer_category_1` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_rain_bottom_layer_category2_idx` (`layer_category_1` ASC),
-  CONSTRAINT `fk_rain_bottom_layer_category2`
-    FOREIGN KEY (`layer_category_1`)
-    REFERENCES `layer_category` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `rain_top`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `rain_top` ;
-
-CREATE TABLE IF NOT EXISTS `rain_top` (
-  `id` INT NOT NULL,
-  `name` VARCHAR(45) NULL,
-  `description` VARCHAR(2000) NULL,
-  `layer_category_1` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_rain_bottom_layer_category1_idx` (`layer_category_1` ASC),
-  CONSTRAINT `fk_rain_bottom_layer_category1`
-    FOREIGN KEY (`layer_category_1`)
-    REFERENCES `layer_category` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `socks`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `socks` ;
-
-CREATE TABLE IF NOT EXISTS `socks` (
-  `id` INT NOT NULL,
-  `name` VARCHAR(45) NULL,
-  `description` VARCHAR(2000) NULL,
-  `amount` INT NULL,
-  `layer_category_1` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_socks_layer_category1_idx` (`layer_category_1` ASC),
-  CONSTRAINT `fk_socks_layer_category1`
-    FOREIGN KEY (`layer_category_1`)
-    REFERENCES `layer_category` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `headwear`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `headwear` ;
-
-CREATE TABLE IF NOT EXISTS `headwear` (
-  `id` INT NOT NULL,
-  `name` VARCHAR(45) NULL,
-  `description` VARCHAR(2000) NULL,
-  `layer_category_1` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_headwear_layer_category1_idx` (`layer_category_1` ASC),
-  CONSTRAINT `fk_headwear_layer_category1`
-    FOREIGN KEY (`layer_category_1`)
-    REFERENCES `layer_category` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `leg_gaiter`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `leg_gaiter` ;
-
-CREATE TABLE IF NOT EXISTS `leg_gaiter` (
-  `id` INT NOT NULL,
-  `name` VARCHAR(45) NULL,
-  `description` VARCHAR(2000) NULL,
-  `layer_category_1` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_leg_gaiter_layer_category1_idx` (`layer_category_1` ASC),
-  CONSTRAINT `fk_leg_gaiter_layer_category1`
-    FOREIGN KEY (`layer_category_1`)
-    REFERENCES `layer_category` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
@@ -1254,68 +590,147 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `watch`
+-- Table `weapon_has_type`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `watch` ;
+DROP TABLE IF EXISTS `weapon_has_type` ;
 
-CREATE TABLE IF NOT EXISTS `watch` (
+CREATE TABLE IF NOT EXISTS `weapon_has_type` (
+  `weapon_id` INT NOT NULL,
+  `type_id` INT NOT NULL,
+  PRIMARY KEY (`weapon_id`, `type_id`),
+  INDEX `fk_weapon_has_type_type1_idx` (`type_id` ASC),
+  INDEX `fk_weapon_has_type_weapon1_idx` (`weapon_id` ASC),
+  CONSTRAINT `fk_weapon_has_type_weapon1`
+    FOREIGN KEY (`weapon_id`)
+    REFERENCES `weapon` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_weapon_has_type_type1`
+    FOREIGN KEY (`type_id`)
+    REFERENCES `type` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `accessories`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `accessories` ;
+
+CREATE TABLE IF NOT EXISTS `accessories` (
   `id` INT NOT NULL,
-  `name` VARCHAR(45) NULL,
+  `brand` VARCHAR(200) NULL,
+  `model` VARCHAR(200) NULL,
   `description` VARCHAR(2000) NULL,
-  `layer_category_1` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_watch_layer_category1_idx` (`layer_category_1` ASC),
-  CONSTRAINT `fk_watch_layer_category1`
-    FOREIGN KEY (`layer_category_1`)
-    REFERENCES `layer_category` (`id`)
+  `weight` DOUBLE NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `weapon_has_accessories`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `weapon_has_accessories` ;
+
+CREATE TABLE IF NOT EXISTS `weapon_has_accessories` (
+  `accessories_id` INT NOT NULL,
+  `weapon_id` INT NOT NULL,
+  PRIMARY KEY (`accessories_id`, `weapon_id`),
+  INDEX `fk_accessories_has_weapon_weapon1_idx` (`weapon_id` ASC),
+  INDEX `fk_accessories_has_weapon_accessories1_idx` (`accessories_id` ASC),
+  CONSTRAINT `fk_accessories_has_weapon_accessories1`
+    FOREIGN KEY (`accessories_id`)
+    REFERENCES `accessories` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_accessories_has_weapon_weapon1`
+    FOREIGN KEY (`weapon_id`)
+    REFERENCES `weapon` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `items_worn_has_clothing`
+-- Table `hunt_trip_has_user`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `items_worn_has_clothing` ;
+DROP TABLE IF EXISTS `hunt_trip_has_user` ;
 
-CREATE TABLE IF NOT EXISTS `items_worn_has_clothing` (
-  `items_worn_id` INT NOT NULL,
-  `clothing_id` INT NOT NULL,
-  PRIMARY KEY (`items_worn_id`, `clothing_id`),
-  INDEX `fk_items_worn_has_clothing_clothing1_idx` (`clothing_id` ASC),
-  INDEX `fk_items_worn_has_clothing_items_worn1_idx` (`items_worn_id` ASC),
-  CONSTRAINT `fk_items_worn_has_clothing_items_worn1`
-    FOREIGN KEY (`items_worn_id`)
-    REFERENCES `items_worn` (`id`)
+CREATE TABLE IF NOT EXISTS `hunt_trip_has_user` (
+  `hunt_trip_id` INT NOT NULL,
+  `user_id` INT NOT NULL,
+  PRIMARY KEY (`hunt_trip_id`, `user_id`),
+  INDEX `fk_hunt_trip_has_user_user1_idx` (`user_id` ASC),
+  INDEX `fk_hunt_trip_has_user_hunt_trip1_idx` (`hunt_trip_id` ASC),
+  CONSTRAINT `fk_hunt_trip_has_user_hunt_trip1`
+    FOREIGN KEY (`hunt_trip_id`)
+    REFERENCES `hunt_trip` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_items_worn_has_clothing_clothing1`
-    FOREIGN KEY (`clothing_id`)
-    REFERENCES `clothing` (`id`)
+  CONSTRAINT `fk_hunt_trip_has_user_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `clothes_packed_has_clothing`
+-- Table `category`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `clothes_packed_has_clothing` ;
+DROP TABLE IF EXISTS `category` ;
 
-CREATE TABLE IF NOT EXISTS `clothes_packed_has_clothing` (
-  `clothes_packed_id` INT NOT NULL,
+CREATE TABLE IF NOT EXISTS `category` (
+  `id` INT NOT NULL,
+  `type` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `clothing_has_category`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `clothing_has_category` ;
+
+CREATE TABLE IF NOT EXISTS `clothing_has_category` (
   `clothing_id` INT NOT NULL,
-  PRIMARY KEY (`clothes_packed_id`, `clothing_id`),
-  INDEX `fk_clothes_packed_has_clothing_clothing1_idx` (`clothing_id` ASC),
-  INDEX `fk_clothes_packed_has_clothing_clothes_packed1_idx` (`clothes_packed_id` ASC),
-  CONSTRAINT `fk_clothes_packed_has_clothing_clothes_packed1`
-    FOREIGN KEY (`clothes_packed_id`)
-    REFERENCES `clothes_packed` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_clothes_packed_has_clothing_clothing1`
+  `category_id` INT NOT NULL,
+  PRIMARY KEY (`clothing_id`, `category_id`),
+  INDEX `fk_clothing_has_category_category1_idx` (`category_id` ASC),
+  INDEX `fk_clothing_has_category_clothing1_idx` (`clothing_id` ASC),
+  CONSTRAINT `fk_clothing_has_category_clothing1`
     FOREIGN KEY (`clothing_id`)
     REFERENCES `clothing` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_clothing_has_category_category1`
+    FOREIGN KEY (`category_id`)
+    REFERENCES `category` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `clothing_has_layer`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `clothing_has_layer` ;
+
+CREATE TABLE IF NOT EXISTS `clothing_has_layer` (
+  `clothing_id` INT NOT NULL,
+  `layer_id` INT NOT NULL,
+  PRIMARY KEY (`clothing_id`, `layer_id`),
+  INDEX `fk_clothing_has_layer_layer1_idx` (`layer_id` ASC),
+  INDEX `fk_clothing_has_layer_clothing1_idx` (`clothing_id` ASC),
+  CONSTRAINT `fk_clothing_has_layer_clothing1`
+    FOREIGN KEY (`clothing_id`)
+    REFERENCES `clothing` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_clothing_has_layer_layer1`
+    FOREIGN KEY (`layer_id`)
+    REFERENCES `layer` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -1368,22 +783,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `clothing` (`id`, `items_worn`, `items_packed`, `description`) VALUES (1, 0, 1, 'List of clothes for antelope hunt packed');
-INSERT INTO `clothing` (`id`, `items_worn`, `items_packed`, `description`) VALUES (2, 1, 0, 'List of clothes for antelope hunt worn');
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `state`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `outbounddb`;
-INSERT INTO `state` (`id`, `name`, `abbr`) VALUES (1, 'Alaska', 'AK');
-INSERT INTO `state` (`id`, `name`, `abbr`) VALUES (2, 'Colorado', 'CO');
-INSERT INTO `state` (`id`, `name`, `abbr`) VALUES (3, 'Washington', 'WA');
-INSERT INTO `state` (`id`, `name`, `abbr`) VALUES (4, 'Wyoming', 'WY');
-INSERT INTO `state` (`id`, `name`, `abbr`) VALUES (5, 'Nebraska', 'NE');
+INSERT INTO `clothing` (`id`, `brand`, `model`, `description`, `weight`, `items_packed`, `items_worn`, `gear_list_id`) VALUES (1, 'FirstLite', 'Corrugate Guide Pant', 'These nylon pants are constructed around a simple design concept that allows the hunter uninhibited freedom of movement while providing easy access to storage by way of our 3D double cargo pockets', .5, 0, 1, 1);
 
 COMMIT;
 
@@ -1393,7 +793,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `license` (`id`, `license_number`, `year`, `type`, `from_date`, `end_date`, `purchase_date`, `user_id`, `sportsmans_number`, `state_id`) VALUES (1, 'LN 21162119583', 2021, 'general', NULL, NULL, NULL, 1, 2064906149, 4);
+INSERT INTO `license` (`id`, `license_number`, `year`, `type`, `from_date`, `end_date`, `purchase_date`, `sportsmans_number`) VALUES (1, 'LN 21162119583', 2021, 'general', NULL, NULL, NULL, 2064906149);
 
 COMMIT;
 
@@ -1403,9 +803,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `weapon` (`id`, `description`, `gear_list_id`) VALUES (1, 'Rifle', 1);
-INSERT INTO `weapon` (`id`, `description`, `gear_list_id`) VALUES (2, 'Bow', 1);
-INSERT INTO `weapon` (`id`, `description`, `gear_list_id`) VALUES (3, 'Pistol', 1);
+INSERT INTO `weapon` (`id`, `brand`, `model`, `description`, `weight`, `gear_list_id`) VALUES (1, 'Matthews', 'Vertix', 'Compound Bow', 4.67, 1);
+INSERT INTO `weapon` (`id`, `brand`, `model`, `description`, `weight`, `gear_list_id`) VALUES (2, 'Savage', 'Axis 2', 'Bolt Action Rifle', 9.88, 1);
 
 COMMIT;
 
@@ -1415,9 +814,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `first_aid` (`id`, `item_name`, `description`, `gear_list_id`) VALUES (1, 'Basic First Aid Kit', 'First Aid Essentials', 1);
-INSERT INTO `first_aid` (`id`, `item_name`, `description`, `gear_list_id`) VALUES (2, 'Tourniquet', 'To stop blood flow', 1);
-INSERT INTO `first_aid` (`id`, `item_name`, `description`, `gear_list_id`) VALUES (3, 'Blood Clot Powder', 'to clot blood on open wounds', 1);
+INSERT INTO `first_aid` (`id`, `brand`, `model`, `description`, `weight`, `gear_list_id`) VALUES (1, 'Adventure Med Kits', 'Ultralight/ Watertight .9 Med Kit', 'The kit features two layers of rugged waterproofing protection, keeping the contents safe and dry even in the most extreme elements. Ideal for ultralight hiking, this kit lets you keep weight to a minimum, as it weighs less than 8 oz., while still being prepared. ', .75, 1);
 
 COMMIT;
 
@@ -1427,27 +824,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `sleeping_gear` (`id`, `sleeping_bag`, `shelter`, `ground_sheet`, `sleeping_pad`, `tent_pole`, `tent_stakes`, `stuff_sack`, `gear_id`, `description`) VALUES (1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL);
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `items_worn`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `outbounddb`;
-INSERT INTO `items_worn` (`id`, `description`) VALUES (1, 'Clothes worn');
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `clothes_packed`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `outbounddb`;
-INSERT INTO `clothes_packed` (`id`, `description`) VALUES (1, 'Clothes in pack');
+INSERT INTO `sleeping_gear` (`id`, `brand`, `model`, `description`, `weight`, `gear_list_id`) VALUES (1, 'Ascent', '900', 'light weight down sleeping bag', '3.55', 1);
 
 COMMIT;
 
@@ -1457,7 +834,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `optics` (`id`, `spotting_scope`, `binoculars`, `range_finder`, `bino_adapter`, `lens_cloth`, `tripod`, `phone_adapater`, `bino_harness`, `gear_id`) VALUES (1, 'vortex', 'vortex', 'vortex', 'vortex', 'random', 'vortex carbon', 'random', 'kuiu', 1);
+INSERT INTO `optics` (`id`, `brand`, `model`, `description`, `weight`, `gear_list_id`) VALUES (1, 'Vortex Binoculars', 'Diamondback HD 12x50', 'The Diamondback® HD smashes the scale of price vs performance, delivering a rock-solid optic that optically punches high above its class.', 1.80, 1);
 
 COMMIT;
 
@@ -1467,7 +844,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `backpack` (`id`, `pack`, `rain_cover`, `description`, `gear_id`) VALUES (1, 'Striker Kifaru', 'Striker Kifaru', 'short day pack', 1);
+INSERT INTO `backpack` (`id`, `brand`, `model`, `description`, `weight`, `gear_list_id`) VALUES (1, 'Kifaru', 'Fulcrum', 'Functional, versatile and durable are just a few words that describe the Fulcrum', 3.4, 1);
 
 COMMIT;
 
@@ -1477,29 +854,9 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `misc_gear` (`id`, `item`, `description`, `gear_id`) VALUES (1, 'Black Diamond', 'light weight black dimond trekking poles', 1);
-INSERT INTO `misc_gear` (`id`, `item`, `description`, `gear_id`) VALUES (2, 'Spot Locator', 'gps locating deviced for emergencies', 1);
-INSERT INTO `misc_gear` (`id`, `item`, `description`, `gear_id`) VALUES (3, 'Bear Spray', 'Bear protection', 1);
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `rifle`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `outbounddb`;
-INSERT INTO `rifle` (`id`, `caliber`, `name`, `type`, `weapon_id`, `description`) VALUES (1, '.308', 'Savage Axis 2', 'bolt action', 1, 'Hunting rifle');
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `bow`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `outbounddb`;
-INSERT INTO `bow` (`id`, `name`, `bow_harness`, `arrows`, `broadheads`, `weapon_id`, `description`) VALUES (1, 'Matthew Vertix', 'Kuiu', 'Easton', 'G2', 2, 'My overall hunting bow for all hunts');
+INSERT INTO `misc_gear` (`id`, `brand`, `model`, `description`, `weight`, `gear_list_id`) VALUES (1, 'Black Diamond', 'Alpine Carbon Cork', 'Trekking Poles - Pair', 1.06, 1);
+INSERT INTO `misc_gear` (`id`, `brand`, `model`, `description`, `weight`, `gear_list_id`) VALUES (2, 'SPOT', 'Gen 3', 'The latest generation of award-winning SPOT devices from Globalstar, the SPOT Gen3 offers a critical, life-saving line of communication when traveling beyond cellular coverage zones. ', .25, 1);
+INSERT INTO `misc_gear` (`id`, `brand`, `model`, `description`, `weight`, `gear_list_id`) VALUES (3, 'Counter Assault', 'Bear Spray', 'Bear protection with holster', .5, 1);
 
 COMMIT;
 
@@ -1515,12 +872,12 @@ COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `cook_kit`
+-- Data for table `cooking`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `cook_kit` (`id`, `item`, `description`, `amount`, `gear_id`) VALUES (1, 'Jetboil', 'jetboil kit for cooking', 1, 1);
-INSERT INTO `cook_kit` (`id`, `item`, `description`, `amount`, `gear_id`) VALUES (2, 'fuel', 'jet boil fuel', 3, 1);
+INSERT INTO `cooking` (`id`, `brand`, `model`, `description`, `weight`, `quantity`, `gear_list_id`) VALUES (1, 'Jetboil', 'MicroMo', 'Cooking System', .75, 1, 1);
+INSERT INTO `cooking` (`id`, `brand`, `model`, `description`, `weight`, `quantity`, `gear_list_id`) VALUES (2, 'MSR', 'IsoPro', 'jet boil fuel', .25, 3, 1);
 
 COMMIT;
 
@@ -1530,7 +887,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `food` (`id`, `item_name`, `description`, `amount`, `gear_list_id`) VALUES (1, 'freeze dried meals', 'breakfast, lunch and dinner meals- freeze dried', 10, 1);
+INSERT INTO `food` (`id`, `brand`, `item`, `description`, `weight`, `quantity`, `gear_list_id`) VALUES (1, 'Mountain House', 'Beef Strogi ', 'freeze dried food- use with jet boil.', .268, 5, 1);
 
 COMMIT;
 
@@ -1550,7 +907,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `tag` (`id`, `name`, `description`, `license_id`, `tag_number`) VALUES (1, 'Antelope/ Pronghorn', 'antelope for bow season in fall in wyoming', 1, 028810);
+INSERT INTO `tag` (`id`, `name`, `description`, `tag_number`) VALUES (1, 'Antelope/ Pronghorn', 'antelope for bow season in fall in wyoming', 028810);
 
 COMMIT;
 
@@ -1571,6 +928,20 @@ COMMIT;
 START TRANSACTION;
 USE `outbounddb`;
 INSERT INTO `draw_odds` (`id`, `name`, `description`, `state_id`) VALUES ('1', 'Black Bear', 'Black Bear Draw Odds for non residents', 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `state`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `outbounddb`;
+INSERT INTO `state` (`id`, `name`, `abbr`) VALUES (1, 'Alaska', 'AK');
+INSERT INTO `state` (`id`, `name`, `abbr`) VALUES (2, 'Colorado', 'CO');
+INSERT INTO `state` (`id`, `name`, `abbr`) VALUES (3, 'Washington', 'WA');
+INSERT INTO `state` (`id`, `name`, `abbr`) VALUES (4, 'Wyoming', 'WY');
+INSERT INTO `state` (`id`, `name`, `abbr`) VALUES (5, 'Nebraska', 'NE');
 
 COMMIT;
 
@@ -1611,16 +982,6 @@ COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `hunt_user`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `outbounddb`;
-INSERT INTO `hunt_user` (`hunt_trip_id`, `user_id`) VALUES (1, 1);
-
-COMMIT;
-
-
--- -----------------------------------------------------
 -- Data for table `hunt_method_type`
 -- -----------------------------------------------------
 START TRANSACTION;
@@ -1637,12 +998,12 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `season` (`id`, `name`, `description`, `hunting_information_id`) VALUES (1, 'Youth General', 'youth general hunt', 1);
-INSERT INTO `season` (`id`, `name`, `description`, `hunting_information_id`) VALUES (2, 'Youth Late', 'youth late hunt', 1);
-INSERT INTO `season` (`id`, `name`, `description`, `hunting_information_id`) VALUES (3, 'General', 'general hunt', 1);
-INSERT INTO `season` (`id`, `name`, `description`, `hunting_information_id`) VALUES (4, 'Late General', 'late general hunt', 1);
-INSERT INTO `season` (`id`, `name`, `description`, `hunting_information_id`) VALUES (5, 'Hunters Over 65 or Disabled', 'general hunt', 1);
-INSERT INTO `season` (`id`, `name`, `description`, `hunting_information_id`) VALUES (6, 'Early General', 'early general season hunt', 1);
+INSERT INTO `season` (`id`, `name`, `description`) VALUES (1, 'Youth General', 'youth general hunt');
+INSERT INTO `season` (`id`, `name`, `description`) VALUES (2, 'Youth Late', 'youth late hunt');
+INSERT INTO `season` (`id`, `name`, `description`) VALUES (3, 'General', 'general hunt');
+INSERT INTO `season` (`id`, `name`, `description`) VALUES (4, 'Late General', 'late general hunt');
+INSERT INTO `season` (`id`, `name`, `description`) VALUES (5, 'Hunters Over 65 or Disabled', 'general hunt');
+INSERT INTO `season` (`id`, `name`, `description`) VALUES (6, 'Early General', 'early general season hunt');
 
 COMMIT;
 
@@ -1652,7 +1013,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `region` (`id`, `name`, `description`, `season_id`) VALUES (1, 'Hunt Region', 'hunt region if applicable', 3);
+INSERT INTO `region` (`id`, `name`, `description`) VALUES (1, 'Hunt Region', 'hunt region if applicable');
 
 COMMIT;
 
@@ -1662,22 +1023,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `unit` (`id`, `name`, `description`, `season_id`) VALUES (1, 'Hunt Unit 22', 'Hunt Area 22', 3);
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `hunt_method_type_has_hunt_trip`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `outbounddb`;
-INSERT INTO `hunt_method_type_has_hunt_trip` (`hunt_method_type_id`, `hunt_trip_id`) VALUES (1, 1);
-INSERT INTO `hunt_method_type_has_hunt_trip` (`hunt_method_type_id`, `hunt_trip_id`) VALUES (1, 2);
-INSERT INTO `hunt_method_type_has_hunt_trip` (`hunt_method_type_id`, `hunt_trip_id`) VALUES (1, 3);
-INSERT INTO `hunt_method_type_has_hunt_trip` (`hunt_method_type_id`, `hunt_trip_id`) VALUES (2, 1);
-INSERT INTO `hunt_method_type_has_hunt_trip` (`hunt_method_type_id`, `hunt_trip_id`) VALUES (2, 2);
-INSERT INTO `hunt_method_type_has_hunt_trip` (`hunt_method_type_id`, `hunt_trip_id`) VALUES (2, 3);
+INSERT INTO `unit` (`id`, `name`, `description`) VALUES (1, 'Hunt Unit 22', 'Hunt Area 22');
 
 COMMIT;
 
@@ -1688,30 +1034,6 @@ COMMIT;
 START TRANSACTION;
 USE `outbounddb`;
 INSERT INTO `country` (`id`, `name`, `abbr`) VALUES (1, 'United States of America', 'US');
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `address_has_country`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `outbounddb`;
-INSERT INTO `address_has_country` (`address_id`, `country_id`) VALUES (1, 1);
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `state_has_country`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `outbounddb`;
-INSERT INTO `state_has_country` (`state_id`, `country_id`) VALUES (1, 1);
-INSERT INTO `state_has_country` (`state_id`, `country_id`) VALUES (2, 1);
-INSERT INTO `state_has_country` (`state_id`, `country_id`) VALUES (3, 1);
-INSERT INTO `state_has_country` (`state_id`, `country_id`) VALUES (4, 1);
-INSERT INTO `state_has_country` (`state_id`, `country_id`) VALUES (5, 1);
 
 COMMIT;
 
@@ -1728,104 +1050,11 @@ COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `draw_odds_has_residency`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `outbounddb`;
-INSERT INTO `draw_odds_has_residency` (`draw_odds_state_id`, `residency_id`) VALUES (1, 2);
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `species_has_draw_odds`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `outbounddb`;
-INSERT INTO `species_has_draw_odds` (`species_id`, `draw_odds_state_id`) VALUES (1, 1);
-
-COMMIT;
-
-
--- -----------------------------------------------------
 -- Data for table `tag_has_species`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
 INSERT INTO `tag_has_species` (`tag_id`, `species_id`) VALUES (1, 13);
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `hunt_trip_has_species`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `outbounddb`;
-INSERT INTO `hunt_trip_has_species` (`hunt_trip_id`, `species_id`) VALUES (1, 13);
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `license_has_residency`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `outbounddb`;
-INSERT INTO `license_has_residency` (`license_id`, `residency_id`) VALUES (1, 2);
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `tag_has_hunt_method_type`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `outbounddb`;
-INSERT INTO `tag_has_hunt_method_type` (`tag_id`, `hunt_method_type_id`) VALUES (1, 1);
-INSERT INTO `tag_has_hunt_method_type` (`tag_id`, `hunt_method_type_id`) VALUES (1, 2);
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `state_has_hunting_information`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `outbounddb`;
-INSERT INTO `state_has_hunting_information` (`state_id`, `hunting_information_id`) VALUES (4, 1);
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `season_has_hunt_method_type`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `outbounddb`;
-INSERT INTO `season_has_hunt_method_type` (`season_id`, `hunt_method_type_id`) VALUES (1, 1);
-INSERT INTO `season_has_hunt_method_type` (`season_id`, `hunt_method_type_id`) VALUES (1, 2);
-INSERT INTO `season_has_hunt_method_type` (`season_id`, `hunt_method_type_id`) VALUES (1, 3);
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `tag_has_region`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `outbounddb`;
-INSERT INTO `tag_has_region` (`tag_id`, `region_id`) VALUES (1, 1);
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `tag_has_unit`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `outbounddb`;
-INSERT INTO `tag_has_unit` (`tag_id`, `unit_id`) VALUES (1, 1);
 
 COMMIT;
 
@@ -1851,158 +1080,105 @@ COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `user_has_preference_points`
+-- Data for table `type`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `user_has_preference_points` (`user_id`, `preference_points_id`) VALUES (1, 1);
+INSERT INTO `type` (`id`, `name`, `description`) VALUES (1, 'Rifle', 'rifle ');
+INSERT INTO `type` (`id`, `name`, `description`) VALUES (2, 'Bow', 'bow');
+INSERT INTO `type` (`id`, `name`, `description`) VALUES (3, 'Muzzleloader', 'muzzleloader');
 
 COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `state_has_preference_points`
+-- Data for table `layer`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `state_has_preference_points` (`state_id`, `preference_points_id`) VALUES (4, 1);
+INSERT INTO `layer` (`id`, `type`, `description`) VALUES (1, 'Under Layer', 'Under layer packed');
+INSERT INTO `layer` (`id`, `type`, `description`) VALUES (2, 'Mid Layer', 'Mid layer packed');
+INSERT INTO `layer` (`id`, `type`, `description`) VALUES (3, 'Outer Layer', 'Outer layer packed');
 
 COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `Pistol`
+-- Data for table `weapon_has_type`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `Pistol` (`id`, `name`, `caliber`, `type`, `description`, `weapon_id`) VALUES (1, NULL, NULL, NULL, NULL, 3);
+INSERT INTO `weapon_has_type` (`weapon_id`, `type_id`) VALUES (1, 2);
+INSERT INTO `weapon_has_type` (`weapon_id`, `type_id`) VALUES (2, 1);
 
 COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `layer_category`
+-- Data for table `accessories`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `layer_category` (`id`, `name`, `description`, `clothing_id`) VALUES (1, 'Under Layer', 'Under layer packed', 1);
-INSERT INTO `layer_category` (`id`, `name`, `description`, `clothing_id`) VALUES (2, 'Mid Layer', 'Mid layer packed', 1);
-INSERT INTO `layer_category` (`id`, `name`, `description`, `clothing_id`) VALUES (3, 'Outer Layer', 'Outer layer packed', 1);
-INSERT INTO `layer_category` (`id`, `name`, `description`, `clothing_id`) VALUES (4, 'Under Layer', 'Under layer worn', 2);
-INSERT INTO `layer_category` (`id`, `name`, `description`, `clothing_id`) VALUES (5, 'Mid Layer', 'Mid layer worn', 2);
-INSERT INTO `layer_category` (`id`, `name`, `description`, `clothing_id`) VALUES (6, 'Outer Layer', 'Outer layer worn', 2);
+INSERT INTO `accessories` (`id`, `brand`, `model`, `description`, `weight`) VALUES (1, 'Spot Hog', 'Wiseguy ', 'Archery release', .125);
 
 COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `top`
+-- Data for table `weapon_has_accessories`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `top` (`id`, `name`, `description`, `layer_category_1`) VALUES (1, 'First Lite henley', 'underlayer', 1);
-INSERT INTO `top` (`id`, `name`, `description`, `layer_category_1`) VALUES (2, 'First Lite  sweater', 'mid layer sweater for warmth', 2);
+INSERT INTO `weapon_has_accessories` (`accessories_id`, `weapon_id`) VALUES (1, 1);
 
 COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `bottom`
+-- Data for table `hunt_trip_has_user`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `bottom` (`id`, `name`, `description`, `layer_category_1`) VALUES (1, 'First Lite zip off long johns', 'under layer long jobs for zip off quickly', 1);
-INSERT INTO `bottom` (`id`, `name`, `description`, `layer_category_1`) VALUES (2, 'First Lite pants', 'water resistant pants', 3);
+INSERT INTO `hunt_trip_has_user` (`hunt_trip_id`, `user_id`) VALUES (1, 1);
 
 COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `underwear`
+-- Data for table `category`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `underwear` (`id`, `name`, `description`, `amount`) VALUES (1, 'First Lite underwear', 'lightweight moisture wicking underwear', 2);
+INSERT INTO `category` (`id`, `type`) VALUES (1, 'headwear');
+INSERT INTO `category` (`id`, `type`) VALUES (2, 'neckwear');
+INSERT INTO `category` (`id`, `type`) VALUES (3, 'top');
+INSERT INTO `category` (`id`, `type`) VALUES (4, 'belt');
+INSERT INTO `category` (`id`, `type`) VALUES (5, 'bottom');
+INSERT INTO `category` (`id`, `type`) VALUES (6, 'socks');
+INSERT INTO `category` (`id`, `type`) VALUES (7, 'footwear');
+INSERT INTO `category` (`id`, `type`) VALUES (8, 'watch');
+INSERT INTO `category` (`id`, `type`) VALUES (9, 'gloves');
+INSERT INTO `category` (`id`, `type`) VALUES (10, 'eyewear');
 
 COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `rain_bottom`
+-- Data for table `clothing_has_category`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `rain_bottom` (`id`, `name`, `description`, `layer_category_1`) VALUES (1, 'First Lite Rain pants', 'water proof rain pants', 3);
+INSERT INTO `clothing_has_category` (`clothing_id`, `category_id`) VALUES (1, 5);
 
 COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `rain_top`
+-- Data for table `clothing_has_layer`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `rain_top` (`id`, `name`, `description`, `layer_category_1`) VALUES (1, 'First lite thunder storm rain jacket', 'water proof rain jacket', 3);
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `socks`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `outbounddb`;
-INSERT INTO `socks` (`id`, `name`, `description`, `amount`, `layer_category_1`) VALUES (1, 'Smart Wool', 'mositure wicking socks', 3, 1);
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `headwear`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `outbounddb`;
-INSERT INTO `headwear` (`id`, `name`, `description`, `layer_category_1`) VALUES (1, 'First Lite Hat', 'First Lite hat- brown', 3);
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `leg_gaiter`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `outbounddb`;
-INSERT INTO `leg_gaiter` (`id`, `name`, `description`, `layer_category_1`) VALUES (1, 'First Lite  leg gatiers', 'gaiters to keep boots, socks and bottoms of pants dry and dirt free', 3);
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `watch`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `outbounddb`;
-INSERT INTO `watch` (`id`, `name`, `description`, `layer_category_1`) VALUES (1, 'Garmin Felix 9', 'GPS garmin watch', 3);
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `items_worn_has_clothing`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `outbounddb`;
-INSERT INTO `items_worn_has_clothing` (`items_worn_id`, `clothing_id`) VALUES (1, 2);
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `clothes_packed_has_clothing`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `outbounddb`;
-INSERT INTO `clothes_packed_has_clothing` (`clothes_packed_id`, `clothing_id`) VALUES (1, 1);
+INSERT INTO `clothing_has_layer` (`clothing_id`, `layer_id`) VALUES (1, 3);
 
 COMMIT;
 
