@@ -1,6 +1,5 @@
 package com.skilldistillery.outbound.entities.gearlist;
 
-
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -8,16 +7,19 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+
 @Entity
-public class GearList {
-	
+public class ClothingLayer {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-
+	
+	private String type;
+	
 	private String description;
 
-	public GearList() {
+	public ClothingLayer() {
 		super();
 	}
 
@@ -27,6 +29,14 @@ public class GearList {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public String getDescription() {
@@ -39,12 +49,12 @@ public class GearList {
 
 	@Override
 	public String toString() {
-		return "GearList [id=" + id + ", description=" + description + "]";
+		return "ClothingLayerTest [id=" + id + ", type=" + type + ", description=" + description + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(description, id);
+		return Objects.hash(description, id, type);
 	}
 
 	@Override
@@ -55,8 +65,9 @@ public class GearList {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		GearList other = (GearList) obj;
-		return Objects.equals(description, other.description) && Objects.equals(id, other.id);
+		ClothingLayer other = (ClothingLayer) obj;
+		return Objects.equals(description, other.description) && Objects.equals(id, other.id)
+				&& Objects.equals(type, other.type);
 	}
 	
 	

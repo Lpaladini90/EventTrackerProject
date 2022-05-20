@@ -2,31 +2,28 @@ package com.skilldistillery.outbound.entities.gearlist;
 
 import java.util.Objects;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class GearItem {
+public class Weapon {
+
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-
+	
 	private String brand;
 	
-	@Column(name="model_name")
-	private String modelName;
+	private String model;
 	
 	private String description;
 	
 	private double weight;
-	
-	private int quantity;
 
-	public GearItem() {
+	public Weapon() {
 		super();
 	}
 
@@ -46,12 +43,12 @@ public class GearItem {
 		this.brand = brand;
 	}
 
-	public String getModelName() {
-		return modelName;
+	public String getModel() {
+		return model;
 	}
 
-	public void setModelName(String modelName) {
-		this.modelName = modelName;
+	public void setModel(String model) {
+		this.model = model;
 	}
 
 	public String getDescription() {
@@ -70,23 +67,15 @@ public class GearItem {
 		this.weight = weight;
 	}
 
-	public int getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
-
 	@Override
 	public String toString() {
-		return "GearItem [id=" + id + ", brand=" + brand + ", modelName=" + modelName + ", description=" + description
-				+ ", weight=" + weight + ", quantity=" + quantity + "]";
+		return "Weapon [id=" + id + ", brand=" + brand + ", model=" + model + ", description=" + description
+				+ ", weight=" + weight + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(brand, description, id, modelName, quantity, weight);
+		return Objects.hash(brand, description, id, model, weight);
 	}
 
 	@Override
@@ -97,12 +86,12 @@ public class GearItem {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		GearItem other = (GearItem) obj;
+		Weapon other = (Weapon) obj;
 		return Objects.equals(brand, other.brand) && Objects.equals(description, other.description)
-				&& Objects.equals(id, other.id) && Objects.equals(modelName, other.modelName)
-				&& quantity == other.quantity
+				&& Objects.equals(id, other.id) && Objects.equals(model, other.model)
 				&& Double.doubleToLongBits(weight) == Double.doubleToLongBits(other.weight);
 	}
+	
 	
 	
 	

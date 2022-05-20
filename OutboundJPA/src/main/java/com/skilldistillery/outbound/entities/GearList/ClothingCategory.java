@@ -1,6 +1,5 @@
 package com.skilldistillery.outbound.entities.gearlist;
 
-
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -8,16 +7,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+
 @Entity
-public class GearList {
-	
+public class ClothingCategory {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	private String type;
 
-	private String description;
-
-	public GearList() {
+	public ClothingCategory() {
 		super();
 	}
 
@@ -29,22 +29,22 @@ public class GearList {
 		this.id = id;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getType() {
+		return type;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	@Override
 	public String toString() {
-		return "GearList [id=" + id + ", description=" + description + "]";
+		return "ClothingCategory [id=" + id + ", type=" + type + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(description, id);
+		return Objects.hash(id, type);
 	}
 
 	@Override
@@ -55,10 +55,9 @@ public class GearList {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		GearList other = (GearList) obj;
-		return Objects.equals(description, other.description) && Objects.equals(id, other.id);
+		ClothingCategory other = (ClothingCategory) obj;
+		return Objects.equals(id, other.id) && Objects.equals(type, other.type);
 	}
-	
 	
 	
 }

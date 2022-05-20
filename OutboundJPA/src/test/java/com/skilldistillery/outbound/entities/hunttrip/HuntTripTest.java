@@ -1,4 +1,4 @@
-package com.skilldistillery.outbound.entities;
+package com.skilldistillery.outbound.entities.hunttrip;
 
 
 

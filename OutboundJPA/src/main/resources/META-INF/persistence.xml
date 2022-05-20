@@ -24,6 +24,13 @@
      
     <class>com.skilldistillery.outbound.entities.gearlist.GearList</class>
     <class>com.skilldistillery.outbound.entities.gearlist.GearItem</class>
+    <class>com.skilldistillery.outbound.entities.gearlist.Clothing</class>
+    <class>com.skilldistillery.outbound.entities.gearlist.ClothingCategory</class>
+    <class>com.skilldistillery.outbound.entities.gearlist.ClothingLayer</class>
+    <class>com.skilldistillery.outbound.entities.gearlist.GearCategory</class>
+    <class>com.skilldistillery.outbound.entities.gearlist.Weapon</class>
+    <class>com.skilldistillery.outbound.entities.gearlist.WeaponAccessory</class>
+    <class>com.skilldistillery.outbound.entities.gearlist.WeaponType</class>
     
      <!-- Gear List -> Gear Entities  -->
     

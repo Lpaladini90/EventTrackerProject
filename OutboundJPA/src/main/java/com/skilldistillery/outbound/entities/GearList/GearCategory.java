@@ -1,23 +1,26 @@
 package com.skilldistillery.outbound.entities.gearlist;
 
-
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+
 @Entity
-public class GearList {
+public class GearCategory {
+
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	@Column(name="gear_category")
+	private String gearType;
 
-	private String description;
-
-	public GearList() {
+	public GearCategory() {
 		super();
 	}
 
@@ -29,22 +32,22 @@ public class GearList {
 		this.id = id;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getGearType() {
+		return gearType;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setGearType(String gearType) {
+		this.gearType = gearType;
 	}
 
 	@Override
 	public String toString() {
-		return "GearList [id=" + id + ", description=" + description + "]";
+		return "GearCategory [id=" + id + ", gearType=" + gearType + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(description, id);
+		return Objects.hash(gearType, id);
 	}
 
 	@Override
@@ -55,8 +58,8 @@ public class GearList {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		GearList other = (GearList) obj;
-		return Objects.equals(description, other.description) && Objects.equals(id, other.id);
+		GearCategory other = (GearCategory) obj;
+		return Objects.equals(gearType, other.gearType) && Objects.equals(id, other.id);
 	}
 	
 	

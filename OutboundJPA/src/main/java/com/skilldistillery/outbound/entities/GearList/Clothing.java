@@ -9,24 +9,29 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class GearItem {
-	
+public class Clothing {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-
+	
 	private String brand;
 	
-	@Column(name="model_name")
-	private String modelName;
+	private String model;
 	
 	private String description;
 	
 	private double weight;
 	
 	private int quantity;
+	
+	@Column(name="items_packed")
+	private boolean itemsPacked;
+	
+	@Column(name="items_worn")
+	private boolean itemsWorn;
 
-	public GearItem() {
+	public Clothing() {
 		super();
 	}
 
@@ -46,12 +51,12 @@ public class GearItem {
 		this.brand = brand;
 	}
 
-	public String getModelName() {
-		return modelName;
+	public String getModel() {
+		return model;
 	}
 
-	public void setModelName(String modelName) {
-		this.modelName = modelName;
+	public void setModel(String model) {
+		this.model = model;
 	}
 
 	public String getDescription() {
@@ -78,15 +83,32 @@ public class GearItem {
 		this.quantity = quantity;
 	}
 
+	public boolean isItemsPacked() {
+		return itemsPacked;
+	}
+
+	public void setItemsPacked(boolean itemsPacked) {
+		this.itemsPacked = itemsPacked;
+	}
+
+	public boolean isItemsWorn() {
+		return itemsWorn;
+	}
+
+	public void setItemsWorn(boolean itemsWorn) {
+		this.itemsWorn = itemsWorn;
+	}
+
 	@Override
 	public String toString() {
-		return "GearItem [id=" + id + ", brand=" + brand + ", modelName=" + modelName + ", description=" + description
-				+ ", weight=" + weight + ", quantity=" + quantity + "]";
+		return "Clothing [id=" + id + ", brand=" + brand + ", model=" + model + ", description=" + description
+				+ ", weight=" + weight + ", quantity=" + quantity + ", itemsPacked=" + itemsPacked + ", itemsWorn="
+				+ itemsWorn + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(brand, description, id, modelName, quantity, weight);
+		return Objects.hash(brand, description, id, itemsPacked, itemsWorn, model, quantity, weight);
 	}
 
 	@Override
@@ -97,10 +119,10 @@ public class GearItem {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		GearItem other = (GearItem) obj;
+		Clothing other = (Clothing) obj;
 		return Objects.equals(brand, other.brand) && Objects.equals(description, other.description)
-				&& Objects.equals(id, other.id) && Objects.equals(modelName, other.modelName)
-				&& quantity == other.quantity
+				&& Objects.equals(id, other.id) && itemsPacked == other.itemsPacked && itemsWorn == other.itemsWorn
+				&& Objects.equals(model, other.model) && quantity == other.quantity
 				&& Double.doubleToLongBits(weight) == Double.doubleToLongBits(other.weight);
 	}
 	
