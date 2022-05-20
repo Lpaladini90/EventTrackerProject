@@ -121,6 +121,7 @@ CREATE TABLE IF NOT EXISTS `clothing` (
   `items_packed` TINYINT NULL,
   `items_worn` TINYINT NULL,
   `gear_list_id` INT NOT NULL,
+  `quantity` VARCHAR(45) NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_clothing_gear_list1_idx` (`gear_list_id` ASC),
   CONSTRAINT `fk_clothing_gear_list1`
@@ -822,7 +823,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `clothing` (`id`, `brand`, `model`, `description`, `weight`, `items_packed`, `items_worn`, `gear_list_id`) VALUES (1, 'FirstLite', 'Corrugate Guide Pant', 'These nylon pants are constructed around a simple design concept that allows the hunter uninhibited freedom of movement while providing easy access to storage by way of our 3D double cargo pockets', .5, 0, 1, 1);
+INSERT INTO `clothing` (`id`, `brand`, `model`, `description`, `weight`, `items_packed`, `items_worn`, `gear_list_id`, `quantity`) VALUES (1, 'FirstLite', 'Corrugate Guide Pant', 'These nylon pants are constructed around a simple design concept that allows the hunter uninhibited freedom of movement while providing easy access to storage by way of our 3D double cargo pockets', .5, 0, 1, 1, '1');
 
 COMMIT;
 
