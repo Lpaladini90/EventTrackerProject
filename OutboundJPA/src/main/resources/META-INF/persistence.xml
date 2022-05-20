@@ -23,44 +23,11 @@
      <!-- Gear List Entities  -->
      
     <class>com.skilldistillery.outbound.entities.gearlist.GearList</class>
+    <class>com.skilldistillery.outbound.entities.gearlist.GearItem</class>
     
      <!-- Gear List -> Gear Entities  -->
-     
-     <class>com.skilldistillery.outbound.entities.gearlist.gear.Backpack</class>
-     <class>com.skilldistillery.outbound.entities.gearlist.gear.Cooking</class>
-     <class>com.skilldistillery.outbound.entities.gearlist.gear.FirstAid</class>
-     <class>com.skilldistillery.outbound.entities.gearlist.gear.Food</class>
-     <class>com.skilldistillery.outbound.entities.gearlist.gear.Optics</class>
-     <class>com.skilldistillery.outbound.entities.gearlist.gear.Sleeping</class>
-     
-     <!-- Gear List -> Gear -> Weapon Entities  -->
+    
 
-     <class>com.skilldistillery.outbound.entities.gearlist.gear.weapon.Weapon</class>
-     <class>com.skilldistillery.outbound.entities.gearlist.gear.weapon.Pistol</class>
-     <class>com.skilldistillery.outbound.entities.gearlist.gear.weapon.Rifle</class>
-     <class>com.skilldistillery.outbound.entities.gearlist.gear.weapon.Bow</class>
-
-     
-     <!-- Gear List -> Gear -> Clothing  Entities  -->
-     
-     <class>com.skilldistillery.outbound.entities.gearlist.gear.clothing.ItemsPacked</class>
-     <class>com.skilldistillery.outbound.entities.gearlist.gear.clothing.ItemsWorn</class>
-     <class>com.skilldistillery.outbound.entities.gearlist.gear.clothing.LayerCategory</class>
-     
-     
-     <!-- Gear List -> Gear -> Clothing -> Items Entities  -->
-     
-     <class>com.skilldistillery.outbound.entities.gearlist.gear.clothing.items.Boots</class>
-     <class>com.skilldistillery.outbound.entities.gearlist.gear.clothing.items.Bottom</class>
-     <class>com.skilldistillery.outbound.entities.gearlist.gear.clothing.items.Gaiter</class>
-     <class>com.skilldistillery.outbound.entities.gearlist.gear.clothing.items.Headwear</class>
-     <class>com.skilldistillery.outbound.entities.gearlist.gear.clothing.items.Rainbottom</class>
-     <class>com.skilldistillery.outbound.entities.gearlist.gear.clothing.items.Raintop</class>
-     <class>com.skilldistillery.outbound.entities.gearlist.gear.clothing.items.Socks</class>
-     <class>com.skilldistillery.outbound.entities.gearlist.gear.clothing.items.Top</class>
-     <class>com.skilldistillery.outbound.entities.gearlist.gear.clothing.items.Underwear</class>
-     <class>com.skilldistillery.outbound.entities.gearlist.gear.clothing.items.Watch</class>
-     
      
      
      <!-- State Entities  -->
@@ -78,8 +45,6 @@
      
 
      <!-- State Entities  -->
-
-     <class>com.skilldistillery.outbound.entities.country.Country</class>
 
      <!-- END List Entities Here -->
     

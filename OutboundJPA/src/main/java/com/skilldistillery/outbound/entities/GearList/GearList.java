@@ -13,6 +13,6 @@ public class GearList {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	
+	 
 	
 }
