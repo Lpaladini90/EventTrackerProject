@@ -16,6 +16,43 @@ CREATE SCHEMA IF NOT EXISTS `outbounddb` DEFAULT CHARACTER SET utf8 ;
 USE `outbounddb` ;
 
 -- -----------------------------------------------------
+-- Table `country`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `country` ;
+
+CREATE TABLE IF NOT EXISTS `country` (
+  `id` INT NOT NULL,
+  `name` VARCHAR(45) NULL,
+  `abbr` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `address`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `address` ;
+
+CREATE TABLE IF NOT EXISTS `address` (
+  `id` INT NOT NULL,
+  `address` VARCHAR(45) NULL,
+  `address2` VARCHAR(45) NULL,
+  `city` VARCHAR(45) NULL,
+  `state` VARCHAR(45) NULL,
+  `postal_code` VARCHAR(45) NULL,
+  `country_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+  INDEX `fk_address_country1_idx` (`country_id` ASC),
+  CONSTRAINT `fk_address_country1`
+    FOREIGN KEY (`country_id`)
+    REFERENCES `country` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `user`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `user` ;
@@ -30,8 +67,15 @@ CREATE TABLE IF NOT EXISTS `user` (
   `role` VARCHAR(45) NULL,
   `description` VARCHAR(45) NULL,
   `phone` VARCHAR(45) NULL,
+  `address_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `username_UNIQUE` (`username` ASC))
+  UNIQUE INDEX `username_UNIQUE` (`username` ASC),
+  INDEX `fk_user_address1_idx` (`address_id` ASC),
+  CONSTRAINT `fk_user_address1`
+    FOREIGN KEY (`address_id`)
+    REFERENCES `address` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -179,30 +223,6 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `address`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `address` ;
-
-CREATE TABLE IF NOT EXISTS `address` (
-  `id` INT NOT NULL,
-  `address` VARCHAR(45) NULL,
-  `address2` VARCHAR(45) NULL,
-  `city` VARCHAR(45) NULL,
-  `state` VARCHAR(45) NULL,
-  `postal_code` VARCHAR(45) NULL,
-  `user_id` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
-  INDEX `fk_address_user1_idx` (`user_id` ASC),
-  CONSTRAINT `fk_address_user1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `draw_odds`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `draw_odds` ;
@@ -225,7 +245,15 @@ CREATE TABLE IF NOT EXISTS `state` (
   `id` INT NOT NULL,
   `name` VARCHAR(45) NULL,
   `abbr` VARCHAR(45) NULL,
-  PRIMARY KEY (`id`))
+  `country_id` INT NOT NULL,
+  `resident` TINYINT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_state_country1_idx` (`country_id` ASC),
+  CONSTRAINT `fk_state_country1`
+    FOREIGN KEY (`country_id`)
+    REFERENCES `country` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -303,31 +331,6 @@ CREATE TABLE IF NOT EXISTS `unit` (
   `id` INT NOT NULL,
   `name` VARCHAR(45) NULL,
   `description` VARCHAR(45) NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `country`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `country` ;
-
-CREATE TABLE IF NOT EXISTS `country` (
-  `id` INT NOT NULL,
-  `name` VARCHAR(45) NULL,
-  `abbr` VARCHAR(45) NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `residency`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `residency` ;
-
-CREATE TABLE IF NOT EXISTS `residency` (
-  `id` INT NOT NULL,
-  `title` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -655,6 +658,102 @@ CREATE TABLE IF NOT EXISTS `gear_list_has_gear_item` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+
+-- -----------------------------------------------------
+-- Table `preference_points_has_species`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `preference_points_has_species` ;
+
+CREATE TABLE IF NOT EXISTS `preference_points_has_species` (
+  `preference_points_id` INT NOT NULL,
+  `species_id` INT NOT NULL,
+  PRIMARY KEY (`preference_points_id`, `species_id`),
+  INDEX `fk_preference_points_has_species_species1_idx` (`species_id` ASC),
+  INDEX `fk_preference_points_has_species_preference_points1_idx` (`preference_points_id` ASC),
+  CONSTRAINT `fk_preference_points_has_species_preference_points1`
+    FOREIGN KEY (`preference_points_id`)
+    REFERENCES `preference_points` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_preference_points_has_species_species1`
+    FOREIGN KEY (`species_id`)
+    REFERENCES `species` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `hunting_information_has_state`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `hunting_information_has_state` ;
+
+CREATE TABLE IF NOT EXISTS `hunting_information_has_state` (
+  `hunting_information_id` INT NOT NULL,
+  `state_id` INT NOT NULL,
+  PRIMARY KEY (`hunting_information_id`, `state_id`),
+  INDEX `fk_hunting_information_has_state_state1_idx` (`state_id` ASC),
+  INDEX `fk_hunting_information_has_state_hunting_information1_idx` (`hunting_information_id` ASC),
+  CONSTRAINT `fk_hunting_information_has_state_hunting_information1`
+    FOREIGN KEY (`hunting_information_id`)
+    REFERENCES `hunting_information` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_hunting_information_has_state_state1`
+    FOREIGN KEY (`state_id`)
+    REFERENCES `state` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `hunt_method_type_has_hunt_trip`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `hunt_method_type_has_hunt_trip` ;
+
+CREATE TABLE IF NOT EXISTS `hunt_method_type_has_hunt_trip` (
+  `hunt_method_type_id` INT NOT NULL,
+  `hunt_trip_id` INT NOT NULL,
+  PRIMARY KEY (`hunt_method_type_id`, `hunt_trip_id`),
+  INDEX `fk_hunt_method_type_has_hunt_trip_hunt_trip1_idx` (`hunt_trip_id` ASC),
+  INDEX `fk_hunt_method_type_has_hunt_trip_hunt_method_type1_idx` (`hunt_method_type_id` ASC),
+  CONSTRAINT `fk_hunt_method_type_has_hunt_trip_hunt_method_type1`
+    FOREIGN KEY (`hunt_method_type_id`)
+    REFERENCES `hunt_method_type` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_hunt_method_type_has_hunt_trip_hunt_trip1`
+    FOREIGN KEY (`hunt_trip_id`)
+    REFERENCES `hunt_trip` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `hunt_method_type_has_hunting_information`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `hunt_method_type_has_hunting_information` ;
+
+CREATE TABLE IF NOT EXISTS `hunt_method_type_has_hunting_information` (
+  `hunt_method_type_id` INT NOT NULL,
+  `hunting_information_id` INT NOT NULL,
+  PRIMARY KEY (`hunt_method_type_id`, `hunting_information_id`),
+  INDEX `fk_hunt_method_type_has_hunting_information_hunting_informa_idx` (`hunting_information_id` ASC),
+  INDEX `fk_hunt_method_type_has_hunting_information_hunt_method_typ_idx` (`hunt_method_type_id` ASC),
+  CONSTRAINT `fk_hunt_method_type_has_hunting_information_hunt_method_type1`
+    FOREIGN KEY (`hunt_method_type_id`)
+    REFERENCES `hunt_method_type` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_hunt_method_type_has_hunting_information_hunting_informati1`
+    FOREIGN KEY (`hunting_information_id`)
+    REFERENCES `hunting_information` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
 SET SQL_MODE = '';
 DROP USER IF EXISTS outboundadmin@localhost;
 SET SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
@@ -667,11 +766,31 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 -- -----------------------------------------------------
+-- Data for table `country`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `outbounddb`;
+INSERT INTO `country` (`id`, `name`, `abbr`) VALUES (1, 'United States of America', 'US');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `address`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `outbounddb`;
+INSERT INTO `address` (`id`, `address`, `address2`, `city`, `state`, `postal_code`, `country_id`) VALUES (1, '28818 N Hardesty Rd', NULL, 'Chattaroy', 'Washington', '99003', 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
 -- Data for table `user`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `email`, `role`, `description`, `phone`) VALUES (1, 'lpaladini', 'password', 'lucas', 'paladini', 'lpaladini@me.com', 'ADMIN', 'I like to hunt', '(509) 993-8866');
+INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `email`, `role`, `description`, `phone`, `address_id`) VALUES (1, 'lpaladini', 'password', 'lucas', 'paladini', 'lpaladini@me.com', 'ADMIN', 'I like to hunt', '(509) 993-8866', 1);
 
 COMMIT;
 
@@ -760,16 +879,6 @@ COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `address`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `outbounddb`;
-INSERT INTO `address` (`id`, `address`, `address2`, `city`, `state`, `postal_code`, `user_id`) VALUES (1, '28818 N Hardesty Rd', NULL, 'Chattaroy', 'Washington', '99003', 1);
-
-COMMIT;
-
-
--- -----------------------------------------------------
 -- Data for table `draw_odds`
 -- -----------------------------------------------------
 START TRANSACTION;
@@ -784,11 +893,11 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `state` (`id`, `name`, `abbr`) VALUES (1, 'Alaska', 'AK');
-INSERT INTO `state` (`id`, `name`, `abbr`) VALUES (2, 'Colorado', 'CO');
-INSERT INTO `state` (`id`, `name`, `abbr`) VALUES (3, 'Washington', 'WA');
-INSERT INTO `state` (`id`, `name`, `abbr`) VALUES (4, 'Wyoming', 'WY');
-INSERT INTO `state` (`id`, `name`, `abbr`) VALUES (5, 'Nebraska', 'NE');
+INSERT INTO `state` (`id`, `name`, `abbr`, `country_id`, `resident`) VALUES (1, 'Alaska', 'AK', 1, NULL);
+INSERT INTO `state` (`id`, `name`, `abbr`, `country_id`, `resident`) VALUES (2, 'Colorado', 'CO', 1, NULL);
+INSERT INTO `state` (`id`, `name`, `abbr`, `country_id`, `resident`) VALUES (3, 'Washington', 'WA', 1, NULL);
+INSERT INTO `state` (`id`, `name`, `abbr`, `country_id`, `resident`) VALUES (4, 'Wyoming', 'WY', 1, NULL);
+INSERT INTO `state` (`id`, `name`, `abbr`, `country_id`, `resident`) VALUES (5, 'Nebraska', 'NE', 1, NULL);
 
 COMMIT;
 
@@ -871,27 +980,6 @@ COMMIT;
 START TRANSACTION;
 USE `outbounddb`;
 INSERT INTO `unit` (`id`, `name`, `description`) VALUES (1, 'Hunt Unit 22', 'Hunt Area 22');
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `country`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `outbounddb`;
-INSERT INTO `country` (`id`, `name`, `abbr`) VALUES (1, 'United States of America', 'US');
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `residency`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `outbounddb`;
-INSERT INTO `residency` (`id`, `title`) VALUES (1, 'Resident');
-INSERT INTO `residency` (`id`, `title`) VALUES (2, 'Non-Resident');
 
 COMMIT;
 
@@ -1080,6 +1168,46 @@ INSERT INTO `gear_item_has_category` (`gear_item_id`, `category_id`) VALUES (7, 
 INSERT INTO `gear_item_has_category` (`gear_item_id`, `category_id`) VALUES (8, 4);
 INSERT INTO `gear_item_has_category` (`gear_item_id`, `category_id`) VALUES (9, 4);
 INSERT INTO `gear_item_has_category` (`gear_item_id`, `category_id`) VALUES (10, 4);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `preference_points_has_species`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `outbounddb`;
+INSERT INTO `preference_points_has_species` (`preference_points_id`, `species_id`) VALUES (1, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `hunting_information_has_state`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `outbounddb`;
+INSERT INTO `hunting_information_has_state` (`hunting_information_id`, `state_id`) VALUES (1, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `hunt_method_type_has_hunt_trip`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `outbounddb`;
+INSERT INTO `hunt_method_type_has_hunt_trip` (`hunt_method_type_id`, `hunt_trip_id`) VALUES (1, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `hunt_method_type_has_hunting_information`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `outbounddb`;
+INSERT INTO `hunt_method_type_has_hunting_information` (`hunt_method_type_id`, `hunting_information_id`) VALUES (1, 1);
 
 COMMIT;
 
