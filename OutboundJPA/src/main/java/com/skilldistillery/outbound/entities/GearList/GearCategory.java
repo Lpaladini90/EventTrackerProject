@@ -7,9 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 
 @Entity
+@Table(name="gear_category")
 public class GearCategory {
 
 	
@@ -17,7 +19,7 @@ public class GearCategory {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column(name="gear_category")
+	@Column(name="gear_type")
 	private String gearType;
 
 	public GearCategory() {
