@@ -128,116 +128,6 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `first_aid`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `first_aid` ;
-
-CREATE TABLE IF NOT EXISTS `first_aid` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `brand` VARCHAR(200) NULL,
-  `model` VARCHAR(200) NULL,
-  `description` VARCHAR(2000) NULL,
-  `weight` DOUBLE NULL,
-  `gear_list_id` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_first_aid_gear_list1_idx` (`gear_list_id` ASC),
-  CONSTRAINT `fk_first_aid_gear_list1`
-    FOREIGN KEY (`gear_list_id`)
-    REFERENCES `gear_list` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `sleeping_gear`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `sleeping_gear` ;
-
-CREATE TABLE IF NOT EXISTS `sleeping_gear` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `brand` VARCHAR(45) NULL,
-  `model` VARCHAR(45) NULL,
-  `description` VARCHAR(2000) NULL,
-  `weight` VARCHAR(45) NULL,
-  `gear_list_id` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_sleeping_gear_gear_list1_idx` (`gear_list_id` ASC),
-  CONSTRAINT `fk_sleeping_gear_gear_list1`
-    FOREIGN KEY (`gear_list_id`)
-    REFERENCES `gear_list` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `optics`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `optics` ;
-
-CREATE TABLE IF NOT EXISTS `optics` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `brand` VARCHAR(200) NULL,
-  `model` VARCHAR(45) NULL,
-  `description` VARCHAR(2000) NULL,
-  `weight` DOUBLE NULL,
-  `gear_list_id` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_optics_gear_list1_idx` (`gear_list_id` ASC),
-  CONSTRAINT `fk_optics_gear_list1`
-    FOREIGN KEY (`gear_list_id`)
-    REFERENCES `gear_list` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `backpack`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `backpack` ;
-
-CREATE TABLE IF NOT EXISTS `backpack` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `brand` VARCHAR(200) NULL,
-  `model` VARCHAR(200) NULL,
-  `description` VARCHAR(2000) NULL,
-  `weight` DOUBLE NULL,
-  `gear_list_id` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_backpack_gear_list1_idx` (`gear_list_id` ASC),
-  CONSTRAINT `fk_backpack_gear_list1`
-    FOREIGN KEY (`gear_list_id`)
-    REFERENCES `gear_list` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `misc_gear`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `misc_gear` ;
-
-CREATE TABLE IF NOT EXISTS `misc_gear` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `brand` VARCHAR(200) NULL,
-  `model` VARCHAR(200) NULL,
-  `description` VARCHAR(2000) NULL,
-  `weight` DOUBLE NULL,
-  `gear_list_id` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_misc_gear_gear_list1_idx` (`gear_list_id` ASC),
-  CONSTRAINT `fk_misc_gear_gear_list1`
-    FOREIGN KEY (`gear_list_id`)
-    REFERENCES `gear_list` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `weather`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `weather` ;
@@ -247,52 +137,6 @@ CREATE TABLE IF NOT EXISTS `weather` (
   `name` VARCHAR(45) NULL,
   `description` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `cooking`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `cooking` ;
-
-CREATE TABLE IF NOT EXISTS `cooking` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `brand` VARCHAR(200) NULL,
-  `model` VARCHAR(200) NULL,
-  `description` VARCHAR(2000) NULL,
-  `weight` DOUBLE NULL,
-  `quantity` INT NULL,
-  `gear_list_id` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_cook_kit_gear_list1_idx` (`gear_list_id` ASC),
-  CONSTRAINT `fk_cook_kit_gear_list1`
-    FOREIGN KEY (`gear_list_id`)
-    REFERENCES `gear_list` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `food`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `food` ;
-
-CREATE TABLE IF NOT EXISTS `food` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `brand` VARCHAR(200) NULL,
-  `item` VARCHAR(200) NULL,
-  `description` VARCHAR(2000) NULL,
-  `weight` DOUBLE NULL,
-  `quantity` INT NULL,
-  `gear_list_id` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_food_gear_list1_idx` (`gear_list_id` ASC),
-  CONSTRAINT `fk_food_gear_list1`
-    FOREIGN KEY (`gear_list_id`)
-    REFERENCES `gear_list` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -551,11 +395,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `type`
+-- Table `weapon_type`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `type` ;
+DROP TABLE IF EXISTS `weapon_type` ;
 
-CREATE TABLE IF NOT EXISTS `type` (
+CREATE TABLE IF NOT EXISTS `weapon_type` (
   `id` INT NOT NULL,
   `name` VARCHAR(200) NULL,
   `description` VARCHAR(2000) NULL,
@@ -564,11 +408,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `layer`
+-- Table `clothing_layer`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `layer` ;
+DROP TABLE IF EXISTS `clothing_layer` ;
 
-CREATE TABLE IF NOT EXISTS `layer` (
+CREATE TABLE IF NOT EXISTS `clothing_layer` (
   `id` INT NOT NULL,
   `type` VARCHAR(45) NULL,
   `description` VARCHAR(45) NULL,
@@ -607,18 +451,18 @@ CREATE TABLE IF NOT EXISTS `weapon_has_type` (
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_weapon_has_type_type1`
     FOREIGN KEY (`type_id`)
-    REFERENCES `type` (`id`)
+    REFERENCES `weapon_type` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `accessories`
+-- Table `weapon_accessories`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `accessories` ;
+DROP TABLE IF EXISTS `weapon_accessories` ;
 
-CREATE TABLE IF NOT EXISTS `accessories` (
+CREATE TABLE IF NOT EXISTS `weapon_accessories` (
   `id` INT NOT NULL,
   `brand` VARCHAR(200) NULL,
   `model` VARCHAR(200) NULL,
@@ -641,7 +485,7 @@ CREATE TABLE IF NOT EXISTS `weapon_has_accessories` (
   INDEX `fk_accessories_has_weapon_accessories1_idx` (`accessories_id` ASC),
   CONSTRAINT `fk_accessories_has_weapon_accessories1`
     FOREIGN KEY (`accessories_id`)
-    REFERENCES `accessories` (`id`)
+    REFERENCES `weapon_accessories` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_accessories_has_weapon_weapon1`
@@ -677,11 +521,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `category`
+-- Table `clothing_category`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `category` ;
+DROP TABLE IF EXISTS `clothing_category` ;
 
-CREATE TABLE IF NOT EXISTS `category` (
+CREATE TABLE IF NOT EXISTS `clothing_category` (
   `id` INT NOT NULL,
   `type` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
@@ -706,7 +550,7 @@ CREATE TABLE IF NOT EXISTS `clothing_has_category` (
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_clothing_has_category_category1`
     FOREIGN KEY (`category_id`)
-    REFERENCES `category` (`id`)
+    REFERENCES `clothing_category` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -730,7 +574,83 @@ CREATE TABLE IF NOT EXISTS `clothing_has_layer` (
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_clothing_has_layer_layer1`
     FOREIGN KEY (`layer_id`)
-    REFERENCES `layer` (`id`)
+    REFERENCES `clothing_layer` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `gear_item`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `gear_item` ;
+
+CREATE TABLE IF NOT EXISTS `gear_item` (
+  `id` INT NOT NULL,
+  `brand` VARCHAR(200) NULL,
+  `model_name` VARCHAR(200) NULL,
+  `description` VARCHAR(2000) NULL,
+  `weight` DOUBLE NULL,
+  `quantity` INT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `gear_category`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `gear_category` ;
+
+CREATE TABLE IF NOT EXISTS `gear_category` (
+  `id` INT NOT NULL,
+  `gear_type` VARCHAR(200) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `gear_item_has_category`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `gear_item_has_category` ;
+
+CREATE TABLE IF NOT EXISTS `gear_item_has_category` (
+  `gear_item_id` INT NOT NULL,
+  `category_id` INT NOT NULL,
+  PRIMARY KEY (`gear_item_id`, `category_id`),
+  INDEX `fk_gear_item_has_category_category1_idx` (`category_id` ASC),
+  INDEX `fk_gear_item_has_category_gear_item1_idx` (`gear_item_id` ASC),
+  CONSTRAINT `fk_gear_item_has_category_gear_item1`
+    FOREIGN KEY (`gear_item_id`)
+    REFERENCES `gear_item` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_gear_item_has_category_category1`
+    FOREIGN KEY (`category_id`)
+    REFERENCES `gear_category` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `gear_list_has_gear_item`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `gear_list_has_gear_item` ;
+
+CREATE TABLE IF NOT EXISTS `gear_list_has_gear_item` (
+  `gear_list_id` INT NOT NULL,
+  `gear_item_id` INT NOT NULL,
+  PRIMARY KEY (`gear_list_id`, `gear_item_id`),
+  INDEX `fk_gear_list_has_gear_item_gear_item1_idx` (`gear_item_id` ASC),
+  INDEX `fk_gear_list_has_gear_item_gear_list1_idx` (`gear_list_id` ASC),
+  CONSTRAINT `fk_gear_list_has_gear_item_gear_list1`
+    FOREIGN KEY (`gear_list_id`)
+    REFERENCES `gear_list` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_gear_list_has_gear_item_gear_item1`
+    FOREIGN KEY (`gear_item_id`)
+    REFERENCES `gear_item` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -810,84 +730,11 @@ COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `first_aid`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `outbounddb`;
-INSERT INTO `first_aid` (`id`, `brand`, `model`, `description`, `weight`, `gear_list_id`) VALUES (1, 'Adventure Med Kits', 'Ultralight/ Watertight .9 Med Kit', 'The kit features two layers of rugged waterproofing protection, keeping the contents safe and dry even in the most extreme elements. Ideal for ultralight hiking, this kit lets you keep weight to a minimum, as it weighs less than 8 oz., while still being prepared. ', .75, 1);
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `sleeping_gear`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `outbounddb`;
-INSERT INTO `sleeping_gear` (`id`, `brand`, `model`, `description`, `weight`, `gear_list_id`) VALUES (1, 'Ascent', '900', 'light weight down sleeping bag', '3.55', 1);
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `optics`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `outbounddb`;
-INSERT INTO `optics` (`id`, `brand`, `model`, `description`, `weight`, `gear_list_id`) VALUES (1, 'Vortex Binoculars', 'Diamondback HD 12x50', 'The Diamondback® HD smashes the scale of price vs performance, delivering a rock-solid optic that optically punches high above its class.', 1.80, 1);
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `backpack`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `outbounddb`;
-INSERT INTO `backpack` (`id`, `brand`, `model`, `description`, `weight`, `gear_list_id`) VALUES (1, 'Kifaru', 'Fulcrum', 'Functional, versatile and durable are just a few words that describe the Fulcrum', 3.4, 1);
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `misc_gear`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `outbounddb`;
-INSERT INTO `misc_gear` (`id`, `brand`, `model`, `description`, `weight`, `gear_list_id`) VALUES (1, 'Black Diamond', 'Alpine Carbon Cork', 'Trekking Poles - Pair', 1.06, 1);
-INSERT INTO `misc_gear` (`id`, `brand`, `model`, `description`, `weight`, `gear_list_id`) VALUES (2, 'SPOT', 'Gen 3', 'The latest generation of award-winning SPOT devices from Globalstar, the SPOT Gen3 offers a critical, life-saving line of communication when traveling beyond cellular coverage zones. ', .25, 1);
-INSERT INTO `misc_gear` (`id`, `brand`, `model`, `description`, `weight`, `gear_list_id`) VALUES (3, 'Counter Assault', 'Bear Spray', 'Bear protection with holster', .5, 1);
-
-COMMIT;
-
-
--- -----------------------------------------------------
 -- Data for table `weather`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
 INSERT INTO `weather` (`id`, `name`, `description`) VALUES (1, NULL, NULL);
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `cooking`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `outbounddb`;
-INSERT INTO `cooking` (`id`, `brand`, `model`, `description`, `weight`, `quantity`, `gear_list_id`) VALUES (1, 'Jetboil', 'MicroMo', 'Cooking System', .75, 1, 1);
-INSERT INTO `cooking` (`id`, `brand`, `model`, `description`, `weight`, `quantity`, `gear_list_id`) VALUES (2, 'MSR', 'IsoPro', 'jet boil fuel', .25, 3, 1);
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `food`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `outbounddb`;
-INSERT INTO `food` (`id`, `brand`, `item`, `description`, `weight`, `quantity`, `gear_list_id`) VALUES (1, 'Mountain House', 'Beef Strogi ', 'freeze dried food- use with jet boil.', .268, 5, 1);
 
 COMMIT;
 
@@ -1080,25 +927,25 @@ COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `type`
+-- Data for table `weapon_type`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `type` (`id`, `name`, `description`) VALUES (1, 'Rifle', 'rifle ');
-INSERT INTO `type` (`id`, `name`, `description`) VALUES (2, 'Bow', 'bow');
-INSERT INTO `type` (`id`, `name`, `description`) VALUES (3, 'Muzzleloader', 'muzzleloader');
+INSERT INTO `weapon_type` (`id`, `name`, `description`) VALUES (1, 'Rifle', 'rifle ');
+INSERT INTO `weapon_type` (`id`, `name`, `description`) VALUES (2, 'Bow', 'bow');
+INSERT INTO `weapon_type` (`id`, `name`, `description`) VALUES (3, 'Muzzleloader', 'muzzleloader');
 
 COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `layer`
+-- Data for table `clothing_layer`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `layer` (`id`, `type`, `description`) VALUES (1, 'Under Layer', 'Under layer packed');
-INSERT INTO `layer` (`id`, `type`, `description`) VALUES (2, 'Mid Layer', 'Mid layer packed');
-INSERT INTO `layer` (`id`, `type`, `description`) VALUES (3, 'Outer Layer', 'Outer layer packed');
+INSERT INTO `clothing_layer` (`id`, `type`, `description`) VALUES (1, 'Under Layer', 'Under layer packed');
+INSERT INTO `clothing_layer` (`id`, `type`, `description`) VALUES (2, 'Mid Layer', 'Mid layer packed');
+INSERT INTO `clothing_layer` (`id`, `type`, `description`) VALUES (3, 'Outer Layer', 'Outer layer packed');
 
 COMMIT;
 
@@ -1115,11 +962,11 @@ COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `accessories`
+-- Data for table `weapon_accessories`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `accessories` (`id`, `brand`, `model`, `description`, `weight`) VALUES (1, 'Spot Hog', 'Wiseguy ', 'Archery release', .125);
+INSERT INTO `weapon_accessories` (`id`, `brand`, `model`, `description`, `weight`) VALUES (1, 'Spot Hog', 'Wiseguy ', 'Archery release', .125);
 
 COMMIT;
 
@@ -1145,20 +992,20 @@ COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `category`
+-- Data for table `clothing_category`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `category` (`id`, `type`) VALUES (1, 'headwear');
-INSERT INTO `category` (`id`, `type`) VALUES (2, 'neckwear');
-INSERT INTO `category` (`id`, `type`) VALUES (3, 'top');
-INSERT INTO `category` (`id`, `type`) VALUES (4, 'belt');
-INSERT INTO `category` (`id`, `type`) VALUES (5, 'bottom');
-INSERT INTO `category` (`id`, `type`) VALUES (6, 'socks');
-INSERT INTO `category` (`id`, `type`) VALUES (7, 'footwear');
-INSERT INTO `category` (`id`, `type`) VALUES (8, 'watch');
-INSERT INTO `category` (`id`, `type`) VALUES (9, 'gloves');
-INSERT INTO `category` (`id`, `type`) VALUES (10, 'eyewear');
+INSERT INTO `clothing_category` (`id`, `type`) VALUES (1, 'headwear');
+INSERT INTO `clothing_category` (`id`, `type`) VALUES (2, 'neckwear');
+INSERT INTO `clothing_category` (`id`, `type`) VALUES (3, 'top');
+INSERT INTO `clothing_category` (`id`, `type`) VALUES (4, 'belt');
+INSERT INTO `clothing_category` (`id`, `type`) VALUES (5, 'bottom');
+INSERT INTO `clothing_category` (`id`, `type`) VALUES (6, 'socks');
+INSERT INTO `clothing_category` (`id`, `type`) VALUES (7, 'footwear');
+INSERT INTO `clothing_category` (`id`, `type`) VALUES (8, 'watch');
+INSERT INTO `clothing_category` (`id`, `type`) VALUES (9, 'gloves');
+INSERT INTO `clothing_category` (`id`, `type`) VALUES (10, 'eyewear');
 
 COMMIT;
 
@@ -1179,6 +1026,60 @@ COMMIT;
 START TRANSACTION;
 USE `outbounddb`;
 INSERT INTO `clothing_has_layer` (`clothing_id`, `layer_id`) VALUES (1, 3);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `gear_item`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `outbounddb`;
+INSERT INTO `gear_item` (`id`, `brand`, `model_name`, `description`, `weight`, `quantity`) VALUES (1, 'Kifaru', 'Fulcrum', 'Functional, versatile and durable are just a few words that describe the Fulcrum', 3.4, 1);
+INSERT INTO `gear_item` (`id`, `brand`, `model_name`, `description`, `weight`, `quantity`) VALUES (2, 'Adventure Med Kits', 'Ultralight/ Watertight .9 Med Kit', 'The kit features two layers of rugged waterproofing protection, keeping the contents safe and dry even in the most extreme elements. Ideal for ultralight hiking, this kit lets you keep weight to a minimum, as it weighs less than 8 oz., while still being prepared. ', .75, 1);
+INSERT INTO `gear_item` (`id`, `brand`, `model_name`, `description`, `weight`, `quantity`) VALUES (3, 'Vortex Binoculars', 'Diamondback HD 12x50', 'The Diamondback® HD smashes the scale of price vs performance, delivering a rock-solid optic that optically punches high above its class.', 1.80, 1);
+INSERT INTO `gear_item` (`id`, `brand`, `model_name`, `description`, `weight`, `quantity`) VALUES (4, 'Mountain House', 'Beef Strogi ', 'freeze dried food- use with jet boil.', .268, 5);
+INSERT INTO `gear_item` (`id`, `brand`, `model_name`, `description`, `weight`, `quantity`) VALUES (5, 'Jetboil', 'MicroMo', 'Cooking System', .75, 1);
+INSERT INTO `gear_item` (`id`, `brand`, `model_name`, `description`, `weight`, `quantity`) VALUES (6, 'MSR', 'IsoPro', 'jet boil fuel', .25, 3);
+INSERT INTO `gear_item` (`id`, `brand`, `model_name`, `description`, `weight`, `quantity`) VALUES (7, 'Ascent', '900', 'light weight down sleeping bag', 3.55, 1);
+INSERT INTO `gear_item` (`id`, `brand`, `model_name`, `description`, `weight`, `quantity`) VALUES (8, 'Black Diamond', 'Alpine Carbon Cork', 'Trekking Poles - Pair', 1.06, 1);
+INSERT INTO `gear_item` (`id`, `brand`, `model_name`, `description`, `weight`, `quantity`) VALUES (9, 'SPOT', 'Gen 3', 'The latest generation of award-winning SPOT devices from Globalstar, the SPOT Gen3 offers a critical, life-saving line of communication when traveling beyond cellular coverage zones. ', .25, 1);
+INSERT INTO `gear_item` (`id`, `brand`, `model_name`, `description`, `weight`, `quantity`) VALUES (10, 'Counter Assault', 'Bear Spray', 'Bear protection with holster', .5, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `gear_category`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `outbounddb`;
+INSERT INTO `gear_category` (`id`, `gear_type`) VALUES (1, 'Backpack');
+INSERT INTO `gear_category` (`id`, `gear_type`) VALUES (2, 'Cooking');
+INSERT INTO `gear_category` (`id`, `gear_type`) VALUES (3, 'First Aid');
+INSERT INTO `gear_category` (`id`, `gear_type`) VALUES (4, 'Miscellaneous');
+INSERT INTO `gear_category` (`id`, `gear_type`) VALUES (5, 'Optics');
+INSERT INTO `gear_category` (`id`, `gear_type`) VALUES (6, 'Sleeping');
+INSERT INTO `gear_category` (`id`, `gear_type`) VALUES (7, 'Food');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `gear_item_has_category`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `outbounddb`;
+INSERT INTO `gear_item_has_category` (`gear_item_id`, `category_id`) VALUES (1, 1);
+INSERT INTO `gear_item_has_category` (`gear_item_id`, `category_id`) VALUES (2, 3);
+INSERT INTO `gear_item_has_category` (`gear_item_id`, `category_id`) VALUES (3, 5);
+INSERT INTO `gear_item_has_category` (`gear_item_id`, `category_id`) VALUES (4, 7);
+INSERT INTO `gear_item_has_category` (`gear_item_id`, `category_id`) VALUES (5, 2);
+INSERT INTO `gear_item_has_category` (`gear_item_id`, `category_id`) VALUES (6, 2);
+INSERT INTO `gear_item_has_category` (`gear_item_id`, `category_id`) VALUES (7, 6);
+INSERT INTO `gear_item_has_category` (`gear_item_id`, `category_id`) VALUES (8, 4);
+INSERT INTO `gear_item_has_category` (`gear_item_id`, `category_id`) VALUES (9, 4);
+INSERT INTO `gear_item_has_category` (`gear_item_id`, `category_id`) VALUES (10, 4);
 
 COMMIT;
 
