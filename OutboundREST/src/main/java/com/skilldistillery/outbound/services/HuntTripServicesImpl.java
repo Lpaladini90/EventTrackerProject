@@ -68,21 +68,6 @@ public class HuntTripServicesImpl implements HuntTripServices {
 	}
  
 
-	@Override
-	public List<HuntTrip> searchHuntByKeyword(String keyword) {
-		
-		keyword = "%" + keyword + "%";
-		
-		return huntRepo.findByTypeLikeOrDescriptionLikeOrSpeciesLike(keyword, keyword, keyword);
-	}
-
-
-	@Override
-	public List<HuntTrip> findBySpecies(String species) {
-		
-		return huntRepo.findBySpecies(species); 
-	}
-
 	
 	
 	

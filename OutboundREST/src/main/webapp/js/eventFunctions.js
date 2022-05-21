@@ -22,7 +22,7 @@
 
     function getSingleHunt(huntId){
       let xhr = new XMLHttpRequest();
-      xhr.open("GET", 'api/hunttrips/' + huntId);
+      xhr.open("GET", 'api/outbound/hunttrips' + huntId);
       xhr.onreadystatechange = function(){
           if(xhr.readyState == 4){
               if(xhr.status === 200){
@@ -50,27 +50,23 @@
 
       let list = document.createElement('ul');
       let id = document.createElement('li');
-      let species = document.createElement('li');
+      let name = document.createElement('li');
       let description = document.createElement('li');
-      let type = document.createElement('li');
-      let sex = document.createElement('li');
       let startDate = document.createElement('li');
       let endDate = document.createElement('li');
 
       id.textContent = hunt.id;
-      species.textContent = hunt.species;
+      name.textContent = hunt.name;
       description.textContent = hunt.description;
-      type.textContent = hunt.type;
-      sex.textContent = hunt.sex;
+
       startDate.textContent = hunt.startDate;
       endDate.textContent = hunt.endDate;
 
 
       list.appendChild(id);
-      list.appendChild(species);
+      list.appendChild(name);
       list.appendChild(description);
-      list.appendChild(type);
-      list.appendChild(sex);
+
       list.appendChild(startDate);
       list.appendChild(endDate);
 
@@ -95,14 +91,14 @@
       updateForm.id = 'updateform'
 
 
-      let speciesLabel =document.createElement('label');
-      speciesLabel.name = "Species"
-      speciesLabel.textContent = "Species: "
+      let nameLabel =document.createElement('label');
+      nameLabel.name = "name"
+      nameLabel.textContent = "name: "
 
-      let updateSpecies = document.createElement('input');
-      updateSpecies.id = 'species';
-      updateSpecies.placeholder = 'Species';
-      updateSpecies.value = hunt.species;
+      let updateName = document.createElement('input');
+      updateName.id = 'name';
+      updateName.placeholder = 'name';
+      updateName.value = hunt.name;
 
       let descriptionLabel = document.createElement('label');
       descriptionLabel.name = "description"
@@ -114,24 +110,6 @@
       updateDescription.value = hunt.description;
 
 
-      let sexLabel = document.createElement('label');
-      sexLabel.name = 'sex';
-      sexLabel.textContent = "Sex: "
-
-      let updateSex = document.createElement('input');
-      updateSex.id = 'sex';
-      updateSex.placeholder = 'Sex';
-      updateSex.value = hunt.sex;
-
-
-      let typeLabel = document.createElement('label');
-      typeLabel.name = 'type';
-      typeLabel.textContent = "Type: "
-
-      let updateType = document.createElement('input');
-      updateType.id = 'type';
-      updateType.placeholder = 'Type';
-      updateType.value = hunt.type;
 
       let startDateLabel = document.createElement('label');
       startDateLabel.name = 'startDate';
@@ -170,19 +148,14 @@
       updateButton.textContent = "Submit Update";
 
       updateForm.appendChild(br2);
-      updateForm.appendChild(speciesLabel);
-      updateForm.appendChild(updateSpecies);
+      updateForm.appendChild(nameLabel);
+      updateForm.appendChild(updateName);
       updateForm.appendChild(br3)
 
       updateForm.appendChild(descriptionLabel);
       updateForm.appendChild(updateDescription);
       updateForm.appendChild(br4);
-      updateForm.appendChild(sexLabel);
-      updateForm.appendChild(updateSex);
-      updateForm.appendChild(br5);
-      updateForm.appendChild(typeLabel);
-      updateForm.appendChild(updateType);
-      updateForm.appendChild(br6);
+
       updateForm.appendChild(startDateLabel);
       updateForm.appendChild(updateStartDate);
       updateForm.appendChild(br7)
@@ -202,9 +175,8 @@
 
         hunt = {
           id: hunt.id,
-          species: updateForm.species.value,
-          sex: updateForm.sex.value,
-          type: updateForm.type.value,
+          name: updateForm.name.value,
+
           description: updateForm.description.value,
           startDate: updateForm.startDate.value,
           endDate: updateForm.endDate.value
@@ -212,7 +184,7 @@
 
 
         let xhr = new XMLHttpRequest();
-        xhr.open("PUT", 'api/hunttrips/' + hunt.id);
+        xhr.open("PUT", 'api/outbound/hunttrips/' + hunt.id);
 
         console.log("after put: " + hunt.id); //
         xhr.setRequestHeader("Content-type", "application/json");
@@ -247,7 +219,7 @@
       deleteBtn.textContent = 'Delete Hunt';
       deleteBtn.addEventListener('click', function(e){
           let xhr = new XMLHttpRequest();
-          xhr.open("DELETE", 'api/hunttrips/' + hunt.id);
+          xhr.open("DELETE", 'api/outbound/hunttrips/' + hunt.id);
 
           xhr.setRequestHeader("Content-type", "application/json");
 
@@ -273,7 +245,7 @@
 
     function getHunts() {
       let xhr = new XMLHttpRequest();
-      xhr.open("GET", 'api/hunttrips');
+      xhr.open("GET", 'api/outbound/hunttrips');
       xhr.onreadystatechange = function(){
           if(xhr.readyState == 4){
               if(xhr.status === 200){
@@ -328,14 +300,14 @@
         });
 
         let id =document.createElement('td');
-        let species = document.createElement('td');
+        let name = document.createElement('td');
         let description = document.createElement('td');
 
         id.textContent = item.id;
-        species.textContent = item.species;
+        name.textContent = item.name;
         description.textContent = item.description;
 
-        row.appendChild(species);
+        row.appendChild(name);
         row.appendChild(description);
         tbody.appendChild(row);
 
@@ -361,7 +333,7 @@ function createHunt(e){
   e.preventDefault();
 
   let xhr = new XMLHttpRequest();
-  xhr.open("POST", 'api/hunttrips');
+  xhr.open("POST", 'api/outbound/hunttrips');
 
   xhr.setRequestHeader("Content-type", "application/json");
 
@@ -378,9 +350,7 @@ function createHunt(e){
       }
 };
   let hunt = {
-    species: document.huntForm.species.value,
-    sex: document.huntForm.sex.value,
-    type: document.huntForm.type.value,
+    name: document.huntForm.name.value,
     description: document.huntForm.description.value,
     startDate: document.huntForm.startDate.value,
     endDate: document.huntForm.endDate.value

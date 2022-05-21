@@ -16,8 +16,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import com.skilldistillery.outbound.entities.hunttrip.HuntTrip;
-
 class HuntTripTest {
 
 
@@ -58,8 +56,15 @@ class HuntTripTest {
 		@Test
 		@DisplayName("Testing entity HuntTrip to database")
 		void test_entity_hunttrip_to_database_connection() {
+//			mysql> select * from hunt_trip where id =1;
+//			+----+--------------------+------------+----------+-----------------------------------------------------+---------+
+//			| id | name               | start_date | end_date | description                                         | success |
+//			+----+--------------------+------------+----------+-----------------------------------------------------+---------+
+//			|  1 | Fall Antelope Hunt | NULL       | NULL     | Wyoming Hunt in the fall for antelope and mule deer |       1 |
+//			+----+--------------------+------------+----------+-----------------------------------------------------+---------+
+//			1 row in set (0.01 sec)
 			assertNotNull(hunt);
-			assertEquals("elk", hunt.getSpecies());
+			assertEquals("Fall Antelope Hunt", hunt.getName());
 			
 		}
 		

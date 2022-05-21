@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,30 +20,32 @@ import com.skilldistillery.outbound.services.HuntTripServices;
 
 @RestController
 @RequestMapping("api")
+@CrossOrigin({ "*", "http://localhost:4200" })
 public class HuntTripController {
 
+	
 	@Autowired
 	private HuntTripServices huntServ;
 
 	
-	@GetMapping("hunttrip/ping")
+	@GetMapping("outbound/ping")
 	public String ping() {
 		return "pong";
 	}
 	
 	
-	@GetMapping("hunttrips")
+	@GetMapping("outbound/hunttrips")
 	public List<HuntTrip> indexAll(){
 		return huntServ.findAllHuntTrips();
 	}
 	
-	@GetMapping("hunttrips/{id}")
+	@GetMapping("outbound/hunttrips/{id}")
 	public HuntTrip findById(@PathVariable("id")int huntId ) {
 		return huntServ.findById(huntId);
 		
 	}
 	
-	@PostMapping("hunttrips")
+	@PostMapping("outbound/hunttrips")
 	public HuntTrip createHunt(@RequestBody HuntTrip hunt, HttpServletResponse res) {
 		HuntTrip newHunt  = huntServ.createHuntingTrip(hunt); 
 		if(newHunt !=null) {
@@ -53,7 +56,7 @@ public class HuntTripController {
 		return newHunt;
 	}
 	
-	@PutMapping("hunttrips/{id}")
+	@PutMapping("outbound/hunttrips/{id}")
 	public HuntTrip updateHunt(@PathVariable("id") int huntId, 
 			@RequestBody HuntTrip hunt,
 			HttpServletResponse res) {
@@ -64,7 +67,7 @@ public class HuntTripController {
 	
 	
 	
-	@DeleteMapping("hunttrips/{id}")
+	@DeleteMapping("outbound/hunttrips/{id}")
 	public void deleteComment(HttpServletResponse res,@PathVariable("id")int huntId ) {
 		
 		boolean deleted= huntServ.deleteHuntTrip(huntId);
@@ -85,11 +88,11 @@ public class HuntTripController {
 //	}
 	
 	
-	@GetMapping("hunttrips/search/{keyword}")
-	public List<HuntTrip> searchByKeyword(@PathVariable("keyword") String keyword){
-		
-		return huntServ.searchHuntByKeyword(keyword);
-	}
+//	@GetMapping("outbound/hunttrips/search/{keyword}")
+//	public List<HuntTrip> searchByKeyword(@PathVariable("keyword") String keyword){
+//		
+//		return huntServ.searchHuntByKeyword(keyword);
+//	}
 	
 	
 }

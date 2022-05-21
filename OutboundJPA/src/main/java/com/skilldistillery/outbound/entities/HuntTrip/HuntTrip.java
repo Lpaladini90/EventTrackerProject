@@ -20,11 +20,7 @@ public class HuntTrip {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	private String species;
-	
-	private String sex;
-	
-	private String type;
+	private String name;
 	
 	private String description;
 	
@@ -33,6 +29,8 @@ public class HuntTrip {
 	
 	@Column(name="end_date")
 	private LocalDate endDate;
+	
+	private boolean success;
 
 	public HuntTrip() {
 		super();
@@ -46,28 +44,12 @@ public class HuntTrip {
 		this.id = id;
 	}
 
-	public String getSpecies() {
-		return species;
+	public String getName() {
+		return name;
 	}
 
-	public void setSpecies(String species) {
-		this.species = species;
-	}
-
-	public String getSex() {
-		return sex;
-	}
-
-	public void setSex(String sex) {
-		this.sex = sex;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getDescription() {
@@ -94,17 +76,26 @@ public class HuntTrip {
 		this.endDate = endDate;
 	}
 
+	public boolean isSuccess() {
+		return success;
+	}
+
+	public void setSuccess(boolean success) {
+		this.success = success;
+	}
+
 	@Override
 	public String toString() {
-		return "HuntTrip [id=" + id + ", species=" + species + ", sex=" + sex + ", type=" + type + ", description="
-				+ description + ", startDate=" + startDate + ", endDate=" + endDate + "]";
+		return "HuntTrip [id=" + id + ", name=" + name + ", description=" + description + ", startDate=" + startDate
+				+ ", endDate=" + endDate + ", success=" + success + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(description, endDate, id, sex, species, startDate, type);
+		return Objects.hash(description, endDate, id, name, startDate, success);
 	}
 
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -115,12 +106,10 @@ public class HuntTrip {
 			return false;
 		HuntTrip other = (HuntTrip) obj;
 		return Objects.equals(description, other.description) && Objects.equals(endDate, other.endDate)
-				&& Objects.equals(id, other.id) && Objects.equals(sex, other.sex)
-				&& Objects.equals(species, other.species) && Objects.equals(startDate, other.startDate)
-				&& Objects.equals(type, other.type);
+				&& Objects.equals(id, other.id) && Objects.equals(name, other.name)
+				&& Objects.equals(startDate, other.startDate) && success == other.success;
 	}
-	
-	
+
 	
 	
 }

@@ -40,12 +40,12 @@ public class HuntTripDaoImpl implements HuntTripDAO {
 	public HuntTrip updateHuntTrip(HuntTrip hunt, int huntId) {
 		HuntTrip updatedHunt = em.find(HuntTrip.class, huntId);
 		if (updatedHunt != null) {
-			updatedHunt.setSpecies(hunt.getSpecies());
+			updatedHunt.setName(hunt.getName());
 			updatedHunt.setDescription(hunt.getDescription());
 			updatedHunt.setEndDate(hunt.getEndDate());
-			updatedHunt.setSex(hunt.getSex());
+			
 			updatedHunt.setStartDate(hunt.getStartDate());
-			updatedHunt.setType(hunt.getType());
+			
 			em.flush();
 
 		} 
