@@ -67,6 +67,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `role` VARCHAR(45) NULL,
   `description` VARCHAR(45) NULL,
   `phone` VARCHAR(45) NULL,
+  `enabled` TINYINT NULL,
   `address_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `username_UNIQUE` (`username` ASC),
@@ -91,7 +92,14 @@ CREATE TABLE IF NOT EXISTS `hunt_trip` (
   `end_date` DATETIME NULL,
   `description` VARCHAR(2000) NULL,
   `success` TINYINT NULL,
-  PRIMARY KEY (`id`))
+  `user_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_hunt_trip_user1_idx` (`user_id` ASC),
+  CONSTRAINT `fk_hunt_trip_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -103,7 +111,21 @@ DROP TABLE IF EXISTS `gear_list` ;
 CREATE TABLE IF NOT EXISTS `gear_list` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `description` VARCHAR(2000) NULL,
-  PRIMARY KEY (`id`))
+  `hunt_trip_id` INT NOT NULL,
+  `user_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_gear_list_hunt_trip1_idx` (`hunt_trip_id` ASC),
+  INDEX `fk_gear_list_user1_idx` (`user_id` ASC),
+  CONSTRAINT `fk_gear_list_hunt_trip1`
+    FOREIGN KEY (`hunt_trip_id`)
+    REFERENCES `hunt_trip` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_gear_list_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -182,30 +204,6 @@ CREATE TABLE IF NOT EXISTS `weather` (
   `name` VARCHAR(45) NULL,
   `description` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `user_has_gear`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `user_has_gear` ;
-
-CREATE TABLE IF NOT EXISTS `user_has_gear` (
-  `user_id` INT NOT NULL,
-  `gear_id` INT NOT NULL,
-  PRIMARY KEY (`user_id`, `gear_id`),
-  INDEX `fk_user_has_gear_gear1_idx` (`gear_id` ASC),
-  INDEX `fk_user_has_gear_user1_idx` (`user_id` ASC),
-  CONSTRAINT `fk_user_has_gear_user1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_user_has_gear_gear1`
-    FOREIGN KEY (`gear_id`)
-    REFERENCES `gear_list` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -361,30 +359,6 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `hunt_trip_has_gear_list`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `hunt_trip_has_gear_list` ;
-
-CREATE TABLE IF NOT EXISTS `hunt_trip_has_gear_list` (
-  `hunt_trip_id` INT NOT NULL,
-  `gear_list_id` INT NOT NULL,
-  PRIMARY KEY (`hunt_trip_id`, `gear_list_id`),
-  INDEX `fk_hunt_trip_has_gear_list_gear_list1_idx` (`gear_list_id` ASC),
-  INDEX `fk_hunt_trip_has_gear_list_hunt_trip1_idx` (`hunt_trip_id` ASC),
-  CONSTRAINT `fk_hunt_trip_has_gear_list_hunt_trip1`
-    FOREIGN KEY (`hunt_trip_id`)
-    REFERENCES `hunt_trip` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_hunt_trip_has_gear_list_gear_list1`
-    FOREIGN KEY (`gear_list_id`)
-    REFERENCES `gear_list` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `preference_points`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `preference_points` ;
@@ -495,30 +469,6 @@ CREATE TABLE IF NOT EXISTS `weapon_has_accessories` (
   CONSTRAINT `fk_accessories_has_weapon_weapon1`
     FOREIGN KEY (`weapon_id`)
     REFERENCES `weapon` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `hunt_trip_has_user`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `hunt_trip_has_user` ;
-
-CREATE TABLE IF NOT EXISTS `hunt_trip_has_user` (
-  `hunt_trip_id` INT NOT NULL,
-  `user_id` INT NOT NULL,
-  PRIMARY KEY (`hunt_trip_id`, `user_id`),
-  INDEX `fk_hunt_trip_has_user_user1_idx` (`user_id` ASC),
-  INDEX `fk_hunt_trip_has_user_hunt_trip1_idx` (`hunt_trip_id` ASC),
-  CONSTRAINT `fk_hunt_trip_has_user_hunt_trip1`
-    FOREIGN KEY (`hunt_trip_id`)
-    REFERENCES `hunt_trip` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_hunt_trip_has_user_user1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -791,7 +741,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `email`, `role`, `description`, `phone`, `address_id`) VALUES (1, 'lpaladini', 'password', 'lucas', 'paladini', 'lpaladini@me.com', 'ADMIN', 'I like to hunt', '(509) 993-8866', 1);
+INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `email`, `role`, `description`, `phone`, `enabled`, `address_id`) VALUES (1, 'lpaladini', 'password', 'lucas', 'paladini', 'lpaladini@me.com', 'ADMIN', 'I like to hunt', '(509) 993-8866', NULL, 1);
 
 COMMIT;
 
@@ -801,9 +751,9 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `hunt_trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`) VALUES (1, 'Fall Antelope Hunt', NULL, NULL, 'Wyoming Hunt in the fall for antelope and mule deer', 1);
-INSERT INTO `hunt_trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`) VALUES (2, 'Mule Deer Fall Hunt', NULL, NULL, 'Hunting Mule Deer in Colorado', 0);
-INSERT INTO `hunt_trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`) VALUES (3, 'Black Bear Spring Hunt ', NULL, NULL, 'Alaskan Black bear hunt in the spring', 0);
+INSERT INTO `hunt_trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`, `user_id`) VALUES (1, 'Fall Antelope Hunt', NULL, NULL, 'Wyoming Hunt in the fall for antelope and mule deer', 1, 1);
+INSERT INTO `hunt_trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`, `user_id`) VALUES (2, 'Mule Deer Fall Hunt', NULL, NULL, 'Hunting Mule Deer in Colorado', 0, 1);
+INSERT INTO `hunt_trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`, `user_id`) VALUES (3, 'Black Bear Spring Hunt ', NULL, NULL, 'Alaskan Black bear hunt in the spring', 0, 1);
 
 COMMIT;
 
@@ -813,7 +763,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `gear_list` (`id`, `description`) VALUES (1, 'Antelope Hunt Gear List');
+INSERT INTO `gear_list` (`id`, `description`, `hunt_trip_id`, `user_id`) VALUES (1, 'Antelope Hunt Gear List', 1, 1);
 
 COMMIT;
 
@@ -855,16 +805,6 @@ COMMIT;
 START TRANSACTION;
 USE `outbounddb`;
 INSERT INTO `weather` (`id`, `name`, `description`) VALUES (1, NULL, NULL);
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `user_has_gear`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `outbounddb`;
-INSERT INTO `user_has_gear` (`user_id`, `gear_id`) VALUES (1, 1);
 
 COMMIT;
 
@@ -996,16 +936,6 @@ COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `hunt_trip_has_gear_list`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `outbounddb`;
-INSERT INTO `hunt_trip_has_gear_list` (`hunt_trip_id`, `gear_list_id`) VALUES (1, 1);
-
-COMMIT;
-
-
--- -----------------------------------------------------
 -- Data for table `preference_points`
 -- -----------------------------------------------------
 START TRANSACTION;
@@ -1066,16 +996,6 @@ COMMIT;
 START TRANSACTION;
 USE `outbounddb`;
 INSERT INTO `weapon_has_accessories` (`accessories_id`, `weapon_id`) VALUES (1, 1);
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `hunt_trip_has_user`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `outbounddb`;
-INSERT INTO `hunt_trip_has_user` (`hunt_trip_id`, `user_id`) VALUES (1, 1);
 
 COMMIT;
 
