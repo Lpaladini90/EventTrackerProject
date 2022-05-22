@@ -280,19 +280,6 @@ div.search {
 .text-input.with-icon input[type="text"] {
   padding-left: 2rem;
 }
-.text-input input[type="password"],
-.text-input input[type="text"],
-.text-input textarea {
-  font-family: Inter, sans-serif;
-  font-weight: 500;
-  font-size: 16px;
-  padding: 10px;
-  height: auto;
-  width: 100%;
-  border: 1px solid #8e8e92;
-  border-radius: 4px;
-  background-color: #fff;
-}
 
 .comment-text-input,
 .text-input input[type="password"],
@@ -444,9 +431,14 @@ section {
   overflow-y: hidden;
   z-index: 1;
 }
+
 .datagrid table {
   table-layout: auto;
   width: 100%;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 .datagrid table .firstcolumn {
   width: 300px;
@@ -458,14 +450,83 @@ section {
 .datagrid table thead th {
   background: #f5f5f5;
   font-weight: 400;
+}
+.datagrid table td,
+.datagrid table th {
+  height: 60px;
+  padding: 0 5px;
+  text-align: center;
+  vertical-align: middle;
+  min-width: 65px;
+}
+.datagrid table th {
+  border: 1px solid #b5b5b8;
+  background: #fff;
+  color: #404040;
+  font-size: 14px !important;
+}
+
+.datagrid table .firstcolumn {
+  width: 300px;
+  padding: 10px;
+  text-align: left;
+  box-shadow: 5px 0 hsla(0, 0%, 39.2%, 0.05);
+  z-index: 3;
+}
+.datagrid table td,
+.datagrid table th {
+  height: 60px;
+  padding: 0 5px;
+  text-align: center;
+  vertical-align: middle;
+  min-width: 65px;
+}
+.datagrid table th {
+  border: 1px solid #b5b5b8;
+  background: #fff;
+  color: #404040;
+  font-size: 14px !important;
+}
+.datagrid table .firstcolumn .firstline {
+  line-height: 20px;
+  white-space: nowrap;
+  width: 300px;
+  padding-right: 5px;
+}
+.datagrid table .firstcolumn .firstline {
+  font-weight: 700;
+  color: #262627;
+  justify-content: left;
+  display: flex;
+  align-items: center;
+}
+
+.datagrid .datatable,
+.datagrid .standardtable-with-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  z-index: 2;
+  display: flex;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.datagrid table thead th {
+  background: #f5f5f5;
+  font-weight: 400;
   }
+
+
   .datagrid table td, .datagrid table th {
     height: 60px;
     padding: 0 5px;
     text-align: center;
     vertical-align: middle;
-    min-width: 65px;
+    min-width: 150px;
     }
+
     .datagrid table th {
       border: 1px solid #b5b5b8;
       background: #fff;
@@ -473,3 +534,9 @@ section {
       font-size: 14px!important;
       }
 
+
+      .datagrid table th .highlighted {
+        font-weight: 700;
+        background: #a99766;
+        color: #fff;
+        }
