@@ -1,5 +1,6 @@
 package com.skilldistillery.outbound.controllers;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -35,19 +36,19 @@ public class HuntTripController {
 	
 	
 	@GetMapping("outbound/hunttrips")
-	public List<HuntTrip> indexAll(){
-		return huntServ.findAllHuntTrips();
+	public List<HuntTrip> indexAll(Principal principal,HttpServletResponse res){
+		return huntServ.findAllHuntTrips(principal.getName());
 	}
 	
 	@GetMapping("outbound/hunttrips/{id}")
-	public HuntTrip findById(@PathVariable("id")int huntId ) {
-		return huntServ.findById(huntId);
+	public HuntTrip findById(@PathVariable("id")int huntId,Principal principal,HttpServletResponse res ) {
+		return huntServ.findById(principal.getName(),huntId);
 		
 	}
 	
 	@PostMapping("outbound/hunttrips")
-	public HuntTrip createHunt(@RequestBody HuntTrip hunt, HttpServletResponse res) {
-		HuntTrip newHunt  = huntServ.createHuntingTrip(hunt); 
+	public HuntTrip createHunt(@RequestBody HuntTrip hunt, HttpServletResponse res,Principal principal) {
+		HuntTrip newHunt  = huntServ.createHuntingTrip(principal.getName(), hunt); 
 		if(newHunt !=null) {
 			res.setStatus(201);
 		}
@@ -59,18 +60,18 @@ public class HuntTripController {
 	@PutMapping("outbound/hunttrips/{id}")
 	public HuntTrip updateHunt(@PathVariable("id") int huntId, 
 			@RequestBody HuntTrip hunt,
-			HttpServletResponse res) {
+			HttpServletResponse res,Principal principal) {
 	
 		
-		return huntServ.updateHuntingTrip(hunt, huntId);
+		return huntServ.updateHuntingTrip(principal.getName(),hunt, huntId);
 	}
 	
 	
 	
 	@DeleteMapping("outbound/hunttrips/{id}")
-	public void deleteComment(HttpServletResponse res,@PathVariable("id")int huntId ) {
+	public void deleteComment(HttpServletResponse res,@PathVariable("id")int huntId,Principal principal ) {
 		
-		boolean deleted= huntServ.deleteHuntTrip(huntId);
+		boolean deleted= huntServ.deleteHuntTrip(principal.getName(), huntId);
 		try {
 			if(deleted == true) {
 				res.setStatus(200);

@@ -2,6 +2,7 @@ import { HunttripsService } from './../../services/hunttrips.service';
 import { Hunttrip } from './../../models/hunttrip';
 import { Component, OnInit, SecurityContext } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-hunttrips',
@@ -19,6 +20,8 @@ export class HunttripsComponent implements OnInit {
   hunts: Hunttrip[] = [];
 
   displayDetails : boolean = false;
+
+
 
   constructor(
     private huntService: HunttripsService,

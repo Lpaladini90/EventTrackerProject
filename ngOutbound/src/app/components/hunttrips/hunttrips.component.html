@@ -6,7 +6,7 @@
           <div>
             <div class="hunts-view-wrapper">
               <main
-                class="ob-page-body hunts-view-page"
+                class="ob-page-body hunts-view-page "
                 style="background-image: none"
               >
                 <div class="page-header">
@@ -87,6 +87,7 @@
                           <table>
                             <thead>
                               <tr>
+
                                 <th class>Id</th>
                                 <th class>Country</th>
                                 <th class>State</th>
@@ -99,15 +100,13 @@
                                 <th class>Gear List</th>
                                 <th class>Hunt Method</th>
                                 <th class>Weapon</th>
-                                <th class>Success</th>
-                                <th class="highlighted">Description</th>
-
+                                <th class id="highlighted1">Success</th>
                               </tr>
                             </thead>
                             <tbody>
                               <tr *ngFor="let hunt of hunts">
-                                <td class> {{hunt.id}} </td>
-                                <td class> Fix Mapping </td>
+
+                                <td class>{{ hunt.id }}</td>
                                 <td class>Fix Mapping</td>
                                 <td class>Fix Mapping</td>
                                 <td class>Fix Mapping</td>
@@ -117,9 +116,9 @@
                                 <td class>Fix Mapping</td>
                                 <td class>Fix Mapping</td>
                                 <td class>Fix Mapping</td>
-                                <td class>{{hunt.description}}</td>
-                                <td class>{{hunt.success}}</td>
-                                <td class="highlighted"> {{hunt.description}} </td>
+                                <td class>Fix Mapping</td>
+                                <td class>Fix Mapping</td>
+                                <td id="highlighted2">{{ hunt.success }}</td>
                               </tr>
                             </tbody>
                           </table>
@@ -129,101 +128,708 @@
                   </div>
                 </div>
               </main>
+              <div class="ob-page-sidebar hunts-view-page">
+                <div class="ob-sidebar-header">
+                  <h2>Hunts</h2>
+
+                  <!-- <div class="filters-meta">
+                    <div class="applied-filters-container___7A5k6">
+                      <p class="applied-filters-text___LExKS">
+                        <span class="applied-filters-count___3B2yz">5</span>
+                        filters applied
+                      </p>
+                    </div>
+                    <div class="expand-button">
+                      Hide Filters<i class="material-icons">arrow_drop_up</i>
+                    </div>
+                  </div> -->
+                </div>
+                <!-- <div class="portrait-down">
+                  <ul class="tabs-container flat">
+                    <li class="tab active">
+                      <span name="results">Results</span>
+                    </li>
+                    <li class="tab"><span name="filters">Filters</span></li>
+                  </ul>
+                </div> -->
+                <div class="ob-sidebar-content">
+                  <div class="ob-full-sidebar show">
+                    <div class="page-filters">
+                      <div id="hunts-view-form">
+                        <div>
+                          <div>
+                            <div class="banner-wrapper">
+                              <div class="banner">
+                                <p class="message">
+                                  Autofill your points with our new Point
+                                  Tracker
+                                </p>
+                                <button
+                                  class="button___127GD outlinedLightBold___10ln1 pill___3HcJP md___3E53h wide___24Frd"
+                                >
+                                  <span style="white-space: nowrap"
+                                    >Add Your Points</span
+                                  ></button
+                                ><button class="button close">✕</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          id="filtering-section-state"
+                          class="filter-section"
+                        >
+                          <div
+                            data-testid="title-bar"
+                            class="section-title-bar"
+                          >
+                            <div class="section-title-text">
+                              <p data-testid="title" class="title">
+                                <span class=""></span> State
+                              </p>
+                            </div>
+                            <div
+                              data-testid="expand-button"
+                              class="expand-button"
+                            ><p> Edit  <i class="arrow down"></i></p>
+                            </div>
+                          </div>
+                          <p data-testid="subtitle" class="subtitle">
+                            Colorado
+                          </p>
+                          <div
+                            data-testid="content"
+                            class="content"
+                            style="
+                              display: none;
+                              align-items: center;
+                              justify-content: center;
+                              width: 100%;
+                            "
+                          >
+                            <div class="filter-option">
+                              <a class=""
+                                ><span>Alaska</span
+                                ><span class="right-side"></span
+                              ></a>
+                            </div>
+                            <div class="filter-option">
+                              <a class=""
+                                ><span>Arizona</span
+                                ><span class="right-side"></span
+                              ></a>
+                            </div>
+                            <div class="filter-option">
+                              <a class=""
+                                ><span>California</span
+                                ><span class="right-side"></span
+                              ></a>
+                            </div>
+                            <div class="filter-option">
+                              <a class=""
+                                ><span>Colorado</span
+                                ><span class="right-side"></span
+                              ></a>
+                            </div>
+                            <div class="filter-option">
+                              <a class=""
+                                ><span>Idaho</span
+                                ><span class="right-side"></span
+                              ></a>
+                            </div>
+                            <div class="filter-option">
+                              <a class=""
+                                ><span>Kansas</span
+                                ><span class="right-side"></span
+                              ></a>
+                            </div>
+                            <div class="filter-option">
+                              <a class=""
+                                ><span>Montana</span
+                                ><span class="right-side"></span
+                              ></a>
+                            </div>
+                            <div class="filter-option">
+                              <a class=""
+                                ><span>Nevada</span
+                                ><span class="right-side"></span
+                              ></a>
+                            </div>
+                            <div class="filter-option">
+                              <a class=""
+                                ><span>New Mexico</span
+                                ><span class="right-side"></span
+                              ></a>
+                            </div>
+                            <div class="filter-option">
+                              <a class=""
+                                ><span>Oregon</span
+                                ><span class="right-side"></span
+                              ></a>
+                            </div>
+                            <div class="filter-option">
+                              <a class=""
+                                ><span>Utah</span
+                                ><span class="right-side"></span
+                              ></a>
+                            </div>
+                            <div class="filter-option">
+                              <a class=""
+                                ><span>Washington</span
+                                ><span class="right-side"></span
+                              ></a>
+                            </div>
+                            <div class="filter-option">
+                              <a class=""
+                                ><span>Wyoming</span
+                                ><span class="right-side"></span
+                              ></a>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          id="filtering-section-residency"
+                          class="filter-section residency"
+                        >
+                          <div
+                            data-testid="title-bar"
+                            class="section-title-bar"
+                          >
+                            <div class="section-title-text">
+                              <p data-testid="title" class="title">
+                                <span class=""></span> Residency
+                              </p>
+                            </div>
+                            <div
+                              data-testid="expand-button"
+                              class="expand-button"
+                            >
+                            <p> Edit  <i class="arrow down"></i></p>
+                            </div>
+                          </div>
+                          <p data-testid="subtitle" class="subtitle">
+                            Nonresident
+                          </p>
+                          <div
+                            data-testid="content"
+                            class="content"
+                            style="
+                              display: none;
+                              align-items: center;
+                              justify-content: center;
+                              width: 100%;
+                            "
+                          >
+                            <div class="residency-list">
+                              <div class="radio-container">
+                                <input
+                                  data-testid="radio-input"
+                                  type="radio"
+                                  id="resident"
+                                  name="residency"
+                                  label="Resident"
+                                  value="resident"
+                                /><label data-testid="label" for="resident"
+                                  >Resident</label
+                                >
+                              </div>
+                            </div>
+                            <div class="residency-list">
+                              <div class="radio-container">
+                                <input
+                                  data-testid="radio-input"
+                                  type="radio"
+                                  id="nonresident"
+                                  name="residency"
+                                  label="Nonresident"
+                                  value="nonresident"
+                                /><label data-testid="label" for="nonresident"
+                                  >Nonresident</label
+                                >
+                              </div>
+                            </div>
+                            <div class="residency-list">
+                              <div class="radio-container">
+                                <input
+                                  data-testid="radio-input"
+                                  type="radio"
+                                  id="resident_youth"
+                                  name="residency"
+                                  label="Resident Youth"
+                                  value="resident_youth"
+                                /><label
+                                  data-testid="label"
+                                  for="resident_youth"
+                                  >Resident Youth</label
+                                >
+                              </div>
+                            </div>
+                            <div class="residency-list">
+                              <div class="radio-container">
+                                <input
+                                  data-testid="radio-input"
+                                  type="radio"
+                                  id="nonresident_youth"
+                                  name="residency"
+                                  label="Nonresident Youth"
+                                  value="nonresident_youth"
+                                /><label
+                                  data-testid="label"
+                                  for="nonresident_youth"
+                                  >Nonresident Youth</label
+                                >
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          id="filtering-section-species"
+                          class="filter-section"
+                        >
+                          <div
+                            data-testid="title-bar"
+                            class="section-title-bar"
+                          >
+                            <div class="section-title-text">
+                              <p data-testid="title" class="title">
+                                <span class=""></span> Species
+                              </p>
+                            </div>
+                            <div
+                              data-testid="expand-button"
+                              class="expand-button"
+                            >
+                            <p> Edit  <i class="arrow down"></i></p>
+                            </div>
+                          </div>
+                          <p data-testid="subtitle" class="subtitle">
+                            Mule Deer
+                          </p>
+                          <div
+                            data-testid="content"
+                            class="content"
+                            style="
+                              display: none;
+                              align-items: center;
+                              justify-content: center;
+                              width: 100%;
+                            "
+                          >
+                            <div class="filter-option">
+                              <a class=""
+                                ><span>Mule Deer</span
+                                ><span class="right-side"></span
+                              ></a>
+                            </div>
+                            <div class="filter-option">
+                              <a class=""
+                                ><span>Whitetail Deer</span
+                                ><span class="right-side"></span
+                              ></a>
+                            </div>
+                            <div class="filter-option">
+                              <a class=""
+                                ><span>Elk</span><span class="right-side"></span
+                              ></a>
+                            </div>
+                            <div class="filter-option">
+                              <a class=""
+                                ><span>Antelope</span
+                                ><span class="right-side"></span
+                              ></a>
+                            </div>
+                            <div class="filter-option">
+                              <a class=""
+                                ><span>Rocky Mountain Bighorn Sheep</span
+                                ><span class="right-side"></span
+                              ></a>
+                            </div>
+                            <div class="filter-option">
+                              <a class=""
+                                ><span>Desert Bighorn Sheep</span
+                                ><span class="right-side"></span
+                              ></a>
+                            </div>
+                            <div class="filter-option">
+                              <a class=""
+                                ><span>Rocky Mountain Goat</span
+                                ><span class="right-side"></span
+                              ></a>
+                            </div>
+                            <div class="filter-option">
+                              <a class=""
+                                ><span>Moose</span
+                                ><span class="right-side"></span
+                              ></a>
+                            </div>
+                            <div class="filter-option">
+                              <a class=""
+                                ><span>Black Bear</span
+                                ><span class="right-side"></span
+                              ></a>
+                            </div>
+                            <div class="filter-option">
+                              <a class=""
+                                ><span>Antlerless Mule Deer</span
+                                ><span class="right-side"></span
+                              ></a>
+                            </div>
+                            <div class="filter-option">
+                              <a class=""
+                                ><span>Antlerless Whitetail Deer</span
+                                ><span class="right-side"></span
+                              ></a>
+                            </div>
+                            <div class="filter-option">
+                              <a class=""
+                                ><span>Antlerless Elk</span
+                                ><span class="right-side"></span
+                              ></a>
+                            </div>
+                            <div class="filter-option">
+                              <a class=""
+                                ><span>Doe Antelope</span
+                                ><span class="right-side"></span
+                              ></a>
+                            </div>
+                            <div class="filter-option">
+                              <a class=""
+                                ><span>Rocky Mountain Bighorn Sheep Ewe</span
+                                ><span class="right-side"></span
+                              ></a>
+                            </div>
+                            <div class="filter-option">
+                              <a class=""
+                                ><span>Rocky Mountain Goat Nanny</span
+                                ><span class="right-side"></span
+                              ></a>
+                            </div>
+                            <div class="filter-option">
+                              <a class=""
+                                ><span>Antlerless Moose</span
+                                ><span class="right-side"></span
+                              ></a>
+                            </div>
+                          </div>
+                        </div>
+
+
+
+
+                        <!-- <div
+                          id="filtering-section-draw-odds"
+                          class="filter-section">
+                          <div
+                            data-testid="title-bar"
+                            class="section-title-bar"
+                          >
+                            <div class="section-title-text">
+                              <p data-testid="title" class="title">
+                                <span class=""></span> Draw Odds
+                              </p>
+                            </div>
+                            <div
+                              data-testid="expand-button"
+                              class="expand-button"
+                            >
+                            <p> Close  <i class="arrow down"></i></p>
+                            </div>
+                          </div>
+                          <p data-testid="subtitle" class="subtitle">
+                            70% to 100%
+                          </p>
+                          <div
+                            data-testid="content"
+                            class="content"
+                            style="
+                              display: flex;
+                              align-items: center;
+                              justify-content: center;
+                              width: 100%;
+                            "
+                          >
+                            <div class="draw-odds-filters">
+                              <div
+                                class="dropdownContainer___2cZIU white___2FKX6 largeMaxHeight___1WiS_"
+                              >
+                                <select
+                                  class="hiddenSelect___1Q_yi"
+                                  id="hidden-select-choice"
+                                >
+                                  <option disabled="" value="disabled">
+                                    Choose One ...
+                                  </option>
+                                  <option value="one">First</option>
+                                  <option value="two">Second</option>
+                                </select>
+                                <div class="dropdownHeader___21vp5">
+                                  <div class="dropdownInfoContainer___FA8cb">
+                                    <label class="dropdownLabel___2MWl9"
+                                      >choice</label
+                                    >
+                                    <div
+                                      class="dropdown___LYShO closed___INm81 large___2tSWH"
+                                    >
+                                      <span class="dropdownInnerText___2cziQ"
+                                        >Choose One ...</span
+                                      >
+                                    </div>
+                                  </div>
+                                </div>
+                                <ul class="dropdownList___2VD3I closed___INm81">
+                                  <li
+                                    class="dropdownOption___3tI6W"
+                                    value="one"
+                                    data-name="First"
+                                  >
+                                    <span
+                                      class="dropdownCheckbox___3P_-O"
+                                    ></span
+                                    ><span
+                                      class="dropdownOptionText___2rPzH"
+                                      value="one"
+                                      name="First"
+                                      >First</span
+                                    >
+                                  </li>
+                                  <li
+                                    class="dropdownOption___3tI6W"
+                                    value="two"
+                                    data-name="Second"
+                                  >
+                                    <span
+                                      class="dropdownCheckbox___3P_-O"
+                                    ></span
+                                    ><span
+                                      class="dropdownOptionText___2rPzH"
+                                      value="two"
+                                      name="Second"
+                                      >Second</span
+                                    >
+                                  </li>
+                                </ul>
+                              </div>
+                              <div class="pointsBuffer">
+                                <div class="inputContainer___3DzdX">
+                                  <input
+                                    type="text"
+                                    class="input___3bNYp lightMode___1PYE_ alternate___1kol8"
+                                    id="text-input-points"
+                                    name="points"
+                                    required=""
+                                    size="2"
+                                    maxlength="2"
+                                    autocomplete="off"
+                                    value=""
+                                  /><label
+                                    for="points"
+                                    class="label___1EqV0 lightMode___1PYE_"
+                                    >points</label
+                                  >
+                                  <div
+                                    class="helperContainer___3bz6g lightMode___1PYE_"
+                                  ></div>
+                                </div>
+                              </div>
+                            </div>
+                            <div
+                              style="
+                                margin-left: 15px;
+                                margin-right: 15px;
+                                margin-bottom: 20px;
+                                width: 90%;
+                              "
+                            >
+                              <div class="gh-range">
+                                <div class="rc-slider rc-slider-with-marks">
+                                  <div class="rc-slider-rail"></div>
+                                  <div
+                                    class="rc-slider-track rc-slider-track-1"
+                                    style="left: 70%; right: auto; width: 30%"
+                                  ></div>
+                                  <div class="rc-slider-step">
+                                    <span
+                                      class="rc-slider-dot"
+                                      style="left: 0%"
+                                    ></span
+                                    ><span
+                                      class="rc-slider-dot rc-slider-dot-active"
+                                      style="left: 100%"
+                                    ></span>
+                                  </div>
+                                  <div
+                                    tabindex="0"
+                                    class="rc-slider-handle rc-slider-handle-1"
+                                    role="slider"
+                                    aria-valuemin="0"
+                                    aria-valuemax="100"
+                                    aria-valuenow="70"
+                                    aria-disabled="false"
+                                    style="
+                                      width: 20px;
+                                      height: 22px;
+                                      border-radius: 3px 10px 10px 3px;
+                                      border-color: rgb(51, 102, 255);
+                                      background-color: white;
+                                      margin-top: -10px;
+                                      left: 70%;
+                                      right: auto;
+                                      transform: translateX(-50%);
+                                    "
+                                  ></div>
+                                  <div
+                                    tabindex="0"
+                                    class="rc-slider-handle rc-slider-handle-2"
+                                    role="slider"
+                                    aria-valuemin="0"
+                                    aria-valuemax="100"
+                                    aria-valuenow="100"
+                                    aria-disabled="false"
+                                    style="
+                                      width: 20px;
+                                      height: 25px;
+                                      border-radius: 10px 3px 3px 10px;
+                                      border-color: rgb(51, 102, 255);
+                                      background-color: white;
+                                      margin-top: -11px;
+                                      left: 100%;
+                                      right: auto;
+                                      transform: translateX(-50%);
+                                    "
+                                  ></div>
+                                  <div class="rc-slider-mark">
+                                    <span
+                                      class="rc-slider-mark-text"
+                                      style="
+                                        transform: translateX(-50%);
+                                        left: 0%;
+                                      "
+                                      >0%</span
+                                    ><span
+                                      class="rc-slider-mark-text rc-slider-mark-text-active"
+                                      style="
+                                        transform: translateX(-50%);
+                                        left: 100%;
+                                      "
+                                      >100%</span
+                                    >
+                                  </div>
+                                </div>
+                                <div
+                                  style="
+                                    position: absolute;
+                                    top: 0px;
+                                    left: 0px;
+                                    width: 100%;
+                                  "
+                                >
+                                  <div>
+                                    <div
+                                      class="rc-slider-tooltip tooltip-left rc-slider-tooltip-placement-top"
+                                      style="left: 170.296875px; top: -49px"
+                                    >
+                                      <div class="rc-slider-tooltip-content">
+                                        <div
+                                          class="rc-slider-tooltip-arrow"
+                                        ></div>
+                                        <div
+                                          class="rc-slider-tooltip-inner"
+                                          role="tooltip"
+                                        >
+
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div
+                                  style="
+                                    position: absolute;
+                                    top: 0px;
+                                    left: 0px;
+                                    width: 100%;
+                                  "
+                                >
+                                  <div>
+                                    <div
+                                      class="rc-slider-tooltip tooltip-right rc-slider-tooltip-placement-top"
+                                      style="left: 251.296875px; top: -49px"
+                                    >
+                                      <div class="rc-slider-tooltip-content">
+                                        <div
+                                          class="rc-slider-tooltip-arrow"
+                                        ></div>
+                                        <div
+                                          class="rc-slider-tooltip-inner"
+                                          role="tooltip"
+                                        >
+
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div> -->
+                        <div
+                          id="filtering-section-seasons"
+                          class="filter-section"
+                        >
+                          <div
+                            data-testid="title-bar"
+                            class="section-title-bar"
+                          >
+                            <div class="section-title-text">
+                              <p data-testid="title" class="title">
+                                <span class=""></span> Seasons
+                              </p>
+                            </div>
+                            <div
+                              data-testid="expand-button"
+                              class="expand-button"
+                            >
+                            <p> Edit  <i class="arrow down"></i></p>
+                            </div>
+                          </div>
+                          <p data-testid="subtitle" class="subtitle"></p>
+                          <div
+                            data-testid="content"
+                            class="content"
+                            style="
+                              display: none;
+                              align-items: center;
+                              justify-content: center;
+                              width: 100%;
+                            "
+                          >
+                            <div
+                              class="multiselect___1N-3w labeled-input"
+                              role="combobox"
+                              aria-expanded="false"
+                            >
+                              <label class="field-label">Select Season</label>
+                              <div class="select-wrapper">
+                                <button>Archery</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="bottombutton">
+                      <button class="button___127GD pill___3HcJP md___3E53h">
+                        Reset all filters
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
       </div>
-    </div>
-
-    <table class="table table-success table-striped">
-      <thead>
-        <tr class="bg-primary">
-          <th scope="col">Id</th>
-          <th scope="col">Name</th>
-          <th scope="col">Start Date</th>
-          <th scope="col">Success</th>
-          <th scope="col">Delete</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- below is type script assigning the todo.completed to either true or not true  -->
-        <tr *ngFor="let hunt of hunts" (click)="displayInfo(hunt)">
-          <th scope="row">{{ hunt.id }}</th>
-          <!-- we are adding a class called task so we can target this in CSS  to edit the actual task name to be strikethrough and gray -->
-          <td class="task">{{ hunt.name }}</td>
-          <td class="task">{{ hunt.startDate }}</td>
-          <td class="task">{{ hunt.success }}</td>
-
-          <td><button (click)="deleteHunt(hunt.id)">X</button></td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="col-md-6">
-      <label for="inputEmail4" class="form-label">Hunt Name: </label>
-      <input type="text" name="firstName" [(ngModel)]="newHunt.name" />
-
-      <br />
-
-      <button class="btn btn-primary" (click)="addHunt(newHunt)" type="submit">
-        Add Hunt
-      </button>
-    </div>
-
-    <br />
-    <br />
-    <form *ngIf="editHunt" #createForm="ngForm" class="row g-3">
-      <div class="col-md-6">
-        <label for="name" class="form-label">Name</label>
-        <input type="text" name="name" [(ngModel)]="editHunt.name" />
-
-        <br />
-        <label for="description" class="form-label">Decription</label>
-        <input
-          type="text"
-          name="description"
-          [(ngModel)]="editHunt.description"
-        />
-
-        <br />
-        <label for="completed" class="form-label">Completed</label>
-        <input
-          type="checkbox"
-          name="completed"
-          [(ngModel)]="editHunt.startDate"
-        />
-
-        <br />
-
-        <button class="btn btn-primary" (click)="editHunt = null" type="submit">
-          Cancel
-        </button>
-
-        <button
-          class="btn btn-primary"
-          (click)="updateHunt(editHunt, editHunt.id)"
-          type="submit"
-        >
-          Save
-        </button>
-      </div>
-    </form>
-
-    <!-- ---------------- DETAIL SECTION ------------ -->
-    <div *ngIf="selected">
-      <h1>Hunt Trip Details</h1>
-      <h3>{{ selected.id }}</h3>
-      <p>{{ selected.name }}</p>
-      <p>{{ selected.description }}</p>
-      <p>{{ selected.startDate }}</p>
-      <p>{{ selected.endDate }}</p>
-      <p>{{ selected.success }}</p>
-
-      <button class="btn btn-primary" type="submit" (click)="setEditHunt()">
-        EDIT
-      </button>
-      <button class="btn btn-primary" type="submit" (click)="displayTable()">
-        BACK
-      </button>
     </div>
   </body>
 </html>

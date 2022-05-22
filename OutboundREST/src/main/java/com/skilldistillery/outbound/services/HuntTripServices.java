@@ -6,16 +6,16 @@ import com.skilldistillery.outbound.entities.hunttrip.HuntTrip;
  
 public interface HuntTripServices {
 
-	List<HuntTrip> findAllHuntTrips();
 
+	public List<HuntTrip> findAllHuntTrips(String username);
 	
-	HuntTrip findById(int huntId);
+	public HuntTrip findById(String username,int huntId);
 	
-	HuntTrip createHuntingTrip(HuntTrip hunt);
+	public HuntTrip createHuntingTrip(String username,HuntTrip hunt);
 	
-	boolean deleteHuntTrip(int huntId);
+	public HuntTrip updateHuntingTrip(String username,HuntTrip hunt, int huntId);
 	
-	HuntTrip updateHuntingTrip(HuntTrip hunt, int huntId);
+	public boolean deleteHuntTrip(String username, int huntId);
 	
 	
 }
