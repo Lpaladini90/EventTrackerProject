@@ -754,6 +754,18 @@ USE `outbounddb`;
 INSERT INTO `hunt_trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`, `user_id`) VALUES (1, 'Fall Antelope Hunt', NULL, NULL, 'Wyoming Hunt in the fall for antelope and mule deer', 1, 1);
 INSERT INTO `hunt_trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`, `user_id`) VALUES (2, 'Mule Deer Fall Hunt', NULL, NULL, 'Hunting Mule Deer in Colorado', 0, 1);
 INSERT INTO `hunt_trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`, `user_id`) VALUES (3, 'Black Bear Spring Hunt ', NULL, NULL, 'Alaskan Black bear hunt in the spring', 0, 1);
+INSERT INTO `hunt_trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`, `user_id`) VALUES (4, 'Roosevelt Elk Hunt', NULL, NULL, NULL, 0, 1);
+INSERT INTO `hunt_trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`, `user_id`) VALUES (5, 'Alaska Caribou Hunt', NULL, NULL, NULL, 1, 1);
+INSERT INTO `hunt_trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`, `user_id`) VALUES (6, 'White Tail Hunt', NULL, NULL, NULL, 1, 1);
+INSERT INTO `hunt_trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`, `user_id`) VALUES (7, 'Sage Grouse Hunt', NULL, NULL, NULL, 0, 1);
+INSERT INTO `hunt_trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`, `user_id`) VALUES (8, 'Grouse Bird Hunt', NULL, NULL, NULL, 1, 1);
+INSERT INTO `hunt_trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`, `user_id`) VALUES (9, 'Black Bear Spring Hunt ', NULL, NULL, NULL, 1, 1);
+INSERT INTO `hunt_trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`, `user_id`) VALUES (10, 'Mule Deer Wyoming Hunt', NULL, NULL, NULL, 1, 1);
+INSERT INTO `hunt_trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`, `user_id`) VALUES (11, 'Pheasant Hunt Nebraska', NULL, NULL, NULL, 0, 1);
+INSERT INTO `hunt_trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`, `user_id`) VALUES (12, 'Black Bear Spring Hunt ', NULL, NULL, NULL, 0, 1);
+INSERT INTO `hunt_trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`, `user_id`) VALUES (13, 'Racoon Hunt Wi', NULL, NULL, NULL, 1, 1);
+INSERT INTO `hunt_trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`, `user_id`) VALUES (14, 'Pheasant Hunt Washington', NULL, NULL, NULL, 0, 1);
+INSERT INTO `hunt_trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`, `user_id`) VALUES (15, 'Forest Grouse Hunt Idaho', NULL, NULL, NULL, 1, 1);
 
 COMMIT;
 
