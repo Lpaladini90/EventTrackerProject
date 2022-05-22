@@ -714,7 +714,7 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `email`, `role`, `description`, `phone`, `enabled`) VALUES (1, 'lpaladini', '*2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19', 'lucas', 'paladini', 'lpaladini@me.com', 'ADMIN', 'I like to hunt', '(509) 993-8866', 1);
+INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `email`, `role`, `description`, `phone`, `enabled`) VALUES (1, 'lpaladini90', '$2a$10$jUUiSZOm80cSZGNAQLHRLutd3C2sw3or3GOCUzSXzixHw6NC9Phv.', 'lucas', 'paladini', 'lpaladini@me.com', 'ADMIN', 'I like to hunt', '(509) 993-8866', 1);
 
 COMMIT;
 
