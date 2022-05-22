@@ -741,7 +741,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `email`, `role`, `description`, `phone`, `enabled`, `address_id`) VALUES (1, 'lpaladini', 'password', 'lucas', 'paladini', 'lpaladini@me.com', 'ADMIN', 'I like to hunt', '(509) 993-8866', NULL, 1);
+INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `email`, `role`, `description`, `phone`, `enabled`, `address_id`) VALUES (1, 'lpaladini', 'password', 'lucas', 'paladini', 'lpaladini@me.com', 'ADMIN', 'I like to hunt', '(509) 993-8866', 1, 1);
 
 COMMIT;
 
