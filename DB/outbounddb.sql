@@ -16,43 +16,6 @@ CREATE SCHEMA IF NOT EXISTS `outbounddb` DEFAULT CHARACTER SET utf8 ;
 USE `outbounddb` ;
 
 -- -----------------------------------------------------
--- Table `country`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `country` ;
-
-CREATE TABLE IF NOT EXISTS `country` (
-  `id` INT NOT NULL,
-  `name` VARCHAR(45) NULL,
-  `abbr` VARCHAR(45) NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `address`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `address` ;
-
-CREATE TABLE IF NOT EXISTS `address` (
-  `id` INT NOT NULL,
-  `address` VARCHAR(45) NULL,
-  `address2` VARCHAR(45) NULL,
-  `city` VARCHAR(45) NULL,
-  `state` VARCHAR(45) NULL,
-  `postal_code` INT NULL,
-  `country_id` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
-  INDEX `fk_address_country1_idx` (`country_id` ASC),
-  CONSTRAINT `fk_address_country1`
-    FOREIGN KEY (`country_id`)
-    REFERENCES `country` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `user`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `user` ;
@@ -68,15 +31,8 @@ CREATE TABLE IF NOT EXISTS `user` (
   `description` VARCHAR(45) NULL,
   `phone` VARCHAR(45) NULL,
   `enabled` TINYINT NULL,
-  `address_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `username_UNIQUE` (`username` ASC),
-  INDEX `fk_user_address1_idx` (`address_id` ASC),
-  CONSTRAINT `fk_user_address1`
-    FOREIGN KEY (`address_id`)
-    REFERENCES `address` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  UNIQUE INDEX `username_UNIQUE` (`username` ASC))
 ENGINE = InnoDB;
 
 
@@ -218,6 +174,43 @@ CREATE TABLE IF NOT EXISTS `tag` (
   `description` VARCHAR(45) NULL,
   `tag_number` INT NULL,
   PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `country`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `country` ;
+
+CREATE TABLE IF NOT EXISTS `country` (
+  `id` INT NOT NULL,
+  `name` VARCHAR(45) NULL,
+  `abbr` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `address`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `address` ;
+
+CREATE TABLE IF NOT EXISTS `address` (
+  `id` INT NOT NULL,
+  `address` VARCHAR(45) NULL,
+  `address2` VARCHAR(45) NULL,
+  `city` VARCHAR(45) NULL,
+  `state` VARCHAR(45) NULL,
+  `postal_code` INT NULL,
+  `country_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+  INDEX `fk_address_country1_idx` (`country_id` ASC),
+  CONSTRAINT `fk_address_country1`
+    FOREIGN KEY (`country_id`)
+    REFERENCES `country` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -717,31 +710,11 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 -- -----------------------------------------------------
--- Data for table `country`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `outbounddb`;
-INSERT INTO `country` (`id`, `name`, `abbr`) VALUES (1, 'United States of America', 'US');
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `address`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `outbounddb`;
-INSERT INTO `address` (`id`, `address`, `address2`, `city`, `state`, `postal_code`, `country_id`) VALUES (1, '28818 N Hardesty Rd', NULL, 'Chattaroy', 'Washington', 99003, 1);
-
-COMMIT;
-
-
--- -----------------------------------------------------
 -- Data for table `user`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `email`, `role`, `description`, `phone`, `enabled`, `address_id`) VALUES (1, 'lpaladini', '*2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19', 'lucas', 'paladini', 'lpaladini@me.com', 'ADMIN', 'I like to hunt', '(509) 993-8866', 1, 1);
+INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `email`, `role`, `description`, `phone`, `enabled`) VALUES (1, 'lpaladini', '*2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19', 'lucas', 'paladini', 'lpaladini@me.com', 'ADMIN', 'I like to hunt', '(509) 993-8866', 1);
 
 COMMIT;
 
@@ -827,6 +800,26 @@ COMMIT;
 START TRANSACTION;
 USE `outbounddb`;
 INSERT INTO `tag` (`id`, `name`, `description`, `tag_number`) VALUES (1, 'Antelope/ Pronghorn', 'antelope for bow season in fall in wyoming', 028810);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `country`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `outbounddb`;
+INSERT INTO `country` (`id`, `name`, `abbr`) VALUES (1, 'United States of America', 'US');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `address`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `outbounddb`;
+INSERT INTO `address` (`id`, `address`, `address2`, `city`, `state`, `postal_code`, `country_id`) VALUES (1, '28818 N Hardesty Rd', NULL, 'Chattaroy', 'Washington', 99003, 1);
 
 COMMIT;
 
