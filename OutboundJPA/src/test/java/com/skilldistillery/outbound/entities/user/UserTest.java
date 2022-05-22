@@ -2,6 +2,7 @@ package com.skilldistillery.outbound.entities.user;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -53,6 +54,15 @@ class UserTest {
 	@Test
 	@DisplayName("Testing entity User to database")
 	void test_entity_user_to_database_connection() {
+		
+//		mysql> select * from user where id = 1;
+//		+----+-----------+----------+------------+-----------+------------------+-------+----------------+----------------+---------+------------+
+//		| id | username  | password | first_name | last_name | email            | role  | description    | phone          | enabled | address_id |
+//		+----+-----------+----------+------------+-----------+------------------+-------+----------------+----------------+---------+------------+
+//		|  1 | lpaladini | password | lucas      | paladini  | lpaladini@me.com | ADMIN | I like to hunt | (509) 993-8866 |       1 |          1 |
+//		+----+-----------+----------+------------+-----------+------------------+-------+----------------+----------------+---------+------------+
+//		1 row in set (0.00 sec)
+		
 		assertNotNull(user);
 		assertNotNull(user.getId());
 		assertEquals("lucas", user.getFirstName());
@@ -60,6 +70,27 @@ class UserTest {
 		
 	}
 	
+	@Test
+	@DisplayName("Testing entity User relational mapping to hunttrip in database")
+	void test_entity_user_relational_mapping_to_hunttrip_in_database_connection() {
+		
+//		mysql> select * from user join hunt_trip on hunt_trip.user_id = user.id where user.id =1;
+//		+----+-----------+----------+------------+-----------+------------------+-------+----------------+----------------+---------+------------+----+-------------------------+------------+----------+-----------------------------------------------------+---------+---------+
+//		| id | username  | password | first_name | last_name | email            | role  | description    | phone          | enabled | address_id | id | name                    | start_date | end_date | description                                         | success | user_id |
+//		+----+-----------+----------+------------+-----------+------------------+-------+----------------+----------------+---------+------------+----+-------------------------+------------+----------+-----------------------------------------------------+---------+---------+
+//		|  1 | lpaladini | password | lucas      | paladini  | lpaladini@me.com | ADMIN | I like to hunt | (509) 993-8866 |       1 |          1 |  1 | Fall Antelope Hunt      | NULL       | NULL     | Wyoming Hunt in the fall for antelope and mule deer |       1 |       1 |
+//		|  1 | lpaladini | password | lucas      | paladini  | lpaladini@me.com | ADMIN | I like to hunt | (509) 993-8866 |       1 |          1 |  2 | Mule Deer Fall Hunt     | NULL       | NULL     | Hunting Mule Deer in Colorado                       |       0 |       1 |
+//		|  1 | lpaladini | password | lucas      | paladini  | lpaladini@me.com | ADMIN | I like to hunt | (509) 993-8866 |       1 |          1 |  3 | Black Bear Spring Hunt  | NULL       | NULL     | Alaskan Black bear hunt in the spring               |       0 |       1 |
+//		+----+-----------+----------+------------+-----------+------------------+-------+----------------+----------------+---------+------------+----+-------------------------+------------+----------+-----------------------------------------------------+---------+---------+
+//		3 rows in set (0.00 sec)
+		
+		assertNotNull(user);
+		assertNotNull(user.getId());
+		assertTrue(user.getHunts().size()>0);
+		
+		
+		
+	}
 	
 	
 	

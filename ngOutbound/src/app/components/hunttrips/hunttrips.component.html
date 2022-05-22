@@ -1,23 +1,103 @@
+ <html>
+ <body style="padding-top: 64px; overflow-y: unset;">
+
+
+
+<div class="container">
+  <div id="root" class="ob-insider">
+    <section class="ob-page scrolling">
+      <div>
+        <div class="hunts-view-wrapper">
+          <main
+            class="ob-page-body hunts-view-page"
+            style="background-image: none"
+          >
+            <div class="page-header">
+              <div class="title-wrapper">
+                <div class="titletext"><b>Hunt Trips</b></div>
+                <div class="type displaying">
+                  Displaying
+                  <b>{{ getNumOfHunts() }} results</b>
+                </div>
+              </div>
+            </div>
+            <div class="expand-and-filter">
+              <div class="button-input">
+                <div class="text-input with-icon search">
+                  <!-- <i class="material-icons 20 md-dark" style="font-size: 20px"
+                    >search</i> -->
+                  <input
+                    data-testid="input"
+                    autocomplete="off"
+                    type="text"
+
+                    name="hunts-view-filters"
+                    id="hunts-view-filter"
+
+                    placeholder="Search by unit"
+                    value=""
+                  />
+                  <button
+                    class="button___127GD primaryFilledLight___l8IC_ pill___3HcJP xlg___1893d"
+                  >
+
+                    Search
+                  </button>
+                  <!-- <input class type="text" placeholder="search"> -->
+                </div>
+                <div class="second-row"></div>
+              </div>
+            </div>
+            <div class="hunts-view-table">
+              <div style="margin: 20px">
+                <div class="huntsViewTable">
+                  <div class="white___114xz general___2sbG-">
+                    <div class="title___22J6J">Hunts</div>
+                  </div>
+                  <div class="datagrid">
+                    <div class="fixedcolumn">
+                      <table>
+                        <thead>
+                          <tr>
+                            <th class="firstcolumn">
+
+                            </th>
+                          </tr>
+                        </thead>
+                      </table>
+
+                    </div>
+                    <div class="datatable" style="cursor: grab;">
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
 <table class="table table-success table-striped">
   <thead>
     <tr class="bg-primary">
       <th scope="col">Id</th>
-      <th scope="col" >Name</th>
+      <th scope="col">Name</th>
       <th scope="col">Start Date</th>
       <th scope="col">Success</th>
       <th scope="col">Delete</th>
     </tr>
   </thead>
-  <tbody>
-
-    <!-- below is type script assigning the todo.completed to either true or not true  -->
-    <tr  *ngFor="let hunt of hunts" (click)="displayInfo(hunt)">
-      <th   scope="row" >{{hunt.id}}</th>
-        <!-- we are adding a class called task so we can target this in CSS  to edit the actual task name to be strikethrough and gray -->
-      <td class="task" >{{hunt.name}}</td>
-      <td class="task" >{{hunt.startDate}}</td>
-      <td class="task" >{{hunt.success}}</td>
-
+  <tbody>  <!-- below is type script assigning the todo.completed to either true or not true  -->
+    <tr *ngFor="let hunt of hunts" (click)="displayInfo(hunt)">
+      <th scope="row">{{ hunt.id }}</th>
+      <!-- we are adding a class called task so we can target this in CSS  to edit the actual task name to be strikethrough and gray -->
+      <td class="task">{{ hunt.name }}</td>
+      <td class="task">{{ hunt.startDate }}</td>
+      <td class="task">{{ hunt.success }}</td>
 
       <td><button (click)="deleteHunt(hunt.id)">X</button></td>
     </tr>
@@ -27,47 +107,61 @@
   <label for="inputEmail4" class="form-label">Hunt Name: </label>
   <input type="text" name="firstName" [(ngModel)]="newHunt.name" />
 
-<br>
+  <br />
 
-<button class="btn btn-primary" (click)="addHunt(newHunt)"  type="submit" >Add Hunt</button>
+  <button class="btn btn-primary" (click)="addHunt(newHunt)" type="submit">
+    Add Hunt
+  </button>
 </div>
 
-
-<br>
-<br>
-<form *ngIf="editHunt" #createForm = "ngForm" class="row g-3">
+<br />
+<br />
+<form *ngIf="editHunt" #createForm="ngForm" class="row g-3">
   <div class="col-md-6">
     <label for="name" class="form-label">Name</label>
     <input type="text" name="name" [(ngModel)]="editHunt.name" />
 
-<br>
+    <br />
     <label for="description" class="form-label">Decription</label>
     <input type="text" name="description" [(ngModel)]="editHunt.description" />
 
-<br>
+    <br />
     <label for="completed" class="form-label">Completed</label>
-    <input type="checkbox" name="completed"[(ngModel)]="editHunt.startDate"  />
+    <input type="checkbox" name="completed" [(ngModel)]="editHunt.startDate" />
 
-<br>
+    <br />
 
-<button class="btn btn-primary" (click)="editHunt = null"  type="submit" >Cancel</button>
+    <button class="btn btn-primary" (click)="editHunt = null" type="submit">
+      Cancel
+    </button>
 
-<button class="btn btn-primary" (click)="updateHunt(editHunt, editHunt.id)"  type="submit" >Save</button>
-
+    <button
+      class="btn btn-primary"
+      (click)="updateHunt(editHunt, editHunt.id)"
+      type="submit"
+    >
+      Save
+    </button>
   </div>
-  </form>
+</form>
 
-  <!-- ---------------- DETAIL SECTION ------------ -->
+<!-- ---------------- DETAIL SECTION ------------ -->
 <div *ngIf="selected">
   <h1>Hunt Trip Details</h1>
-<h3>{{selected.id}}</h3>
-<p>{{selected.name}}</p>
-<p>{{selected.description}}</p>
-<p>{{selected.startDate}}</p>
-<p>{{selected.endDate}}</p>
-<p>{{selected.success}}</p>
+  <h3>{{ selected.id }}</h3>
+  <p>{{ selected.name }}</p>
+  <p>{{ selected.description }}</p>
+  <p>{{ selected.startDate }}</p>
+  <p>{{ selected.endDate }}</p>
+  <p>{{ selected.success }}</p>
 
-<button class="btn btn-primary" type="submit" (click)="setEditHunt()">EDIT</button>
-<button class="btn btn-primary" type="submit" (click)="displayTable()">BACK</button>
-
+  <button class="btn btn-primary" type="submit" (click)="setEditHunt()">
+    EDIT
+  </button>
+  <button class="btn btn-primary" type="submit" (click)="displayTable()">
+    BACK
+  </button>
 </div>
+
+</body>
+</html>

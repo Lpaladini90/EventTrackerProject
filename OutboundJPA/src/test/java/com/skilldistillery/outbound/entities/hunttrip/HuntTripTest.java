@@ -70,24 +70,24 @@ class HuntTripTest {
 		}
 		
 		
-//		@Test
-//		@DisplayName("Testing entity HuntTrip mapping to user in database")
-//		void test_entity_hunttrip_mapping_to_user_in_database_connection() {
-////			mysql> select * from hunt_trip join user on user.id = hunt_trip.user_id where user.id = 1;
-////			+----+-------------------------+------------+----------+-----------------------------------------------------+---------+---------+----+-----------+----------+------------+-----------+------------------+-------+----------------+----------------+---------+------------+
-////			| id | name                    | start_date | end_date | description                                         | success | user_id | id | username  | password | first_name | last_name | email            | role  | description    | phone          | enabled | address_id |
-////			+----+-------------------------+------------+----------+-----------------------------------------------------+---------+---------+----+-----------+----------+------------+-----------+------------------+-------+----------------+----------------+---------+------------+
-////			|  1 | Fall Antelope Hunt      | NULL       | NULL     | Wyoming Hunt in the fall for antelope and mule deer |       1 |       1 |  1 | lpaladini | password | lucas      | paladini  | lpaladini@me.com | ADMIN | I like to hunt | (509) 993-8866 |    NULL |          1 |
-////			|  2 | Mule Deer Fall Hunt     | NULL       | NULL     | Hunting Mule Deer in Colorado                       |       0 |       1 |  1 | lpaladini | password | lucas      | paladini  | lpaladini@me.com | ADMIN | I like to hunt | (509) 993-8866 |    NULL |          1 |
-////			|  3 | Black Bear Spring Hunt  | NULL       | NULL     | Alaskan Black bear hunt in the spring               |       0 |       1 |  1 | lpaladini | password | lucas      | paladini  | lpaladini@me.com | ADMIN | I like to hunt | (509) 993-8866 |    NULL |          1 |
-////			+----+-------------------------+------------+----------+-----------------------------------------------------+---------+---------+----+-----------+----------+------------+-----------+------------------+-------+----------------+----------------+---------+------------+
-////			3 rows in set (0.00 sec)
-////
-////			mysql> 
-//			assertNotNull(hunt);
-//			assertEquals(1, hunt.getUser().getId());
-//			
-//		}
+		@Test
+		@DisplayName("Testing entity HuntTrip mapping to user in database")
+		void test_entity_hunttrip_mapping_to_user_in_database_connection() {
+//			mysql> select * from hunt_trip join user on user.id = hunt_trip.user_id where user.id = 1;
+//			+----+-------------------------+------------+----------+-----------------------------------------------------+---------+---------+----+-----------+----------+------------+-----------+------------------+-------+----------------+----------------+---------+------------+
+//			| id | name                    | start_date | end_date | description                                         | success | user_id | id | username  | password | first_name | last_name | email            | role  | description    | phone          | enabled | address_id |
+//			+----+-------------------------+------------+----------+-----------------------------------------------------+---------+---------+----+-----------+----------+------------+-----------+------------------+-------+----------------+----------------+---------+------------+
+//			|  1 | Fall Antelope Hunt      | NULL       | NULL     | Wyoming Hunt in the fall for antelope and mule deer |       1 |       1 |  1 | lpaladini | password | lucas      | paladini  | lpaladini@me.com | ADMIN | I like to hunt | (509) 993-8866 |    NULL |          1 |
+//			|  2 | Mule Deer Fall Hunt     | NULL       | NULL     | Hunting Mule Deer in Colorado                       |       0 |       1 |  1 | lpaladini | password | lucas      | paladini  | lpaladini@me.com | ADMIN | I like to hunt | (509) 993-8866 |    NULL |          1 |
+//			|  3 | Black Bear Spring Hunt  | NULL       | NULL     | Alaskan Black bear hunt in the spring               |       0 |       1 |  1 | lpaladini | password | lucas      | paladini  | lpaladini@me.com | ADMIN | I like to hunt | (509) 993-8866 |    NULL |          1 |
+//			+----+-------------------------+------------+----------+-----------------------------------------------------+---------+---------+----+-----------+----------+------------+-----------+------------------+-------+----------------+----------------+---------+------------+
+//			3 rows in set (0.00 sec)
+//
+//			mysql> 
+			assertNotNull(hunt);
+			assertEquals(1, hunt.getUser().getId());
+			
+		}
 
 		
 }
