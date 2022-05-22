@@ -17,6 +17,7 @@ import { ContactusComponent } from './components/contactus/contactus.component';
 import { AboutusComponent } from './components/aboutus/aboutus.component';
 import { HunttripsComponent } from './components/hunttrips/hunttrips.component';
 import { DatePipe } from '@angular/common';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { DatePipe } from '@angular/common';
     RegisterComponent,
     ContactusComponent,
     AboutusComponent,
-    HunttripsComponent
+    HunttripsComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

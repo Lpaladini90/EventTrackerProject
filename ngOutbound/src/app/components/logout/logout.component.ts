@@ -16,10 +16,15 @@ export class LogoutComponent implements OnInit {
 
 logout(): void {
   console.log('logging out.');
-
   this.auth.logout();
   this.router.navigateByUrl("/home")
+
+
 }
+
+
+
+
 
 
 }

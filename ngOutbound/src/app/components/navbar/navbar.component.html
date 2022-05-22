@@ -15,25 +15,26 @@
       <li class="nav-item">
         <a class="nav-link" [routerLink]="['/about']">About Us</a>
       </li>
-      <li class="nav-item" >
-        <a class="btn btn-primary nav-link"  [routerLink]="['/login']" >Login</a>
+      <li class="nav-item" *ngIf="!loggedIn()">
+        <a class=" nav-link"  [routerLink]="['/login']" >Login</a>
       </li>
-      <li class="nav-item" >
+      <li class="nav-item" *ngIf="loggedIn()" >
+        <a class=" nav-link"  [routerLink]="['/logout']" >Logout</a>
 
       </li>
 
 
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown
+          My Hunts
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" [routerLink]="['/todo']">Todo List</a>
-          <hr>
+
+
           <!-- <div class="dropdown-divider"></div> -->
-          <a class="dropdown-item" href="#">Incomplete Todos</a>
+          <a class="dropdown-item" [routerLink]="['/hunttrips']">Past Hunts</a>
           <!-- <div class="dropdown-divider"></div> -->
-          <a class="dropdown-item" href="#">Completed Todos</a>
+          <a class="dropdown-item" [routerLink]="['/hunttrips']">Upcoming Hunts</a>
         </div>
       </li>
 

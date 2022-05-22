@@ -17,19 +17,19 @@ export class HunttripsService {
   private baseUrl = environment.baseUrl + 'api/outbound/hunttrips'
 
 
-  // getHttpOptions() {
-  //   let options = {
-  //     headers: {
-  //       Authorization: 'Basic ' + this.auth.getCredentials(),
-  //       'X-Requested-With': 'XMLHttpRequest',
-  //     },
-  //   };
-  //   return options;
-  // }
+  getHttpOptions() {
+    let options = {
+      headers: {
+        Authorization: 'Basic ' + this.auth.getCredentials(),
+        'X-Requested-With': 'XMLHttpRequest',
+      },
+    };
+    return options;
+  }
 
     //--------------  SHOW ALL HUNTS ----------------
   public index(){
-    return this.http.get<Hunttrip[]>(this.baseUrl)
+    return this.http.get<Hunttrip[]>(this.baseUrl,this.getHttpOptions())
     .pipe(
       catchError((err:any)=>{
         return throwError("index erroe- KABOOM!")
@@ -40,7 +40,7 @@ export class HunttripsService {
     //--------------   CREATE HUNTS ----------------
 
   public create(newHunt : Hunttrip){
-    return this.http.post<Hunttrip[]>(this.baseUrl, newHunt)
+    return this.http.post<Hunttrip[]>(this.baseUrl, newHunt,this.getHttpOptions())
     .pipe(
       catchError((err: any)=>{
         console.log(err);
@@ -51,7 +51,7 @@ export class HunttripsService {
   }
 
   public update(updateHunt : Hunttrip, id : number){
-    return this.http.put<Hunttrip>(this.baseUrl + "/" + id, updateHunt)
+    return this.http.put<Hunttrip>(this.baseUrl + "/" + id, updateHunt,this.getHttpOptions())
     .pipe(
 
       catchError((err : any)=>{
@@ -65,7 +65,7 @@ export class HunttripsService {
 
   public destory(id: number){
 
-    return this.http.delete<Hunttrip>(this.baseUrl + "/" + id)
+    return this.http.delete<Hunttrip>(this.baseUrl + "/" + id,this.getHttpOptions())
     .pipe(
 
       catchError((err : any)=>{
@@ -77,7 +77,7 @@ export class HunttripsService {
   }
 
   public show(id:number){
-    return this.http.get<Hunttrip>(this.baseUrl + "/" + id)
+    return this.http.get<Hunttrip>(this.baseUrl + "/" + id,this.getHttpOptions())
     .pipe(
       catchError((err:any)=>{
         return throwError('Check this- KABOOM!')
