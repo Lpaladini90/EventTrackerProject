@@ -9,7 +9,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.skilldistillery.outbound.entities.user.User;
 
 
 @Entity
@@ -32,6 +36,10 @@ public class HuntTrip {
 	
 	private boolean success;
 
+	@ManyToOne
+	@JoinColumn(name="user_id")
+	private User user;
+	
 	public HuntTrip() {
 		super();
 	}
@@ -83,16 +91,25 @@ public class HuntTrip {
 	public void setSuccess(boolean success) {
 		this.success = success;
 	}
+	
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	@Override
 	public String toString() {
 		return "HuntTrip [id=" + id + ", name=" + name + ", description=" + description + ", startDate=" + startDate
-				+ ", endDate=" + endDate + ", success=" + success + "]";
+				+ ", endDate=" + endDate + ", success=" + success + ", user=" + user + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(description, endDate, id, name, startDate, success);
+		return Objects.hash(description, endDate, id, name, startDate, success, user);
 	}
 
 	
@@ -107,7 +124,8 @@ public class HuntTrip {
 		HuntTrip other = (HuntTrip) obj;
 		return Objects.equals(description, other.description) && Objects.equals(endDate, other.endDate)
 				&& Objects.equals(id, other.id) && Objects.equals(name, other.name)
-				&& Objects.equals(startDate, other.startDate) && success == other.success;
+				&& Objects.equals(startDate, other.startDate) && success == other.success
+				&& Objects.equals(user, other.user);
 	}
 
 	

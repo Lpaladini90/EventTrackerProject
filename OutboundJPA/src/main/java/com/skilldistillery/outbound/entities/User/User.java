@@ -1,6 +1,7 @@
 package com.skilldistillery.outbound.entities.user;
 
 
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -8,6 +9,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.skilldistillery.outbound.entities.hunttrip.HuntTrip;
 
 @Entity
 public class User {
@@ -32,6 +37,10 @@ public class User {
 	private String role;
 	
 	private boolean enabled;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="user")
+	private List<HuntTrip> hunts;
 
 	public User() {
 		super();
@@ -103,15 +112,26 @@ public class User {
 		this.enabled = enabled;
 	}
 
+	
+	
+	public List<HuntTrip> getHunts() {
+		return hunts;
+	}
+
+	public void setHunts(List<HuntTrip> hunts) {
+		this.hunts = hunts;
+	}
+
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", username=" + username
-				+ ", password=" + password + ", email=" + email + ", role=" + role + ", enabled=" + enabled + "]";
+				+ ", password=" + password + ", email=" + email + ", role=" + role + ", enabled=" + enabled + ", hunts="
+				+ hunts + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(email, enabled, firstName, id, lastName, password, role, username);
+		return Objects.hash(email, enabled, firstName, hunts, id, lastName, password, role, username);
 	}
 
 	@Override
@@ -124,9 +144,10 @@ public class User {
 			return false;
 		User other = (User) obj;
 		return Objects.equals(email, other.email) && enabled == other.enabled
-				&& Objects.equals(firstName, other.firstName) && Objects.equals(id, other.id)
-				&& Objects.equals(lastName, other.lastName) && Objects.equals(password, other.password)
-				&& Objects.equals(role, other.role) && Objects.equals(username, other.username);
+				&& Objects.equals(firstName, other.firstName) && Objects.equals(hunts, other.hunts)
+				&& Objects.equals(id, other.id) && Objects.equals(lastName, other.lastName)
+				&& Objects.equals(password, other.password) && Objects.equals(role, other.role)
+				&& Objects.equals(username, other.username);
 	}
 	
 	
