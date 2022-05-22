@@ -15,7 +15,7 @@ import com.skilldistillery.outbound.entities.user.User;
 import com.skilldistillery.outbound.services.AuthService;
 
 @RestController
-@CrossOrigin({ "*", "http://localhost:4201" })
+@CrossOrigin({ "*", "http://localhost:4200" })
 public class AuthController {
 
 	
