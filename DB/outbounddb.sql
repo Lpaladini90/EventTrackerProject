@@ -651,18 +651,11 @@ DROP TABLE IF EXISTS `hunt_method_type_has_hunt_trip` ;
 
 CREATE TABLE IF NOT EXISTS `hunt_method_type_has_hunt_trip` (
   `hunt_method_type_id` INT NOT NULL,
-  `hunt_trip_id` INT NOT NULL,
-  PRIMARY KEY (`hunt_method_type_id`, `hunt_trip_id`),
-  INDEX `fk_hunt_method_type_has_hunt_trip_hunt_trip1_idx` (`hunt_trip_id` ASC),
+  PRIMARY KEY (`hunt_method_type_id`),
   INDEX `fk_hunt_method_type_has_hunt_trip_hunt_method_type1_idx` (`hunt_method_type_id` ASC),
   CONSTRAINT `fk_hunt_method_type_has_hunt_trip_hunt_method_type1`
     FOREIGN KEY (`hunt_method_type_id`)
     REFERENCES `hunt_method_type` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_hunt_method_type_has_hunt_trip_hunt_trip1`
-    FOREIGN KEY (`hunt_trip_id`)
-    REFERENCES `hunt_trip` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -1116,7 +1109,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `hunt_method_type_has_hunt_trip` (`hunt_method_type_id`, `hunt_trip_id`) VALUES (1, 1);
+INSERT INTO `hunt_method_type_has_hunt_trip` (`hunt_method_type_id`) VALUES (1);
 
 COMMIT;
 
