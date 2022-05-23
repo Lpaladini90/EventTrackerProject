@@ -54,6 +54,7 @@
 -   [Atom Text Editor](https://atom.io/)
 -   [REST](https://restfulapi.net/)
 -   [GITHUB](https://github.com/)
+-   [Angular](https://angular.com/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -83,6 +84,8 @@ The purpose of the Outbound app is to allow a user to create, read, update and d
 <li>
 While creating the Event Track Project, it help fortify my knowledge of the REST api creation that we learned while in class. I had some trouble understanding the syntax's I
  needed to user to complete operations. After figuring out everything correctly, I tried to find a hunt by a specific species and by keyword, which gave me some issues while trying it and will need to request help as its giving me a casting error that doesn't make sense. Im hoping the more we do RESTful services I will start to understand this more.
+
+ Angular was a bit rough- the type script is a bit hard for me to get to as there are so many options of things I can do and want to do but finding the best way to implement what I want it to do exactly is what I'm having a difficult time with. I believe with more experience I will be able to really make use of angular. 
 </li>
 
 <p align="right">(<a href="#top">back to top</a>)</p>
