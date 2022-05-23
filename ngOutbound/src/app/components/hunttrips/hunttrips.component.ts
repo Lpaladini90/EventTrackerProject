@@ -68,15 +68,7 @@ export class HunttripsComponent implements OnInit {
 
 
 
-  deleteHunt(id: number) {
-    this.huntService.destory(id).subscribe(
-      success=> {
-        this.reloadHunt();
 
-      },
-      error=> console.log("Deleting observable got an error")
-    );
-  }
 
   getNumOfHunts(){
     return this.hunts.length;

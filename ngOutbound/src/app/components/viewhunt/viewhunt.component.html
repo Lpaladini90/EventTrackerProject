@@ -37,3 +37,25 @@
     <a > <button class="btn btn-primary" type="submit" [routerLink]="['/hunttrips']" (click)="displayTable()">BACK</button></a>
   </div>
 </div>
+<!--
+<form *ngIf="editHunt" #createForm = "ngForm" class="row g-3">
+  <div class="col-md-6">
+    <label for="task" class="form-label">Task</label>
+    <input type="text" name="firstName" [(ngModel)]="editHunt.name" />
+
+<br>
+    <label for="description" class="form-label">Decription</label>
+    <input type="text" name="description" [(ngModel)]="editHunt.description" />
+
+<br>
+    <label for="completed" class="form-label">Completed</label>
+    <input type="checkbox" name="completed"[(ngModel)]="editHunt.success"  />
+
+<br>
+
+<button class="btn btn-primary" (click)="editHunt = null"  type="submit" >Cancel</button>
+
+<button class="btn btn-primary" (click)="updateHunt(editHunt, editHunt.id)"  type="submit" >Save</button>
+
+  </div>
+  </form> -->

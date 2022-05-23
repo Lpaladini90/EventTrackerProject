@@ -18,6 +18,7 @@ export class ViewhuntComponent implements OnInit {
 
   editHunt: Hunttrip | null = null;
 
+
   constructor(private huntService: HunttripsService, private route : ActivatedRoute) { }
 
     // refer to this when sending objects to another component
