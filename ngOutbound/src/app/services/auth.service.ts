@@ -65,6 +65,8 @@ export class AuthService {
     return false;
   }
 
+
+
   generateBasicAuthCredentials(username: string | null
     , password: string | null
     ): string {

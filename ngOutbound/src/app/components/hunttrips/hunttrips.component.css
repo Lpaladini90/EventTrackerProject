@@ -359,6 +359,7 @@ meter,
 progress {
   writing-mode: horizontal-tb;
 }
+
 button {
   appearance: button;
 }
@@ -549,7 +550,7 @@ Style Attribute {
   z-index: 10;
   box-shadow: -5px 0 5px rgba(0, 0, 0, 0.2);
   min-height: calc(100vh - 72px);
-  position: relative;
+  position:sticky;
   flex-direction: column;
   overflow-y: auto;
   transition: all 0.2s;

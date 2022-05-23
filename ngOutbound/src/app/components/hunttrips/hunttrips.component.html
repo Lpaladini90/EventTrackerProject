@@ -70,12 +70,12 @@
                               </tr>
                             </thead>
                             <tbody>
-                              <tr *ngFor="let hunt of hunts">
-                                <th class="firstcolumn">
-                                  <div class="firstline">
+                              <tr *ngFor="let hunt of hunts" >
+                                <th class="firstcolumn" >
+                                  <div class="firstline" [routerLink]="['huntview/' + hunt.id]" (click)="displayInfo(hunt)">
                                     {{ hunt.name }}
                                   </div>
-                                  <div class="secondline">
+                                  <div class="secondline" (click)="displayInfo(hunt)">
                                     {{ hunt.startDate }} - {{ hunt.endDate }}
                                   </div>
                                 </th>
@@ -106,7 +106,7 @@
                             <tbody>
                               <tr *ngFor="let hunt of hunts">
 
-                                <td class>{{ hunt.id }}</td>
+                                <td class (click)="displayInfo(hunt)">{{ hunt.id }}</td>
                                 <td class>Fix Mapping</td>
                                 <td class>Fix Mapping</td>
                                 <td class>Fix Mapping</td>
@@ -118,7 +118,7 @@
                                 <td class>Fix Mapping</td>
                                 <td class>Fix Mapping</td>
                                 <td class>Fix Mapping</td>
-                                <td id="highlighted2">{{ hunt.success }}</td>
+                                <td (click)="displayInfo(hunt)" id="highlighted2">{{ hunt.success }}</td>
                               </tr>
                             </tbody>
                           </table>
@@ -128,7 +128,7 @@
                   </div>
                 </div>
               </main>
-              <div class="ob-page-sidebar hunts-view-page">
+              <div class="ob-page-sidebar hunts-view-page ">
                 <div class="ob-sidebar-header">
                   <h2>Hunts</h2>
 
@@ -181,13 +181,14 @@
                         >
                           <div
                             data-testid="title-bar"
-                            class="section-title-bar"
+                            class="section-title-bar dropdown"
                           >
                             <div class="section-title-text">
                               <p data-testid="title" class="title">
                                 <span class=""></span> State
                               </p>
                             </div>
+
                             <div
                               data-testid="expand-button"
                               class="expand-button"
@@ -396,7 +397,7 @@
                               </p>
                             </div>
                             <div
-                              data-testid="expand-button"
+                              data-testid="expand-button dropdown"
                               class="expand-button"
                             >
                             <p> Edit  <i class="arrow down"></i></p>
@@ -831,5 +832,116 @@
         </section>
       </div>
     </div>
+
+
+
+<!-- ---------------- EDIT DETAIL SECTION ------------ -->
+
+<!-- <form *ngIf="updateHunt" #createForm = "ngForm" class="row g-3">
+  <div class="col-md-6">
+    <label for="task" class="form-label">Task</label>
+    <input type="text" name="firstName" [(ngModel)]="updateHunt.name" />
+
+<br>
+    <label for="description" class="form-label">Decription</label>
+    <input type="text" name="description" [(ngModel)]="updateHunt.description" />
+
+<br>
+    <label for="completed" class="form-label">Completed</label>
+    <input type="checkbox" name="completed"[(ngModel)]="updateHunt.completed"  />
+
+<br>
+
+<button class="btn btn-primary" (click)="updateHunt = null"  type="submit" >Cancel</button>
+
+<button class="btn btn-primary" (click)="updateHunt(updateHunt, updateHunt.id)"  type="submit" >Save</button>
+
+  </div>
+  </form> -->
+
+
+
+
+<!-- ---------------- DETAIL SECTION ------------ -->
+
+
+
+
+
+<!--
+<div *ngIf="!selected" >
+
+<table class="table table-success table-striped">
+  <thead>
+    <tr class="bg-primary">
+      <th scope="col">Id</th>
+      <th scope="col" >Task</th>
+      <th scope="col">Mark</th>
+      <th scope="col">Completed</th>
+      <th scope="col">Delete</th>
+
+    </tr>
+  </thead>
+  <tbody> -->
+
+    <!-- below is type script assigning the todo.completed to either true or not true  -->
+    <!-- <tr  *ngFor="let hunt of hunts  " >
+
+      <th   scope="row" (click)="displayInfo(hunt)">{{hunt.id}}</th> -->
+
+        <!-- we are adding a class called task so we can target this in CSS  to edit the actual task name to be strikethrough and gray -->
+      <!-- <td class="task" (click)="displayInfo(hunt);">{{hunt.name}}</td>
+      <td ><input type="checkbox" name="Mark" [(ngModel)]="hunt.success" (change)="updateHunt(hunt, hunt.id)"></td>
+      <td (click)="displayInfo(hunt)">{{hunt.description}}</td>
+      <td><button class="btn btn-danger">X</button></td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+<label for="showCompleted">Show Completed </label>
+
+<input type="checkbox" name="showCompleted" [(ngModel)]="showComplete" >
+
+<br>
+
+<form *ngIf="!selected" #createForm = "ngForm" class="row g-3">
+  <div class="col-md-6">
+    <label for="inputEmail4" class="form-label">Task</label>
+    <input type="text" name="firstName" [(ngModel)]="newHunt.name" />
+
+<br>
+
+<button class="btn btn-primary" (click)="addHunt(newHunt )"  type="submit" >Add Task</button>
+
+  </div>
+  </form>
+
+</div>
+
+<br><br><br>
+
+<hr> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   </body>
 </html>

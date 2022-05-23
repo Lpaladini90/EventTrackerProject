@@ -6,8 +6,8 @@ import { HomeComponent } from './components/home/home.component';
 import { HunttripsComponent } from './components/hunttrips/hunttrips.component';
 import { LoginComponent } from './components/login/login.component';
 import { LogoutComponent } from './components/logout/logout.component';
-import { NotfoundComponent } from './components/notfound/notfound.component';
 import { RegisterComponent } from './components/register/register.component';
+import { ViewhuntComponent } from './components/viewhunt/viewhunt.component';
 
 const routes: Routes = [
 
@@ -19,6 +19,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'logout', component: LogoutComponent },
+  { path: 'huntview/:id', component: ViewhuntComponent },
 
 
 

@@ -1,0 +1,39 @@
+<!-- ---------------- DETAIL SECTION ------------ -->
+
+
+ <div *ngIf = "selected ">
+  <h1>To Do Task</h1>
+<h3>{{selected.id}}</h3>
+<p>{{selected.name}}</p>
+<p>{{selected.description}}</p>
+<p>{{selected.success}}</p>
+
+
+
+
+
+<div class="card" style="width: 18rem;">
+ <a><button class="btn btn-primary" type="submit" [routerLink]="['/hunttrips']" (click)="deleteHunt(selected.id)">Delete</button></a>
+  <div class="card-body">
+    <h5 class="card-title">{{selected.name}}</h5>
+    <p class="card-text">
+      {{selected.description}}
+    </p>
+  </div>
+  <ul class="list-group list-group-flush">
+
+    <li class="list-group-item">Date Range: {{selected.startDate}} <p> - </p>{{selected.endDate}} </li>
+
+    <li class="list-group-item">State: Fix Mapping</li>
+    <li class="list-group-item">Region Fix Mapping</li>
+    <li class="list-group-item">Unit Fix Mapping</li>
+    <li class="list-group-item">Region Fix Mapping</li>
+    <li class="list-group-item">Region Fix Mapping</li>
+    <li class="list-group-item">Region</li>
+    <li class="list-group-item">Successful Hunt: {{selected.success}} </li>
+  </ul>
+  <div class="card-body">
+    <a><button class="btn btn-primary" type="submit" (click)="setEditHunt()">EDIT</button></a>
+    <a > <button class="btn btn-primary" type="submit" [routerLink]="['/hunttrips']" (click)="displayTable()">BACK</button></a>
+  </div>
+</div>

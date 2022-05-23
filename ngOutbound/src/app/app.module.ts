@@ -18,6 +18,7 @@ import { AboutusComponent } from './components/aboutus/aboutus.component';
 import { HunttripsComponent } from './components/hunttrips/hunttrips.component';
 import { DatePipe } from '@angular/common';
 import { FooterComponent } from './components/footer/footer.component';
+import { ViewhuntComponent } from './components/viewhunt/viewhunt.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { FooterComponent } from './components/footer/footer.component';
     ContactusComponent,
     AboutusComponent,
     HunttripsComponent,
-    FooterComponent
+    FooterComponent,
+    ViewhuntComponent
   ],
   imports: [
     BrowserModule,

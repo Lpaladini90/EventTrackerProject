@@ -2,7 +2,7 @@ import { HunttripsService } from './../../services/hunttrips.service';
 import { Hunttrip } from './../../models/hunttrip';
 import { Component, OnInit, SecurityContext } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { User } from 'src/app/models/user';
+
 
 @Component({
   selector: 'app-hunttrips',
@@ -13,15 +13,13 @@ export class HunttripsComponent implements OnInit {
 
   newHunt: Hunttrip = new Hunttrip();
 
-  editHunt: Hunttrip | null = null;
-
   selected : Hunttrip | null = null;
 
   hunts: Hunttrip[] = [];
 
   displayDetails : boolean = false;
 
-
+  showComplete : boolean = false;
 
   constructor(
     private huntService: HunttripsService,
@@ -66,17 +64,7 @@ export class HunttripsComponent implements OnInit {
     );
   }
 
-  updateHunt(updateHunt: Hunttrip, id : number) {
-this.huntService.update(updateHunt,id).subscribe(
-  success=> {
-    this.reloadHunt();
 
-    this.newHunt = updateHunt;
-
-  },
-  error=> console.log("Updating observable got an error")
-);
-  }
 
 
 
@@ -94,18 +82,11 @@ this.huntService.update(updateHunt,id).subscribe(
     return this.hunts.length;
   }
 
-  setEditHunt(){
-    this.editHunt = Object.assign({}, this.selected);
-  }
 
-
+  // refer to this when sending objects to another component
   displayInfo =(hunt: Hunttrip)=>{
     this.selected = hunt;
+    this.router.navigateByUrl("/huntview/" + hunt.id)
 
   }
-
-displayTable = ()=>{
-  this.selected = null;
-}
-
 }

@@ -67,16 +67,9 @@ DROP TABLE IF EXISTS `gear_list` ;
 CREATE TABLE IF NOT EXISTS `gear_list` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `description` VARCHAR(2000) NULL,
-  `hunt_trip_id` INT NOT NULL,
   `user_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_gear_list_hunt_trip1_idx` (`hunt_trip_id` ASC),
   INDEX `fk_gear_list_user1_idx` (`user_id` ASC),
-  CONSTRAINT `fk_gear_list_hunt_trip1`
-    FOREIGN KEY (`hunt_trip_id`)
-    REFERENCES `hunt_trip` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
   CONSTRAINT `fk_gear_list_user1`
     FOREIGN KEY (`user_id`)
     REFERENCES `user` (`id`)
@@ -748,7 +741,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `gear_list` (`id`, `description`, `hunt_trip_id`, `user_id`) VALUES (1, 'Antelope Hunt Gear List', 1, 1);
+INSERT INTO `gear_list` (`id`, `description`, `user_id`) VALUES (1, 'Antelope Hunt Gear List', 1);
 
 COMMIT;
 
