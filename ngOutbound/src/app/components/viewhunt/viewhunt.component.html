@@ -1,18 +1,11 @@
 <!-- ---------------- DETAIL SECTION ------------ -->
 
 
- <div *ngIf = "selected ">
-  <h1>To Do Task</h1>
-<h3>{{selected.id}}</h3>
-<p>{{selected.name}}</p>
-<p>{{selected.description}}</p>
-<p>{{selected.success}}</p>
 
 
 
 
-
-<div class="card" style="width: 18rem;">
+<div *ngIf = "selected " class="card" style="width: 18rem;">
  <a><button class="btn btn-primary" type="submit" [routerLink]="['/hunttrips']" (click)="deleteHunt(selected.id)">Delete</button></a>
   <div class="card-body">
     <h5 class="card-title">{{selected.name}}</h5>
@@ -37,7 +30,7 @@
     <a > <button class="btn btn-primary" type="submit" [routerLink]="['/hunttrips']" (click)="displayTable()">BACK</button></a>
   </div>
 </div>
-<!--
+
 <form *ngIf="editHunt" #createForm = "ngForm" class="row g-3">
   <div class="col-md-6">
     <label for="task" class="form-label">Task</label>
@@ -55,7 +48,7 @@
 
 <button class="btn btn-primary" (click)="editHunt = null"  type="submit" >Cancel</button>
 
-<button class="btn btn-primary" (click)="updateHunt(editHunt, editHunt.id)"  type="submit" >Save</button>
+<button class="btn btn-primary" [routerLink]="['/hunttrips']" (click)="updateHunt(editHunt, editHunt.id)"  type="submit" >Save</button>
 
   </div>
-  </form> -->
+  </form>
