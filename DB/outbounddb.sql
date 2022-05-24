@@ -396,30 +396,6 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `item_has_item_category`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `item_has_item_category` ;
-
-CREATE TABLE IF NOT EXISTS `item_has_item_category` (
-  `gear_item_id` INT NOT NULL,
-  `category_id` INT NOT NULL,
-  PRIMARY KEY (`gear_item_id`, `category_id`),
-  INDEX `fk_gear_item_has_category_category1_idx` (`category_id` ASC),
-  INDEX `fk_gear_item_has_category_gear_item1_idx` (`gear_item_id` ASC),
-  CONSTRAINT `fk_gear_item_has_category_gear_item1`
-    FOREIGN KEY (`gear_item_id`)
-    REFERENCES `item` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_gear_item_has_category_category1`
-    FOREIGN KEY (`category_id`)
-    REFERENCES `item_category` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `preference_points_has_species`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `preference_points_has_species` ;
@@ -509,54 +485,6 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `item_category_has_weapon_type`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `item_category_has_weapon_type` ;
-
-CREATE TABLE IF NOT EXISTS `item_category_has_weapon_type` (
-  `weapon_type_id` INT NOT NULL,
-  `gear_category_id` INT NOT NULL,
-  PRIMARY KEY (`weapon_type_id`, `gear_category_id`),
-  INDEX `fk_weapon_type_has_gear_category_gear_category1_idx` (`gear_category_id` ASC),
-  INDEX `fk_weapon_type_has_gear_category_weapon_type1_idx` (`weapon_type_id` ASC),
-  CONSTRAINT `fk_weapon_type_has_gear_category_weapon_type1`
-    FOREIGN KEY (`weapon_type_id`)
-    REFERENCES `weapon_type` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_weapon_type_has_gear_category_gear_category1`
-    FOREIGN KEY (`gear_category_id`)
-    REFERENCES `item_category` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `item_category_has_clothing_category`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `item_category_has_clothing_category` ;
-
-CREATE TABLE IF NOT EXISTS `item_category_has_clothing_category` (
-  `clothing_category_id` INT NOT NULL,
-  `gear_category_id` INT NOT NULL,
-  PRIMARY KEY (`clothing_category_id`, `gear_category_id`),
-  INDEX `fk_clothing_category_has_gear_category_gear_category1_idx` (`gear_category_id` ASC),
-  INDEX `fk_clothing_category_has_gear_category_clothing_category1_idx` (`clothing_category_id` ASC),
-  CONSTRAINT `fk_clothing_category_has_gear_category_clothing_category1`
-    FOREIGN KEY (`clothing_category_id`)
-    REFERENCES `clothing_category` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_clothing_category_has_gear_category_gear_category1`
-    FOREIGN KEY (`gear_category_id`)
-    REFERENCES `item_category` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `gear_list`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `gear_list` ;
@@ -565,17 +493,17 @@ CREATE TABLE IF NOT EXISTS `gear_list` (
   `id` INT NOT NULL,
   `description` VARCHAR(45) NULL,
   `user_id` INT NOT NULL,
-  `gear_inventory_id` INT NOT NULL,
+  `inventory_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_gear_list_user1_idx` (`user_id` ASC),
-  INDEX `fk_gear_list_gear_inventory1_idx` (`gear_inventory_id` ASC),
+  INDEX `fk_gear_list_inventory1_idx` (`inventory_id` ASC),
   CONSTRAINT `fk_gear_list_user1`
     FOREIGN KEY (`user_id`)
     REFERENCES `user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_gear_list_gear_inventory1`
-    FOREIGN KEY (`gear_inventory_id`)
+  CONSTRAINT `fk_gear_list_inventory1`
+    FOREIGN KEY (`inventory_id`)
     REFERENCES `inventory` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -607,24 +535,96 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
+-- Table `item_has_item_category`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `item_has_item_category` ;
+
+CREATE TABLE IF NOT EXISTS `item_has_item_category` (
+  `item_id` INT NOT NULL,
+  `item_category_id` INT NOT NULL,
+  PRIMARY KEY (`item_id`, `item_category_id`),
+  INDEX `fk_item_has_item_category_item_category1_idx` (`item_category_id` ASC),
+  INDEX `fk_item_has_item_category_item1_idx` (`item_id` ASC),
+  CONSTRAINT `fk_item_has_item_category_item1`
+    FOREIGN KEY (`item_id`)
+    REFERENCES `item` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_item_has_item_category_item_category1`
+    FOREIGN KEY (`item_category_id`)
+    REFERENCES `item_category` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `item_category_has_weapon_type`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `item_category_has_weapon_type` ;
+
+CREATE TABLE IF NOT EXISTS `item_category_has_weapon_type` (
+  `item_category_id` INT NOT NULL,
+  `weapon_type_id` INT NOT NULL,
+  PRIMARY KEY (`item_category_id`, `weapon_type_id`),
+  INDEX `fk_item_category_has_weapon_type_weapon_type1_idx` (`weapon_type_id` ASC),
+  INDEX `fk_item_category_has_weapon_type_item_category1_idx` (`item_category_id` ASC),
+  CONSTRAINT `fk_item_category_has_weapon_type_item_category1`
+    FOREIGN KEY (`item_category_id`)
+    REFERENCES `item_category` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_item_category_has_weapon_type_weapon_type1`
+    FOREIGN KEY (`weapon_type_id`)
+    REFERENCES `weapon_type` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `item_category_has_clothing_layer`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `item_category_has_clothing_layer` ;
 
 CREATE TABLE IF NOT EXISTS `item_category_has_clothing_layer` (
-  `gear_category_id` INT NOT NULL,
+  `item_category_id` INT NOT NULL,
   `clothing_layer_id` INT NOT NULL,
-  PRIMARY KEY (`gear_category_id`, `clothing_layer_id`),
-  INDEX `fk_gear_category_has_clothing_layer_clothing_layer1_idx` (`clothing_layer_id` ASC),
-  INDEX `fk_gear_category_has_clothing_layer_gear_category1_idx` (`gear_category_id` ASC),
-  CONSTRAINT `fk_gear_category_has_clothing_layer_gear_category1`
-    FOREIGN KEY (`gear_category_id`)
+  PRIMARY KEY (`item_category_id`, `clothing_layer_id`),
+  INDEX `fk_item_category_has_clothing_layer_clothing_layer1_idx` (`clothing_layer_id` ASC),
+  INDEX `fk_item_category_has_clothing_layer_item_category1_idx` (`item_category_id` ASC),
+  CONSTRAINT `fk_item_category_has_clothing_layer_item_category1`
+    FOREIGN KEY (`item_category_id`)
     REFERENCES `item_category` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_gear_category_has_clothing_layer_clothing_layer1`
+  CONSTRAINT `fk_item_category_has_clothing_layer_clothing_layer1`
     FOREIGN KEY (`clothing_layer_id`)
     REFERENCES `clothing_layer` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `item_category_has_clothing_category`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `item_category_has_clothing_category` ;
+
+CREATE TABLE IF NOT EXISTS `item_category_has_clothing_category` (
+  `item_category_id` INT NOT NULL,
+  `clothing_category_id` INT NOT NULL,
+  PRIMARY KEY (`item_category_id`, `clothing_category_id`),
+  INDEX `fk_item_category_has_clothing_category_clothing_category1_idx` (`clothing_category_id` ASC),
+  INDEX `fk_item_category_has_clothing_category_item_category1_idx` (`item_category_id` ASC),
+  CONSTRAINT `fk_item_category_has_clothing_category_item_category1`
+    FOREIGN KEY (`item_category_id`)
+    REFERENCES `item_category` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_item_category_has_clothing_category_clothing_category1`
+    FOREIGN KEY (`clothing_category_id`)
+    REFERENCES `clothing_category` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -943,27 +943,6 @@ COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `item_has_item_category`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `outbounddb`;
-INSERT INTO `item_has_item_category` (`gear_item_id`, `category_id`) VALUES (1, 1);
-INSERT INTO `item_has_item_category` (`gear_item_id`, `category_id`) VALUES (2, 3);
-INSERT INTO `item_has_item_category` (`gear_item_id`, `category_id`) VALUES (3, 5);
-INSERT INTO `item_has_item_category` (`gear_item_id`, `category_id`) VALUES (4, 7);
-INSERT INTO `item_has_item_category` (`gear_item_id`, `category_id`) VALUES (5, 2);
-INSERT INTO `item_has_item_category` (`gear_item_id`, `category_id`) VALUES (6, 2);
-INSERT INTO `item_has_item_category` (`gear_item_id`, `category_id`) VALUES (7, 6);
-INSERT INTO `item_has_item_category` (`gear_item_id`, `category_id`) VALUES (8, 4);
-INSERT INTO `item_has_item_category` (`gear_item_id`, `category_id`) VALUES (9, 4);
-INSERT INTO `item_has_item_category` (`gear_item_id`, `category_id`) VALUES (10, 4);
-INSERT INTO `item_has_item_category` (`gear_item_id`, `category_id`) VALUES (11, 9);
-INSERT INTO `item_has_item_category` (`gear_item_id`, `category_id`) VALUES (12, 8);
-
-COMMIT;
-
-
--- -----------------------------------------------------
 -- Data for table `preference_points_has_species`
 -- -----------------------------------------------------
 START TRANSACTION;
@@ -1004,42 +983,12 @@ COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `item_category_has_weapon_type`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `outbounddb`;
-INSERT INTO `item_category_has_weapon_type` (`weapon_type_id`, `gear_category_id`) VALUES (1, 9);
-INSERT INTO `item_category_has_weapon_type` (`weapon_type_id`, `gear_category_id`) VALUES (2, 9);
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `item_category_has_clothing_category`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `outbounddb`;
-INSERT INTO `item_category_has_clothing_category` (`clothing_category_id`, `gear_category_id`) VALUES (1, 8);
-INSERT INTO `item_category_has_clothing_category` (`clothing_category_id`, `gear_category_id`) VALUES (2, 8);
-INSERT INTO `item_category_has_clothing_category` (`clothing_category_id`, `gear_category_id`) VALUES (3, 8);
-INSERT INTO `item_category_has_clothing_category` (`clothing_category_id`, `gear_category_id`) VALUES (4, 8);
-INSERT INTO `item_category_has_clothing_category` (`clothing_category_id`, `gear_category_id`) VALUES (5, 8);
-INSERT INTO `item_category_has_clothing_category` (`clothing_category_id`, `gear_category_id`) VALUES (6, 8);
-INSERT INTO `item_category_has_clothing_category` (`clothing_category_id`, `gear_category_id`) VALUES (7, 8);
-INSERT INTO `item_category_has_clothing_category` (`clothing_category_id`, `gear_category_id`) VALUES (8, 8);
-INSERT INTO `item_category_has_clothing_category` (`clothing_category_id`, `gear_category_id`) VALUES (9, 8);
-INSERT INTO `item_category_has_clothing_category` (`clothing_category_id`, `gear_category_id`) VALUES (10, 8);
-
-COMMIT;
-
-
--- -----------------------------------------------------
 -- Data for table `gear_list`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `gear_list` (`id`, `description`, `user_id`, `gear_inventory_id`) VALUES (1, 'Antelope Hunt List', 1, 1);
-INSERT INTO `gear_list` (`id`, `description`, `user_id`, `gear_inventory_id`) VALUES (2, 'Mule Deer Hunt', 1, 1);
+INSERT INTO `gear_list` (`id`, `description`, `user_id`, `inventory_id`) VALUES (1, 'Antelope Hunt List', 1, 1);
+INSERT INTO `gear_list` (`id`, `description`, `user_id`, `inventory_id`) VALUES (2, 'Mule Deer Hunt', 1, 1);
 
 COMMIT;
 
@@ -1056,13 +1005,65 @@ COMMIT;
 
 
 -- -----------------------------------------------------
+-- Data for table `item_has_item_category`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `outbounddb`;
+INSERT INTO `item_has_item_category` (`item_id`, `item_category_id`) VALUES (1, 1);
+INSERT INTO `item_has_item_category` (`item_id`, `item_category_id`) VALUES (2, 3);
+INSERT INTO `item_has_item_category` (`item_id`, `item_category_id`) VALUES (3, 5);
+INSERT INTO `item_has_item_category` (`item_id`, `item_category_id`) VALUES (4, 7);
+INSERT INTO `item_has_item_category` (`item_id`, `item_category_id`) VALUES (5, 2);
+INSERT INTO `item_has_item_category` (`item_id`, `item_category_id`) VALUES (6, 2);
+INSERT INTO `item_has_item_category` (`item_id`, `item_category_id`) VALUES (7, 6);
+INSERT INTO `item_has_item_category` (`item_id`, `item_category_id`) VALUES (8, 4);
+INSERT INTO `item_has_item_category` (`item_id`, `item_category_id`) VALUES (9, 4);
+INSERT INTO `item_has_item_category` (`item_id`, `item_category_id`) VALUES (10, 4);
+INSERT INTO `item_has_item_category` (`item_id`, `item_category_id`) VALUES (11, 9);
+INSERT INTO `item_has_item_category` (`item_id`, `item_category_id`) VALUES (12, 8);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `item_category_has_weapon_type`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `outbounddb`;
+INSERT INTO `item_category_has_weapon_type` (`item_category_id`, `weapon_type_id`) VALUES (9, 1);
+INSERT INTO `item_category_has_weapon_type` (`item_category_id`, `weapon_type_id`) VALUES (9, 2);
+INSERT INTO `item_category_has_weapon_type` (`item_category_id`, `weapon_type_id`) VALUES (9, 3);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
 -- Data for table `item_category_has_clothing_layer`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `item_category_has_clothing_layer` (`gear_category_id`, `clothing_layer_id`) VALUES (8, 1);
-INSERT INTO `item_category_has_clothing_layer` (`gear_category_id`, `clothing_layer_id`) VALUES (8, 2);
-INSERT INTO `item_category_has_clothing_layer` (`gear_category_id`, `clothing_layer_id`) VALUES (8, 3);
+INSERT INTO `item_category_has_clothing_layer` (`item_category_id`, `clothing_layer_id`) VALUES (2, 1);
+INSERT INTO `item_category_has_clothing_layer` (`item_category_id`, `clothing_layer_id`) VALUES (2, 2);
+INSERT INTO `item_category_has_clothing_layer` (`item_category_id`, `clothing_layer_id`) VALUES (2, 3);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `item_category_has_clothing_category`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `outbounddb`;
+INSERT INTO `item_category_has_clothing_category` (`item_category_id`, `clothing_category_id`) VALUES (8, 1);
+INSERT INTO `item_category_has_clothing_category` (`item_category_id`, `clothing_category_id`) VALUES (8, 2);
+INSERT INTO `item_category_has_clothing_category` (`item_category_id`, `clothing_category_id`) VALUES (8, 3);
+INSERT INTO `item_category_has_clothing_category` (`item_category_id`, `clothing_category_id`) VALUES (8, 4);
+INSERT INTO `item_category_has_clothing_category` (`item_category_id`, `clothing_category_id`) VALUES (8, 5);
+INSERT INTO `item_category_has_clothing_category` (`item_category_id`, `clothing_category_id`) VALUES (8, 6);
+INSERT INTO `item_category_has_clothing_category` (`item_category_id`, `clothing_category_id`) VALUES (8, 7);
+INSERT INTO `item_category_has_clothing_category` (`item_category_id`, `clothing_category_id`) VALUES (8, 8);
+INSERT INTO `item_category_has_clothing_category` (`item_category_id`, `clothing_category_id`) VALUES (8, 9);
+INSERT INTO `item_category_has_clothing_category` (`item_category_id`, `clothing_category_id`) VALUES (8, 10);
 
 COMMIT;
 
