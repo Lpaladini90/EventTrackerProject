@@ -1,4 +1,4 @@
-package com.skilldistillery.outbound.entities.gearlist;
+package com.skilldistillery.outbound.entities.inventory;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,11 +13,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class WeaponAccessoryTest {
+class ClothingLayerTest {
 
 	private  static EntityManagerFactory emf;
 	private EntityManager em;
-	private WeaponAccessory acc;
+	private ClothingLayer cat;
 	
 	
 	@BeforeAll
@@ -35,8 +35,7 @@ class WeaponAccessoryTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		acc = em.find(WeaponAccessory.class, 1);
-		
+		cat = em.find(ClothingLayer.class, 1);
 		
 	}
 
@@ -45,27 +44,26 @@ class WeaponAccessoryTest {
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		acc = null;
+		cat = null;
 	}
+
+	
 	
 	@Test
-	@DisplayName("Testing connecting from weapon accessory to the database")
-	void test_connecting_from_weapon_accessory_to_db() {
-
-//		mysql> select * from weapon_accessories where id =1;
-//		+----+----------+----------+-----------------+--------+
-//		| id | brand    | model    | description     | weight |
-//		+----+----------+----------+-----------------+--------+
-//		|  1 | Spot Hog | Wiseguy  | Archery release |  0.125 |
-//		+----+----------+----------+-----------------+--------+
+	@DisplayName("Testing entity ClothingLayer to database")
+	void test_entity_clothinglayer_to_database_connection() {
+		
+//		mysql> select * from clothing_layer where id=1;
+//		+----+-------------+--------------------+
+//		| id | type        | description        |
+//		+----+-------------+--------------------+
+//		|  1 | Under Layer | Under layer packed |
+//		+----+-------------+--------------------+
 //		1 row in set (0.00 sec)
-
-
-
-		 
-		assertNotNull(acc);
-		assertNotNull(acc.getId());
-		assertEquals("Spot Hog", acc.getBrand());
+		
+		assertNotNull(cat);
+		assertNotNull(cat.getId());
+		assertEquals("Under Layer", cat.getType());
 		
 	}
 

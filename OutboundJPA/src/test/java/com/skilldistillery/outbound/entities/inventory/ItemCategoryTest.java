@@ -1,4 +1,4 @@
-package com.skilldistillery.outbound.entities.gearlist;
+package com.skilldistillery.outbound.entities.inventory;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,11 +13,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class GearCategoryTest {
+class ItemCategoryTest {
 
 	private  static EntityManagerFactory emf;
 	private EntityManager em;
-	private GearCategory cat;
+	private ItemCategory cat;
 	
 	
 	@BeforeAll
@@ -35,7 +35,7 @@ class GearCategoryTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		cat = em.find(GearCategory.class, 1);
+		cat = em.find(ItemCategory.class, 1);
 		
 	}
 
@@ -46,22 +46,25 @@ class GearCategoryTest {
 		em.close();
 		cat = null;
 	}
+
+	
 	
 	@Test
-	@DisplayName("Testing connecting from gear category category to the database")
-	void test_connecting_from_gear_category_to_db() {
-
-//		mysql> select * from gear_category where id =1;
+	@DisplayName("Testing entity Inventory to database")
+	void test_entity_inventory_to_database_connection() {
+		
+//		mysql> select * from item_category where id = 1;
 //		+----+-----------+
 //		| id | gear_type |
 //		+----+-----------+
 //		|  1 | Backpack  |
 //		+----+-----------+
-//		1 row in set (0.00 sec)
-
+//		1 row in set (0.01 sec)
 		
 		assertNotNull(cat);
 		assertNotNull(cat.getId());
 		assertEquals("Backpack", cat.getGearType());
+		
 	}
+
 }

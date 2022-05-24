@@ -1,4 +1,4 @@
-package com.skilldistillery.outbound.entities.gearlist;
+package com.skilldistillery.outbound.entities.inventory;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,11 +13,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class GearItemTest {
+class ItemTest {
 
 	private  static EntityManagerFactory emf;
 	private EntityManager em;
-	private GearItem item;
+	private Item item;
 	
 	
 	@BeforeAll
@@ -35,7 +35,7 @@ class GearItemTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		item = em.find(GearItem.class, 1);
+		item = em.find(Item.class, 1);
 		
 	}
 
@@ -46,25 +46,25 @@ class GearItemTest {
 		em.close();
 		item = null;
 	}
+
+	
 	
 	@Test
-	@DisplayName("Testing connecting from gear item to the database")
-	void test_connecting_from_gear_item_to_db() {
-
-//		mysql> select * from gear_item where id = 1;
-//		+----+--------+------------+----------------------------------------------------------------------------------+--------+----------+
-//		| id | brand  | model_name | description                                                                      | weight | quantity |
-//		+----+--------+------------+----------------------------------------------------------------------------------+--------+----------+
-//		|  1 | Kifaru | Fulcrum    | Functional, versatile and durable are just a few words that describe the Fulcrum |    3.4 |        1 |
-//		+----+--------+------------+----------------------------------------------------------------------------------+--------+----------+
+	@DisplayName("Testing entity Item to database")
+	void test_entity_item_to_database_connection() {
+		
+//		mysql> select * from item where id=1;
+//		+----+--------+------------+----------------------------------------------------------------------------------+--------+--------------+
+//		| id | brand  | model_name | description                                                                      | weight | inventory_id |
+//		+----+--------+------------+----------------------------------------------------------------------------------+--------+--------------+
+//		|  1 | Kifaru | Fulcrum    | Functional, versatile and durable are just a few words that describe the Fulcrum |    3.4 |            1 |
+//		+----+--------+------------+----------------------------------------------------------------------------------+--------+--------------+
 //		1 row in set (0.01 sec)
-
-
 
 		
 		assertNotNull(item);
 		assertNotNull(item.getId());
 		assertEquals("Kifaru", item.getBrand());
+		
 	}
-
 }

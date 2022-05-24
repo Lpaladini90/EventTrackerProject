@@ -1,28 +1,31 @@
-package com.skilldistillery.outbound.entities.gearlist;
+package com.skilldistillery.outbound.entities.inventory;
 
 import java.util.Objects;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
+import com.skilldistillery.outbound.entities.user.User;
 
 @Entity
-@Table(name="gear_category")
-public class GearCategory {
+public class Inventory {
 
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
-	@Column(name="gear_type")
-	private String gearType;
 
-	public GearCategory() {
+	@OneToOne
+	@JoinColumn(name="user_id")
+	private User user;
+	
+	
+	
+	public Inventory() {
 		super();
 	}
 
@@ -33,23 +36,25 @@ public class GearCategory {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-	public String getGearType() {
-		return gearType;
+	
+	
+	
+	public User getUser() {
+		return user;
 	}
 
-	public void setGearType(String gearType) {
-		this.gearType = gearType;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	@Override
 	public String toString() {
-		return "GearCategory [id=" + id + ", gearType=" + gearType + "]";
+		return "Inventory [id=" + id + ", user=" + user + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(gearType, id);
+		return Objects.hash(id, user);
 	}
 
 	@Override
@@ -60,8 +65,8 @@ public class GearCategory {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		GearCategory other = (GearCategory) obj;
-		return Objects.equals(gearType, other.gearType) && Objects.equals(id, other.id);
+		Inventory other = (Inventory) obj;
+		return Objects.equals(id, other.id) && Objects.equals(user, other.user);
 	}
 	
 	

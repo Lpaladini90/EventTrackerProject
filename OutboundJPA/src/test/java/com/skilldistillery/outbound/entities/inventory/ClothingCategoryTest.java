@@ -1,4 +1,4 @@
-package com.skilldistillery.outbound.entities.gearlist;
+package com.skilldistillery.outbound.entities.inventory;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,7 +13,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import com.skilldistillery.outbound.entities.user.User;
+import com.skilldistillery.outbound.entities.gearlist.GearList;
 
 class ClothingCategoryTest {
 
@@ -48,20 +48,25 @@ class ClothingCategoryTest {
 		em.close();
 		cat = null;
 	}
+
+	
 	
 	@Test
-	@DisplayName("Testing connecting from clothing category to the database")
-	void test_connecting_from_clothing_category_to_db() {
-//		mysql> select * from clothing_category where id =1;
+	@DisplayName("Testing entity ClothingCategory to database")
+	void test_entity_clothingcategory_to_database_connection() {
+		
+//		mysql> select * from clothing_category where id = 1;
 //		+----+----------+
 //		| id | type     |
 //		+----+----------+
 //		|  1 | headwear |
 //		+----+----------+
+//		1 row in set (0.00 sec)
 		
 		assertNotNull(cat);
 		assertNotNull(cat.getId());
 		assertEquals("headwear", cat.getType());
+		
 	}
-
+	
 }

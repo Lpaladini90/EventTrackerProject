@@ -1,4 +1,4 @@
-package com.skilldistillery.outbound.entities.gearlist;
+package com.skilldistillery.outbound.entities.inventory;
 
 import java.util.Objects;
 
@@ -12,6 +12,7 @@ import javax.persistence.Table;
 @Table(name="weapon_type")
 public class WeaponType {
 
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -72,6 +73,6 @@ public class WeaponType {
 	}
 	
 	
-
+	
 	
 }

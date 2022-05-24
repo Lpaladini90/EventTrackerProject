@@ -87,9 +87,41 @@ class UserTest {
 		assertNotNull(user);
 		assertNotNull(user.getId());
 		assertTrue(user.getHunts().size()>0);
+		 
+	}
+	
+	@Test
+	@DisplayName("Testing relational mapping from user to gear list")
+	void test_relational_mapping_from_user_to_gearlist() {
+//		mysql> select * from user join gear_list on user.id= gear_list.user_id where user.id =1;
+//		+----+-------------+--------------------------------------------------------------+------------+-----------+------------------+-------+----------------+----------------+---------+----+--------------------+---------+-------------------+
+//		| id | username    | password                                                     | first_name | last_name | email            | role  | description    | phone          | enabled | id | description        | user_id | gear_inventory_id |
+//		+----+-------------+--------------------------------------------------------------+------------+-----------+------------------+-------+----------------+----------------+---------+----+--------------------+---------+-------------------+
+//		|  1 | lpaladini90 | $2a$10$jUUiSZOm80cSZGNAQLHRLutd3C2sw3or3GOCUzSXzixHw6NC9Phv. | lucas      | paladini  | lpaladini@me.com | ADMIN | I like to hunt | (509) 993-8866 |       1 |  1 | Antelope Hunt List |       1 |                 1 |
+//		+----+-------------+--------------------------------------------------------------+------------+-----------+------------------+-------+----------------+----------------+---------+----+--------------------+---------+-------------------+
+//		1 rows in set (0.00 sec)
 		
+		assertNotNull(user);
+		assertNotNull(user.getId());
+		assertEquals("Mule Deer Hunt", user.getLists().get(1).getDescription());
+		assertTrue(user.getLists().size()>0);
+	}
+	
+	
+	@Test
+	@DisplayName("Testing relational mapping from user to gear list")
+	void test_relational_mapping_from_user_to_inventory() {
 		
+//		mysql> selectmysql> select * from inventory join user on user.id = inventory.user_id where user.id =1;
+//		+----+---------+----+-------------+--------------------------------------------------------------+------------+-----------+------------------+-------+----------------+----------------+---------+
+//		| id | user_id | id | username    | password                                                     | first_name | last_name | email            | role  | description    | phone          | enabled |
+//		+----+---------+----+-------------+--------------------------------------------------------------+------------+-----------+------------------+-------+----------------+----------------+---------+
+//		|  1 |       1 |  1 | lpaladini90 | $2a$10$jUUiSZOm80cSZGNAQLHRLutd3C2sw3or3GOCUzSXzixHw6NC9Phv. | lucas      | paladini  | lpaladini@me.com | ADMIN | I like to hunt | (509) 993-8866 |       1 |
+//		+----+---------+----+-------------+--------------------------------------------------------------+------------+-----------+------------------+-------+----------------+----------------+---------+
+//		1 row in set (0.00 sec)(0.00 sec)
 		
+		assertNotNull(user);
+		assertNotNull(user.getId());
 	}
 	
 	

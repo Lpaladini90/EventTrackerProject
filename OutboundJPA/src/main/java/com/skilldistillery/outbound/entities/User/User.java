@@ -10,9 +10,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.skilldistillery.outbound.entities.gearlist.GearList;
 import com.skilldistillery.outbound.entities.hunttrip.HuntTrip;
+import com.skilldistillery.outbound.entities.inventory.Inventory;
 
 @Entity
 public class User {
@@ -38,10 +41,21 @@ public class User {
 	
 	private boolean enabled;
 	
+	
+	@OneToOne(mappedBy="user")
+	private Inventory inventory;
+	
+	
+	@OneToMany(mappedBy="user")
+	private List<GearList> lists;
+	
 	@JsonIgnore
 	@OneToMany(mappedBy="user")
 	private List<HuntTrip> hunts;
 
+	
+	
+	
 	public User() {
 		super();
 	}
@@ -94,7 +108,6 @@ public class User {
 		this.email = email;
 	}
 	
-	
 
 	public String getRole() {
 		return role;
@@ -122,16 +135,37 @@ public class User {
 		this.hunts = hunts;
 	}
 
+	
+	
+	
+	public List<GearList> getLists() {
+		return lists;
+	}
+
+	public void setLists(List<GearList> lists) {
+		this.lists = lists;
+	}
+
+	
+	
+	public Inventory getInventory() {
+		return inventory;
+	}
+
+	public void setInventory(Inventory inventory) {
+		this.inventory = inventory;
+	}
+
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", username=" + username
-				+ ", password=" + password + ", email=" + email + ", role=" + role + ", enabled=" + enabled + ", hunts="
-				+ hunts + "]";
+				+ ", password=" + password + ", email=" + email + ", role=" + role + ", enabled=" + enabled
+				+ ", inventory=" + inventory + ", lists=" + lists + ", hunts=" + hunts + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(email, enabled, firstName, hunts, id, lastName, password, role, username);
+		return Objects.hash(email, enabled, firstName, hunts, id, inventory, lastName, lists, password, role, username);
 	}
 
 	@Override
@@ -145,7 +179,8 @@ public class User {
 		User other = (User) obj;
 		return Objects.equals(email, other.email) && enabled == other.enabled
 				&& Objects.equals(firstName, other.firstName) && Objects.equals(hunts, other.hunts)
-				&& Objects.equals(id, other.id) && Objects.equals(lastName, other.lastName)
+				&& Objects.equals(id, other.id) && Objects.equals(inventory, other.inventory)
+				&& Objects.equals(lastName, other.lastName) && Objects.equals(lists, other.lists)
 				&& Objects.equals(password, other.password) && Objects.equals(role, other.role)
 				&& Objects.equals(username, other.username);
 	}

@@ -1,4 +1,4 @@
-package com.skilldistillery.outbound.entities.gearlist;
+package com.skilldistillery.outbound.entities.inventory;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,10 +13,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class WeaponTypeTest {
+class InventoryTest {
+
 	private  static EntityManagerFactory emf;
 	private EntityManager em;
-	private WeaponType type;
+	private Inventory inv;
 	
 	
 	@BeforeAll
@@ -34,8 +35,7 @@ class WeaponTypeTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		type = em.find(WeaponType.class, 1);
-		
+		inv = em.find(Inventory.class, 1);
 		
 	}
 
@@ -44,26 +44,28 @@ class WeaponTypeTest {
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		type = null;
+		inv = null;
 	}
+
+	
 	
 	@Test
-	@DisplayName("Testing connecting from weapon type to the database")
-	void test_connecting_from_weapon_type_to_db() {
-
-//		mysql> select * from weapon_type where id=1;
-//		+----+-------+-------------+
-//		| id | name  | description |
-//		+----+-------+-------------+
-//		|  1 | Rifle | rifle       |
-//		+----+-------+-------------+
+	@DisplayName("Testing entity Inventory to database")
+	void test_entity_inventory_to_database_connection() {
+		
+//		mysql> select * from inventory where id = 1;
+//		+----+---------+
+//		| id | user_id |
+//		+----+---------+
+//		|  1 |       1 |
+//		+----+---------+
 //		1 row in set (0.00 sec)
-
-		 
-		assertNotNull(type);
-		assertNotNull(type.getId());
-		assertEquals("Rifle", type.getName());
+		
+		assertNotNull(inv);
+		assertNotNull(inv.getId());
+		assertEquals(1, inv.getId());
 		
 	}
+
 
 }
