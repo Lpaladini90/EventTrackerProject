@@ -160,7 +160,7 @@ public class User {
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", username=" + username
 				+ ", password=" + password + ", email=" + email + ", role=" + role + ", enabled=" + enabled
-				+ ", inventory=" + inventory + ", lists=" + lists + ", hunts=" + hunts + "]";
+			 	+ ", inventory=" + inventory + ", lists=" + lists + ", hunts=" + hunts + "]";
 	}
 
 	@Override
